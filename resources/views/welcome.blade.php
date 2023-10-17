@@ -40,12 +40,21 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
 
+<<<<<<< HEAD
 <script src="{{ asset('vendors/js/vendor.bundle.base.js') }}"></script>
 <script src="{{ asset('vendors/chart.js/Chart.min.js') }}"></script>
 <script src="{{ asset('vendors/datatables.net/jquery.dataTables.js') }}"></script>
 <script src="{{ asset('vendors/datatablesnet-bs4/dataTables-bootstrap4.js') }}"></script>
 <script src="{{ asset('js/dataTables.select.min.js') }}"></script>
 <script src="{{ asset('js/Chart.roundedBarCharts.js') }}"></script>
+=======
+<script href="{{ asset('vendors/js/vendor.bundle.base.js') }}" rel="stylesheet"></script>
+<script href="{{ asset('vendors/chart.js/Chart.min.js') }}" rel="stylesheet"></script>
+<script href="{{ asset('vendors/datatables.net/jquery.dataTables.js') }}" rel="stylesheet"></script>
+<script href="{{ asset('vendors/datatablesnet-bs4/dataTables-bootstrap4.js') }}" rel="stylesheet"></script>
+<script href="{{ asset('js/dataTables.select.min.js') }}" rel="stylesheet"></script>
+<script href="{{ asset('js/Chart.roundedBarCharts.js') }}" rel="stylesheet"></script>
+>>>>>>> d9adcc271a3e6f11e9c703597936d8e065f853d1
 
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="{{ asset('js/chart.js') }}"></script>

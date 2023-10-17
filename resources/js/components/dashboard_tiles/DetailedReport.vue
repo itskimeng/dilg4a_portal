@@ -3,7 +3,12 @@
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card position-relative">
                 <div class="card-body">
+<<<<<<< HEAD
                     <div id="detailedReports" class="carousel slide detailed-report-carousel position-static pt-2" data-ride="carousel">
+=======
+                    <div id="detailedReports" class="carousel slide detailed-report-carousel position-static pt-2"
+                        data-ride="carousel">
+>>>>>>> d9adcc271a3e6f11e9c703597936d8e065f853d1
                         <div class="carousel-inner">
                             <div class="carousel-item active">
                                 <div class="row">
@@ -317,6 +322,7 @@ export default {
                 });
                 document.getElementById('north-america-legend').innerHTML = northAmericaChart.generateLegend();
             }
+<<<<<<< HEAD
             
       if ($("#order-chart-dark").length) {
         var areaData = {
@@ -629,6 +635,8 @@ export default {
         document.getElementById('south-america-legend').innerHTML = southAmericaChart.generateLegend();
       }
 
+=======
+>>>>>>> d9adcc271a3e6f11e9c703597936d8e065f853d1
         }
     }
 }

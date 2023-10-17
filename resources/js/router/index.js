@@ -14,7 +14,11 @@ const routes = [
         component: LoginComponent
     },
     { 
+<<<<<<< HEAD
         path: '/dashboard',
+=======
+        path: '/dasboard',
+>>>>>>> d9adcc271a3e6f11e9c703597936d8e065f853d1
         name: 'Dashboard',
         component: DashboardComponent,
         // beforeEnter:(to, form, next) => {
