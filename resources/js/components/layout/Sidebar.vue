@@ -75,11 +75,7 @@ export default {
                     icon: 'icon-layout menu-icon',
                 },
                 {
-<<<<<<< HEAD
                     link: '/ExampleComponent',
-=======
-                    link: '#/ExampleComponent',
->>>>>>> d9adcc271a3e6f11e9c703597936d8e065f853d1
                     name: 'ExampleComponent',
                     tooltip: 'RICTU',
                     icon: 'icon-layout menu-icon',

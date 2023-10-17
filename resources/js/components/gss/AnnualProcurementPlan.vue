@@ -173,7 +173,9 @@ export default {
                     retrieve:true,
                     data: response.data,
                     ordering: false,
-                    paging:false,
+                    paging:true,
+                    pageLength: 5,
+
                     columns: [
                         { data: 'sn' },
                         { data: 'category_id' },

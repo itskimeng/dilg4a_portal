@@ -22426,7 +22426,6 @@ __webpack_require__.r(__webpack_exports__);
         });
         document.getElementById('north-america-legend').innerHTML = northAmericaChart.generateLegend();
       }
-<<<<<<< HEAD
       if ($("#order-chart-dark").length) {
         var areaData = {
           labels: ["10", "", "", "20", "", "", "30", "", "", "40", "", "", "50", "", "", "60", "", "", "70"],
@@ -22716,8 +22715,6 @@ __webpack_require__.r(__webpack_exports__);
         });
         document.getElementById('south-america-legend').innerHTML = southAmericaChart.generateLegend();
       }
-=======
->>>>>>> d9adcc271a3e6f11e9c703597936d8e065f853d1
     }
   }
 });
@@ -22991,7 +22988,8 @@ __webpack_require__.r(__webpack_exports__);
           retrieve: true,
           data: response.data,
           ordering: false,
-          paging: false,
+          paging: true,
+          pageLength: 5,
           columns: [{
             data: 'sn'
           }, {
@@ -23122,11 +23120,7 @@ __webpack_require__.r(__webpack_exports__);
           tooltip: 'RICTU',
           icon: 'icon-layout menu-icon'
         }, {
-<<<<<<< HEAD
           link: '/ExampleComponent',
-=======
-          link: '#/ExampleComponent',
->>>>>>> d9adcc271a3e6f11e9c703597936d8e065f853d1
           name: 'ExampleComponent',
           tooltip: 'RICTU',
           icon: 'icon-layout menu-icon'
@@ -23231,11 +23225,7 @@ var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
   role: "tab",
   "aria-controls": "todo-section",
   "aria-expanded": "true"
-<<<<<<< HEAD
-}, "TO DOjlk LIST")]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", {
-=======
 }, "TO DO LIST")]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", {
->>>>>>> d9adcc271a3e6f11e9c703597936d8e065f853d1
   "class": "nav-item"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
   "class": "nav-link",
@@ -24498,11 +24488,7 @@ var routes = [{
   name: 'Login',
   component: _components_LoginComponent_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
 }, {
-<<<<<<< HEAD
   path: '/dashboard',
-=======
-  path: '/dasboard',
->>>>>>> d9adcc271a3e6f11e9c703597936d8e065f853d1
   name: 'Dashboard',
   component: _components_DashboardComponent_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   // beforeEnter:(to, form, next) => {
@@ -29018,11 +29004,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-<<<<<<< HEAD
 ___CSS_LOADER_EXPORT___.push([module.id, "\n.auth .brand-logo img {\n    width: 100% !important;\n}\n.header-align-center {\n    text-align: center;\n}\n", ""]);
-=======
-___CSS_LOADER_EXPORT___.push([module.id, "\n.auth .brand-logo img {\r\n    width: 100% !important;\n}\n.header-align-center {\r\n    text-align: center;\n}\r\n", ""]);
->>>>>>> d9adcc271a3e6f11e9c703597936d8e065f853d1
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
