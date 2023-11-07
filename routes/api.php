@@ -28,7 +28,12 @@ Route::middleware('api')->group(function () {
 });
 
 
+
+
 Route::post('login',[UserController::class,'login']);
+Route::post('post_add_appItem',[AppItemController::class,'post_add_appItem']);
+
+
 
 
 

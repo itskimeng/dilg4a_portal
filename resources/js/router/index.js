@@ -5,6 +5,7 @@ import DashboardComponent from "../components/DashboardComponent.vue";
 import LoginComponent from "../components/LoginComponent.vue";
 import Procurement from "../components/gss/Procurement.vue";
 import AnnualProcurementPlan from "../components/gss/AnnualProcurementPlan.vue";
+import AddAppItem from "../components/gss/add_app_item.vue";
 import axios from "axios";
 
 const routes = [
@@ -35,6 +36,11 @@ const routes = [
         path: '/gss/AnnualProcurementPlan',
         name: 'Annual Procurement Plan',
         component: AnnualProcurementPlan,
+    },
+    {
+        path: '/gss/add_app_item',
+        name: 'Add Annual Procurement Plan Item',
+        component: AddAppItem,
     },
     {
         path: '/ExampleComponent',

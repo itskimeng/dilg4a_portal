@@ -1,4 +1,16 @@
 
+<style>
+.table-responsive-custom {
+    display: block;
+    -webkit-overflow-scrolling: touch;
+}
+
+.box-tools {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+}
+</style>
 <template>
     <div class="container-scroller">
         <!-- partial:partials/_navbar.html -->
@@ -62,9 +74,15 @@
                             <div class="card">
                                 <div class="card-body">
                                     <p class="card-title">Annual Procurement Plan for F.Y 2023</p>
+                                    <div class="box-tools">
+                                        <button @click="addAppItem()" type="button" class="btn btn-primary btn-icon-text">
+                                            <i class="ti-plus btn-icon-prepend"></i>
+                                            Submit
+                                        </button>
+                                    </div>
                                     <div class="row">
                                         <div class="col-12">
-                                            <div class="table-responsive">
+                                            <div class="table-responsive-custom">
                                                 <div id="example_wrapper"
                                                     class="dataTables_wrapper dt-bootstrap4 no-footer">
                                                     <div class="row">
@@ -73,53 +91,7 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-sm-12">
-                                                            <table id="app_table"
-                                                                class="display expandable-table dataTable no-footer"
-                                                                style="width: 100%;" role="grid">
-                                                                <thead>
-                                                                    <tr role="row">
-                                                                        <th class="select-checkbox sorting_disabled"
-                                                                            rowspan="1" colspan="1" aria-label="Quote#"
-                                                                            style="width: 61px;">
-                                                                            Stock #</th>
-                                                                        <th class="sorting_desc" tabindex="0"
-                                                                            aria-controls="example" rowspan="1" colspan="1"
-                                                                            aria-label="Product: activate to sort column ascending"
-                                                                            aria-sort="descending" style="width: 67px;">
-                                                                            Category</th>
-                                                                        <th class="sorting" tabindex="0"
-                                                                            aria-controls="example" rowspan="1" colspan="1"
-                                                                            aria-label="Business type: activate to sort column ascending"
-                                                                            style="width: 113px;">Item</th>
-                                                                        <th class="sorting" tabindex="0"
-                                                                            aria-controls="example" rowspan="1" colspan="1"
-                                                                            aria-label="Policy holder: activate to sort column ascending"
-                                                                            style="width: 107px;">Office</th>
-                                                                        <th class="sorting" tabindex="0"
-                                                                            aria-controls="example" rowspan="1" colspan="1"
-                                                                            aria-label="Premium: activate to sort column ascending"
-                                                                            style="width: 126px;">Mode of Procurement</th>
-                                                                        <th class="sorting" tabindex="0"
-                                                                            aria-controls="example" rowspan="1" colspan="1"
-                                                                            aria-label="Status: activate to sort column ascending"
-                                                                            style="width: 126px;">Source of Funds</th>
-                                                                        <th class="sorting" tabindex="0"
-                                                                            aria-controls="example" rowspan="1" colspan="1"
-                                                                            aria-label="Updated at: activate to sort column ascending"
-                                                                            style="width: 93px;">App Price</th>
-                                                                        <th class="details-control sorting_disabled"
-                                                                            rowspan="1" colspan="1" aria-label=""
-                                                                            style="width: 100px;">App Year</th>
-                                                                        <th class="details-control sorting_disabled"
-                                                                            rowspan="1" colspan="1" aria-label=""
-                                                                            style="width: 4px;">Actions</th>
-                                                                    </tr>
-                                                                </thead>
-
-                                                                <tbody>
-
-                                                                </tbody>
-                                                            </table>
+                                                           <app_table/>
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -150,6 +122,7 @@ import Navbar from '../layout/Navbar.vue';
 import Sidebar from '../layout/Sidebar.vue';
 import FooterVue from '../layout/Footer.vue';
 import BreadCrumbs from '../dashboard_tiles/BreadCrumbs.vue';
+import app_table from './app_table.vue';
 import axios from 'axios';
 
 export default {
@@ -158,7 +131,8 @@ export default {
         Navbar,
         Sidebar,
         FooterVue,
-        BreadCrumbs
+        BreadCrumbs,
+        app_table,
     },
     mounted() {
         // $('#itemModal').modal('hide');
@@ -166,23 +140,26 @@ export default {
 
     },
     methods: {
+        addAppItem(){
+            this.$router.push("/gss/add_app_item");
+        },
         fetchAppData() {
             let btn = null;
             axios.get('../api/fetchAppData').then((response) => {
                 $('#app_table').DataTable({
-                    retrieve:true,
+                    retrieve: true,
                     data: response.data,
                     ordering: false,
-                    paging:true,
+                    paging: true,
                     pageLength: 5,
 
                     columns: [
                         { data: 'sn' },
-                        { data: 'category_id' },
+                        { data: 'item_category_title' },
                         { data: 'item_title' },
-                        { data: 'pmo_id' },
-                        { data: 'mode' },
-                        { data: 'source_of_funds_id' },
+                        { data: 'pmo_title' },
+                        { data: 'mode_of_proc_title' },
+                        { data: 'source_of_funds_title' },
                         { data: 'price' },
                         { data: 'app_year' },
                         {

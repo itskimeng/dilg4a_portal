@@ -4,7 +4,7 @@
         <Navbar></Navbar>
         <!-- partial -->
         <div class="container-fluid page-body-wrapper">
-            
+
             <div id="right-sidebar" class="settings-panel">
                 <i class="settings-close ti-close"></i>
                 <ul class="nav nav-tabs border-top" id="setting-panel" role="tablist">
@@ -168,12 +168,12 @@
             <!-- partial -->
             <div class="main-panel">
                 <div class="content-wrapper">
-                    <BreadCrumbs/>
-                    <StatBox/>
-                    <ProcurementDetails/>
-                    <DetailedReport/>
-                    <ICTTechnicalReport/>
-            
+                    <BreadCrumbs />
+                    <StatBox />
+                    <ProcurementDetails />
+                    <DetailedReport />
+                    <ICTTechnicalReport />
+
                 </div>
                 <!-- content-wrapper ends -->
                 <!-- partial:partials/_footer.html -->
