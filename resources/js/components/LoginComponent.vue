@@ -80,7 +80,7 @@ export default {
     methods: {
         loginUser() {
             axios
-                .post('http://127.0.0.1:8000/api/login', this.form)
+                .post('/api/login', this.form)
                 .then(() => {
                     console.log('You are logged in');
                     this.$router.push({ name: 'Dashboard' });

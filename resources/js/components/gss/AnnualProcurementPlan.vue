@@ -82,7 +82,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-12">
-                                            <div class="table-responsive-custom">
+                                            <div class="table-responsive">
                                                 <div id="example_wrapper"
                                                     class="dataTables_wrapper dt-bootstrap4 no-footer">
                                                     <div class="row">

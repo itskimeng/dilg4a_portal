@@ -22283,7 +22283,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     loginUser: function loginUser() {
       var _this = this;
-      axios__WEBPACK_IMPORTED_MODULE_1___default().post('http://127.0.0.1:8000/api/login', this.form).then(function () {
+      axios__WEBPACK_IMPORTED_MODULE_1___default().post('/api/login', this.form).then(function () {
         console.log('You are logged in');
         _this.$router.push({
           name: 'Dashboard'
@@ -24231,7 +24231,7 @@ var _hoisted_14 = {
   "class": "col-12"
 };
 var _hoisted_15 = {
-  "class": "table-responsive-custom"
+  "class": "table-responsive"
 };
 var _hoisted_16 = {
   id: "example_wrapper",
