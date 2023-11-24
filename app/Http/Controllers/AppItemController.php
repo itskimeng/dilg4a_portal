@@ -14,6 +14,18 @@ class AppItemController extends Controller
     public function index()
     {
     }
+    public function countTotalItem($cur_year)
+    {
+        return response()->json(AppItemModel::select(AppItemModel::raw('count(*) as item'))->whereYear('created_at',$cur_year)
+        ->get());
+    }
+    public function generateStockNumber()
+    {
+        return response()->json(AppItemModel::select(AppItemModel::raw('id,sn,YEAR(pr_date) as pr_date'))
+            ->limit(1)
+            ->orderby('id', 'DESC')
+            ->get());
+    }
     public function fetchAppData()
     {
         // return response()->json(AppItemModel::all());
@@ -54,8 +66,22 @@ return response()->json($appItems);
     public function post_add_appItem(Request $request)
     {
 
-        AppItemModel::create($request->all());
+        $app_item = new AppItemModel([
+            'id'            => $request->input('id'),
+            'sn'            => $request->input('sn'),
+            'code'          => $request->input('code'),
+            'item_title'    => $request->input('item_title'),
+            'unit_id'       => $request->input('unit'),
+            'source_of_funds_id'=> $request->input('source_of_funds_id'),
+            'category_id'   => $request->input('category_id'),
+            'pmo_id'        => $request->input('office'),
+            'qty'      => $request->input('qty'),
+            'mode'          => $request->input('mode'),
+            'price'         => $request->input('app_price'),
+            'app_price'     => $request->input('app_price'),
+    
+        ]);
+        $app_item->save();
 
-        return (['message' => 'successfull']);
     }
 }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AppItemController;
+use App\Models\AppItemModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 /*
@@ -26,9 +27,14 @@ Route::middleware('api')->group(function () {
     Route::get('fetchAppData', [AppItemController::class, 'fetchAppData']);
 
 });
+Route::middleware('api')->group(function () {
+    Route::get('generateStockNumber', [AppItemController::class, 'generateStockNumber']);
+});
 
 
-
+Route::middleware('api')->group(function () {
+    Route::get('countTotalItem/{cur_year}', [AppItemController::class, 'countTotalItem']);
+});
 
 Route::post('login',[UserController::class,'login']);
 Route::post('post_add_appItem',[AppItemController::class,'post_add_appItem']);

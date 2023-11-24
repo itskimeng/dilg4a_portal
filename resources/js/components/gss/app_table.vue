@@ -6,7 +6,7 @@
                     style="width: 61px;">
                     Stock #</th>
                 <th class="sorting_desc" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
-                    aria-label="Product: activate to sort column ascending" aria-sort="descending" style="width: 67px;">
+                    aria-label="Product: activate to sort column ascending" aria-sort="descending" style="width: 20px !important;">
                     Category</th>
                 <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
                     aria-label="Business type: activate to sort column ascending" style="width: 113px;">Item</th>

@@ -33,9 +33,7 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <h4 class="card-title"></h4>
-                                        <p class="card-description">
-                                            Basic form layout
-                                        </p>
+
                                         <div class="form-group">
                                             <label for="exampleInputUsername1">Stock Number</label>
                                             <input type="text" class="form-control" id="exampleInputUsername1"
@@ -48,21 +46,23 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">Item Name</label>
-                                            <input type="password" class="form-control" id="exampleInputPassword1"
-                                                placeholder="Item Name" v-model="formData.item_name">
+                                            <input type="text" class="form-control" id="exampleInputPassword1"
+                                                placeholder="Item Name" v-model="formData.item_title">
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleInputConfirmPassword1">Unit</label>
-                                            <input type="password" class="form-control" id="exampleInputConfirmPassword1"
-                                                placeholder="Unit" v-model="formData.item_unit">
+                                            <select class="form-control form-control-lg" id="exampleFormControlSelect1"
+                                                v-model="formData.unit">
+                                                <option v-for="option in unitOption" :key="option.value"
+                                                    :value="option.value">{{ option.label }}</option>
+                                            </select>
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleFormControlSelect1">Source of Funds</label>
                                             <select class="form-control form-control-lg" id="exampleFormControlSelect1"
                                                 v-model="formData.source">
-                                                <option value = "1">Regular, Local and Trust Fund</option>
-                                                <option value = "2">Local Fund</option>
-                                                <option value = "3">Regular Fund</option>
+                                                <option v-for="option in fundsOption" :key="option.value"
+                                                    :value="option.value">{{ option.label }}</option>
                                             </select>
                                         </div>
                                     </div>
@@ -72,9 +72,7 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <h4 class="card-title"></h4>
-                                        <p class="card-description">
-                                            Basic form layout
-                                        </p>
+
                                         <div class="form-group">
                                             <label for="exampleInputUsername1">Category</label>
                                             <input type="text" class="form-control" id="exampleInputUsername1"
@@ -82,8 +80,13 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Office</label>
-                                            <input type="email" class="form-control" id="exampleInputEmail1"
-                                                placeholder="Office" v-model="formData.office">
+
+                                            <select class="form-control form-control-lg" id="exampleFormControlSelect1"
+                                                v-model="formData.office">
+                                                <option v-for="option in officeData" :key="option.value"
+                                                    :value="option.value">{{ option.label }}</option>
+
+                                            </select>
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">Quantity</label>
@@ -99,18 +102,15 @@
                                             <label for="exampleFormControlSelect1">Mode of Procurement</label>
                                             <select class="form-control form-control-lg" id="exampleFormControlSelect1"
                                                 v-model="formData.mode">
-                                                <option value = "2">Shopping</option>
-                                                <option value = "6">Agency to Agency</option>
-                                                <option value = "1">Small Value Procurement</option>
-                                                <option value = "4">NP Lease of Venue</option>
-                                                <option value = "7">Public Bidding</option>
-                                                <option value = "5">Direct Contracting</option>
-                                                <option value = "8">Not Applicable</option>
+                                                <option v-for="option in modeOption" :key="option.value"
+                                                    :value="option.value">{{ option.label }}</option>
                                             </select>
                                         </div>
 
-                                        <button type="submit" class="btn btn-primary mr-2 pull-right">Submit</button>
-                                        <button class="btn btn-light pull-right-cancel">Cancel</button>
+                                        <button type="submit" class="btn btn-primary  pull-right-cancel">Submit</button>
+
+                                        <!-- Example button to trigger the toast -->
+
                                     </div>
                                 </div>
                             </div>
@@ -128,16 +128,74 @@
     </div>
 </template>
 <script>
+
 import Navbar from '../layout/Navbar.vue';
 import Sidebar from '../layout/Sidebar.vue';
 import FooterVue from '../layout/Footer.vue';
 import BreadCrumbs from '../dashboard_tiles/BreadCrumbs.vue';
 import axios from 'axios';
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
+
 
 export default {
     name: 'Add Annual Procurement Plan Item',
+    props: {
+        options: {
+            type: Array,
+            required: true,
+        },
+    },
     data() {
         return {
+            unitOption: [
+                { value: '1', label: 'piece' },
+                { value: '2', label: 'box' },
+                { value: '3', label: 'ream' },
+                { value: '4', label: 'lot' },
+                { value: '5', label: 'unit' },
+                { value: '6', label: 'crtg' },
+                { value: '7', label: 'pack' },
+                { value: '8', label: 'tube' },
+                { value: '9', label: 'roll' },
+                { value: '10', label: 'can' },
+                { value: '11', label: 'bottle' },
+                { value: '12', label: 'set' },
+                { value: '13', label: 'jar' },
+                { value: '14', label: 'bundle' },
+                { value: '15', label: 'pad' },
+                { value: '16', label: 'book' },
+                { value: '17', label: 'pouch' },
+                { value: '18', label: 'dozen' },
+                { value: '19', label: 'pair' },
+                { value: '20', label: 'gallon' },
+                { value: '21', label: 'cart' },
+                { value: '22', label: 'pax' },
+                { value: '23', label: 'liters' },
+                { value: '24', label: 'meters' },
+            ],
+            fundsOption: [
+                { value: '1', label: 'Regular, Local and Trust Fund' },
+                { value: '2', label: 'Local Fund' },
+                { value: '3', label: 'Regular Fund' }
+            ],
+            officeData: [
+                { value: '1', label: 'ORD' },
+                { value: '2', label: 'FAD' },
+                { value: '3', label: 'LGMED' },
+                { value: '4', label: 'LGCDD' }
+            ],
+            modeOption: [
+                { value: '1', label: 'Small Value Procurement' },
+                { value: '2', label: 'Shopping' },
+                { value: '4', label: 'NP Lease of Venue' },
+                { value: '5', label: 'Direct Contracting' },
+                { value: '6', label: 'Agency to Agency' },
+                { value: '7', label: 'Public Bidding' },
+                { value: '8', label: 'Not Applicable' },
+
+            ],
+
             formData: {
                 stock_number: '',
                 item_code: '',
@@ -161,10 +219,26 @@ export default {
         FooterVue,
         BreadCrumbs,
     },
-    mounted() {
 
+    mounted() {
+        // This works
     },
     methods: {
+        showToatWarning() {
+            toast.warning('Wow warning!', {
+                autoClose: 1000,
+            });
+        },
+        showToatSuccess(message) {
+            toast.success(message, {
+                autoClose: 1000,
+            });
+        },
+        showToatInfo() {
+            toast.info('Wow info!', {
+                autoClose: 1000,
+            });
+        },
         submitAppItem() {
             // Handle form submission here
             // console.log('Form submitted with data:', this.formData);
@@ -173,7 +247,7 @@ export default {
                 sn: this.formData.stock_number,
                 code: this.formData.item_code,
                 item_title: this.formData.item_title,
-                unit: this.formData.item_unit,
+                unit: this.formData.unit,
                 source_of_funds_id: this.formData.source,
                 category_id: this.formData.category,
                 office: this.formData.office,
@@ -182,10 +256,17 @@ export default {
                 mode: this.formData.mode,
             }
             ).then(() => {
-                window.location = "/GeneralSupplyService/create_pr/" + this.pr_no;
-                // router.push({name: 'GeneralSupplyService',params:{id:this.pr_no}})
+                // window.location = "/GeneralSupplyService/create_pr/" + this.pr_no;
+
+                this.showToatSuccess('Successfully added!');
+
+
+                setTimeout(() => {
+                    this.$router.push({ path: '/gss/AnnualProcurementPlan' });
+                }, 2000); // Adjust the delay as needed
+
             }).catch((error) => {
-                this.errors = error.response.data.errors;
+
             })
 
         },
@@ -200,7 +281,9 @@ export default {
             };
 
         },
-    }
+
+    },
+
 
 }
 </script>

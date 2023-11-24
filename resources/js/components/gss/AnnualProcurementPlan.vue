@@ -32,16 +32,16 @@
                             <div class="col-md-3 col-sm-12 col-xs-12 mb-6 stretch-card transparent">
                                 <div class="card card-tale">
                                     <div class="card-body">
-                                        <p class="mb-4">APP Item</p>
-                                        <p class="fs-30 mb-2">4006</p>
-                                        <p>10.00% (30 days)</p>
+                                        <p class="mb-4">APP Item Encoded</p>
+                                        <p class="fs-30 mb-2">{{ this.appItem.app_total}}</p>
+                                        <p>10.00% (as of today)</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-3 col-sm-12 col-xs-12 mb-6 stretch-card transparent">
                                 <div class="card card-dark-blue">
                                     <div class="card-body">
-                                        <p class="mb-4">Procurement Rate</p>
+                                        <p class="mb-4">APP Item with same Stock No</p>
                                         <p class="fs-30 mb-2">61344</p>
                                         <p>22.00% (30 days)</p>
                                     </div>
@@ -50,7 +50,7 @@
                             <div class="col-md-3 col-sm-12 col-xs-12 mb-6 stretch-card transparent">
                                 <div class="card card-light-blue">
                                     <div class="card-body">
-                                        <p class="mb-4">Total Item Procure</p>
+                                        <p class="mb-4">Newly Encoded App Item</p>
                                         <p class="fs-30 mb-2">34040</p>
                                         <p>2.00% (30 days)</p>
                                     </div>
@@ -59,7 +59,7 @@
                             <div class="col-md-3 col-sm-12 col-xs-12 mb-6 stretch-card transparent">
                                 <div class="card card-light-danger">
                                     <div class="card-body">
-                                        <p class="mb-4">Number of Clients</p>
+                                        <p class="mb-4">App Item without Office</p>
                                         <p class="fs-30 mb-2">47033</p>
                                         <p>0.22% (30 days)</p>
                                     </div>
@@ -77,7 +77,7 @@
                                     <div class="box-tools">
                                         <button @click="addAppItem()" type="button" class="btn btn-primary btn-icon-text">
                                             <i class="ti-plus btn-icon-prepend"></i>
-                                            Submit
+                                            Create Item
                                         </button>
                                     </div>
                                     <div class="row">
@@ -91,7 +91,7 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-sm-12">
-                                                           <app_table/>
+                                                            <app_table />
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -127,6 +127,13 @@ import axios from 'axios';
 
 export default {
     name: 'AnnualProcurementPlan',
+    data() {
+        return {
+            appItem:{
+                app_total:null
+            }
+        }
+    },
     components: {
         Navbar,
         Sidebar,
@@ -137,11 +144,17 @@ export default {
     mounted() {
         // $('#itemModal').modal('hide');
         this.fetchAppData();
+        this.countTotalItem(2023);
 
     },
     methods: {
-        addAppItem(){
+        addAppItem() {
             this.$router.push("/gss/add_app_item");
+        },
+        countTotalItem(cur_year) {
+            axios.get(`../api/countTotalItem/${cur_year}`).then((res) => {
+                this.appItem.app_total = res.data[0].item;
+            })
         },
         fetchAppData() {
             let btn = null;
@@ -151,7 +164,7 @@ export default {
                     data: response.data,
                     ordering: false,
                     paging: true,
-                    pageLength: 5,
+                    pageLength: 10,
 
                     columns: [
                         { data: 'sn' },
