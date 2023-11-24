@@ -142,7 +142,6 @@ export default {
         app_table,
     },
     mounted() {
-        // $('#itemModal').modal('hide');
         this.fetchAppData();
         this.countTotalItem(2023);
 

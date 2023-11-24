@@ -22987,7 +22987,6 @@ __webpack_require__.r(__webpack_exports__);
     app_table: _app_table_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
   },
   mounted: function mounted() {
-    // $('#itemModal').modal('hide');
     this.fetchAppData();
     this.countTotalItem(2023);
   },
