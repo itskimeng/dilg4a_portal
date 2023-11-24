@@ -33,7 +33,7 @@
                                 <div class="card card-tale">
                                     <div class="card-body">
                                         <p class="mb-4">APP Item Encoded</p>
-                                        <p class="fs-30 mb-2">{{ this.appItem.app_total}}</p>
+                                        <p class="fs-30 mb-2">{{ this.appItem.app_total }}</p>
                                         <p>10.00% (as of today)</p>
                                     </div>
                                 </div>
@@ -66,7 +66,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
 
                     <div class="row">
@@ -129,8 +128,8 @@ export default {
     name: 'AnnualProcurementPlan',
     data() {
         return {
-            appItem:{
-                app_total:null
+            appItem: {
+                app_total: null
             }
         }
     },
