@@ -127,7 +127,7 @@
 }
 
 .main {
-  padding: 40px;
+  padding: 10px;
 }
 
 .main small {
@@ -468,7 +468,7 @@ select {
                   </ul>
                 </div>
                 <div class="right-side">
-              
+
 
                   <div v-for="(main, index) in mainForms" :key="index" class="main"
                     :class="{ active: index === formnumber }">
@@ -513,85 +513,25 @@ select {
                     </div>
                     <div class="input-text" :style="{ display: shouldDisplayInput(2) }">
                       <div class="input-div" v-if="index === 2">
-                        <input v-model="formData[index].firstName" type="text" required />
-                        <span>Search App Item</span>
-                        <div class="col-md-12 grid-margin stretch-card" style="height:250px;overflow: auto;">
-                          <div class="card" style="box-shadow: none !important;">
-                            <div class="card-body">
-                              <h4 class="card-title">List of all App Item</h4>
-                              <div class="table-responsive">
-                                <table class="table table-striped table-borderless">
-                                  <thead>
-                                    <tr>
-                                      <th>Product</th>
-                                      <th>Price</th>
-                                      <th>Date</th>
-                                      <th>Status</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody>
-                                    <tr>
-                                      <td>Search Engine Marketing</td>
-                                      <td class="font-weight-bold">$362</td>
-                                      <td>21 Sep 2018</td>
-                                      <td class="font-weight-medium">
-                                        <div class="badge badge-success">Completed</div>
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <td>Search Engine Optimization</td>
-                                      <td class="font-weight-bold">$116</td>
-                                      <td>13 Jun 2018</td>
-                                      <td class="font-weight-medium">
-                                        <div class="badge badge-success">Completed</div>
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <td>Display Advertising</td>
-                                      <td class="font-weight-bold">$551</td>
-                                      <td>28 Sep 2018</td>
-                                      <td class="font-weight-medium">
-                                        <div class="badge badge-warning">Pending</div>
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <td>Pay Per Click Advertising</td>
-                                      <td class="font-weight-bold">$523</td>
-                                      <td>30 Jun 2018</td>
-                                      <td class="font-weight-medium">
-                                        <div class="badge badge-warning">Pending</div>
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <td>E-Mail Marketing</td>
-                                      <td class="font-weight-bold">$781</td>
-                                      <td>01 Nov 2018</td>
-                                      <td class="font-weight-medium">
-                                        <div class="badge badge-danger">Cancelled</div>
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <td>Referral Marketing</td>
-                                      <td class="font-weight-bold">$283</td>
-                                      <td>20 Mar 2018</td>
-                                      <td class="font-weight-medium">
-                                        <div class="badge badge-warning">Pending</div>
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <td>Social media marketing</td>
-                                      <td class="font-weight-bold">$897</td>
-                                      <td>26 Oct 2018</td>
-                                      <td class="font-weight-medium">
-                                        <div class="badge badge-success">Completed</div>
-                                      </td>
-                                    </tr>
-                                  </tbody>
-                                </table>
-                              </div>
+                        <input type="text" v-model="searchValue" class="form-control" name="" id="" />
+                        <div v-if="searchResultsCount !== null">
+                          <p>{{ searchResultsCount }} result(s) found.</p>
+                        </div>
+                        <div class="row" style="height: 300px;overflow-y:auto">
+
+                          <div class="col-lg-4 d-none d-lg-block" v-for="item in item_title" v-bind:key="item.id">
+                            <div class="card" style="height: 10% !important;">
+                              <router-link :to="{ name: 'Dashboard', params: { id: 1 } }">
+                                <img src="../../../assets/proc1.jpg" class="card-img-top" alt="Sunset Over the Sea" />
+                              </router-link>
+                              <p style="text-align: center;margin-top:-40px;font-weight: bolder;"> {{item.sn}} <br>{{ shorten(item.item_title, 11) }}</p>
+                              <p style="margin-top: -10px;text-align:center">Php. {{ item.app_price }}</p>
+
                             </div>
                           </div>
                         </div>
+
+
 
 
                       </div>
@@ -634,6 +574,7 @@ import Navbar from "../layout/Navbar.vue";
 import Sidebar from "../layout/Sidebar.vue";
 import FooterVue from "../layout/Footer.vue";
 import BreadCrumbs from "../dashboard_tiles/BreadCrumbs.vue";
+import item_table from "./item_table.vue";
 import axios from "axios";
 import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
@@ -642,6 +583,12 @@ export default {
   data() {
     return {
       formnumber: 0,
+      searchValue: '',
+      searchResultsCount: null,
+
+
+      item_title: [], // Assuming item_title is an array of objects
+
       formData: Array.from({ length: 4 }, () => ({})),
       steps: [
         "Generate Purchase Request No.",
@@ -667,16 +614,46 @@ export default {
     };
   },
   computed: {
+    item_title: function () {
+      var app_item = this.item_title;
+      var searchValue = this.searchValue.trim().toLowerCase();
 
+      if (!searchValue) {
+        this.searchResultsCount = null;
+
+        return app_item;
+      }
+      // Use Array.filter to filter items based on search criteria
+      var filteredItems = app_item.filter(function (item) {
+        return (
+          item.item_title.toLowerCase().indexOf(searchValue) !== -1 ||
+          item.sn.toLowerCase().indexOf(searchValue) !== -1
+        );
+      });
+
+      this.searchResultsCount = filteredItems.length;
+      return filteredItems;
+
+    },
     shouldDisplayInput() {
 
       return index => (this.formnumber === index ? '' : 'none');
 
-    }
+    },
+
   },
-
+  mounted() {
+    this.fetchAppData();
+    axios
+      .get('../api/appitems')
+      .then(response => (this.item_title = response.data))
+      .catch(error => console.log(error.response))
+  },
   methods: {
+    shorten: function (string, len) {
+      return string.substring(0, len + string.substring(len - 1).indexOf(' '));
 
+    },
     nextStep() {
       if (!this.validateForm()) {
         return false;
@@ -701,12 +678,42 @@ export default {
       // Implement your form validation logic
       return true; // For simplicity, always return true in this example
     },
+
+    //feth data
+    fetchAppData() {
+      let btn = null;
+      axios.get('../api/fetchAppData').then((response) => {
+        $('#item_table').DataTable({
+          retrieve: true,
+          data: response.data,
+          ordering: false,
+          paging: true,
+          pageLength: 10,
+
+          columns: [
+            { data: 'sn' },
+            { data: 'item_category_title' },
+            { data: 'price' },
+            { data: 'app_year' },
+            {
+              data: null, orderable: false, render: function (data) {
+                return '<label class="badge badge-success" @click="deletePid(' + data.id + ')">Add to Cart</label>';
+              },
+            },
+
+          ],
+
+        });
+      }).catch((error) => console.log(error));
+
+    },
   },
   components: {
     Navbar,
     Sidebar,
     FooterVue,
     BreadCrumbs,
+    item_table
   },
 };
 </script>

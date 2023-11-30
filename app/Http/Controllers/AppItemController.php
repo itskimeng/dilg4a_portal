@@ -16,8 +16,8 @@ class AppItemController extends Controller
     }
     public function countTotalItem($cur_year)
     {
-        return response()->json(AppItemModel::select(AppItemModel::raw('count(*) as item'))->whereYear('created_at',$cur_year)
-        ->get());
+        return response()->json(AppItemModel::select(AppItemModel::raw('count(*) as item'))->whereYear('created_at', $cur_year)
+            ->get());
     }
     public function generateStockNumber()
     {
@@ -26,11 +26,19 @@ class AppItemController extends Controller
             ->orderby('id', 'DESC')
             ->get());
     }
+
+    public function getAppData()
+    {
+        return response()->json(AppItemModel::select('id', 'sn','item_title', 'app_price', 'app_year')
+            ->where('app_year', 2022)
+            ->orderBy('item_title')
+            ->limit(1000)
+            ->get());
+    }
     public function fetchAppData()
     {
         // return response()->json(AppItemModel::all());
-        $app_item = AppItemModel::
-        select(AppItemModel::raw('
+        $app_item = AppItemModel::select(AppItemModel::raw('
             tbl_app.id as `app_id`,
             tbl_app.sn as `sn`,
             tbl_app.item_title as `item_title`,
@@ -48,20 +56,19 @@ class AppItemController extends Controller
 
 
         '))
-        ->join('source_of_funds', 'tbl_app.source_of_funds_id', '=', 'source_of_funds.id')
-        ->join('pmo', 'tbl_app.pmo_id', '=', 'pmo.id')
-        ->join('item_category', 'tbl_app.category_id', '=', 'item_category.id')
-        ->join('mode_of_proc', 'tbl_app.mode', '=', 'mode_of_proc.id')
-        ->join('item_unit', 'tbl_app.unit_id', '=', 'item_unit.id');
-// Print the SQL query
-// $sql = $app_item->toSql();
-// dd($sql);
+            ->join('source_of_funds', 'tbl_app.source_of_funds_id', '=', 'source_of_funds.id')
+            ->join('pmo', 'tbl_app.pmo_id', '=', 'pmo.id')
+            ->join('item_category', 'tbl_app.category_id', '=', 'item_category.id')
+            ->join('mode_of_proc', 'tbl_app.mode', '=', 'mode_of_proc.id')
+            ->join('item_unit', 'tbl_app.unit_id', '=', 'item_unit.id');
+        // Print the SQL query
+        // $sql = $app_item->toSql();
+        // dd($sql);
 
-// // Execute the query and return the result
-$appItems = $app_item->get();
+        // // Execute the query and return the result
+        $appItems = $app_item->get();
 
-return response()->json($appItems);
-        
+        return response()->json($appItems);
     }
     public function post_add_appItem(Request $request)
     {
@@ -72,16 +79,15 @@ return response()->json($appItems);
             'code'          => $request->input('code'),
             'item_title'    => $request->input('item_title'),
             'unit_id'       => $request->input('unit'),
-            'source_of_funds_id'=> $request->input('source_of_funds_id'),
+            'source_of_funds_id' => $request->input('source_of_funds_id'),
             'category_id'   => $request->input('category_id'),
             'pmo_id'        => $request->input('office'),
             'qty'      => $request->input('qty'),
             'mode'          => $request->input('mode'),
             'price'         => $request->input('app_price'),
             'app_price'     => $request->input('app_price'),
-    
+
         ]);
         $app_item->save();
-
     }
 }

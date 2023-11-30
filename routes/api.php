@@ -28,6 +28,10 @@ Route::middleware('api')->group(function () {
 
 });
 Route::middleware('api')->group(function () {
+    Route::get('appitems', [AppItemController::class, 'getAppData']);
+
+});
+Route::middleware('api')->group(function () {
     Route::get('generateStockNumber', [AppItemController::class, 'generateStockNumber']);
 });
 
@@ -38,7 +42,6 @@ Route::middleware('api')->group(function () {
 
 Route::post('login',[UserController::class,'login']);
 Route::post('post_add_appItem',[AppItemController::class,'post_add_appItem']);
-
 
 
 
