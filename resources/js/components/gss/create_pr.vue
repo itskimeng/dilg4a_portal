@@ -1,19 +1,21 @@
 <style>
 .container .card {
-  height: 500px;
-  width: 1000px;
+  height: 600px;
+  width: auto;
   background-color: #fff;
   position: relative;
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
   font-family: "Poppins", sans-serif;
   border-radius: 20px;
 }
+
 .container .card .form {
   width: 100%;
   height: 100%;
 
   display: flex;
 }
+
 .container .card .left-side {
   width: 35%;
   background-color: #304767;
@@ -23,19 +25,23 @@
   padding: 20px 30px;
   box-sizing: border-box;
 }
+
 /*left-side-start*/
 .left-heading {
   color: #fff;
 }
+
 .steps-content {
   margin-top: 30px;
   color: #fff;
 }
+
 .steps-content p {
   font-size: 12px;
   margin-top: 15px;
 }
-.progress-barv2 !important {
+
+.progress-barv2 {
   list-style: none;
   /*color:#fff;*/
   margin-top: 30px;
@@ -44,6 +50,7 @@
   text-align: left;
   counter-reset: container 0;
 }
+
 .progress-barv2 li {
   position: relative;
   margin-left: 40px;
@@ -51,6 +58,7 @@
   counter-increment: container 1;
   color: #4f6581;
 }
+
 .progress-barv2 li::before {
   content: counter(container);
   line-height: 25px;
@@ -92,30 +100,36 @@
   color: #fff;
   border: 1px solid #fff;
 }
+
 .progress-barv2 li.active {
   color: #fff;
 }
+
 .d-none {
   display: none;
 }
 
 /*left-side-end*/
 .container .card .right-side {
-  width: 65%;
+  width: 100% !important;
   background-color: #fff;
   height: 100%;
   border-radius: 20px;
 }
+
 /*right-side-start*/
 .main {
   display: none;
 }
+
 .active {
   display: block;
 }
+
 .main {
   padding: 40px;
 }
+
 .main small {
   display: flex;
   justify-content: center;
@@ -128,18 +142,22 @@
   color: yellow;
   font-size: 19px;
 }
+
 .text {
   margin-top: 20px;
 }
+
 .congrats {
   text-align: center;
 }
+
 .text p {
   margin-top: 10px;
   font-size: 13px;
   font-weight: 700;
   color: #cbced4;
 }
+
 .input-text {
   margin: 30px 0;
   display: flex;
@@ -162,6 +180,7 @@ input[type="text"] {
   box-sizing: border-box;
   padding: 0px 10px;
 }
+
 select {
   width: 100%;
   height: 40px;
@@ -173,6 +192,7 @@ select {
   box-sizing: border-box;
   padding: 0px 10px;
 }
+
 .input-text .input-div span {
   position: absolute;
   top: 10px;
@@ -180,8 +200,9 @@ select {
   font-size: 14px;
   transition: all 0.5s;
 }
-.input-div input:focus ~ span,
-.input-div input:valid ~ span {
+
+.input-div input:focus~span,
+.input-div input:valid~span {
   top: -15px;
   left: 6px;
   font-size: 10px;
@@ -193,6 +214,7 @@ select {
   left: 6px;
   font-size: 10px;
 }
+
 .buttons button {
   height: 40px;
   width: 100px;
@@ -203,15 +225,20 @@ select {
   color: #fff;
   cursor: pointer;
 }
+
+
+
 .button_space {
   display: flex;
   gap: 20px;
 }
+
 .button_space button:nth-child(1) {
   background-color: #fff;
   color: #000;
   border: 1px solid#000;
 }
+
 .user_card {
   margin-top: 20px;
   margin-bottom: 40px;
@@ -224,16 +251,19 @@ select {
   position: relative;
   box-sizing: border-box;
 }
+
 .user_card span {
   height: 80px;
   width: 100%;
   background-color: #dfeeff;
 }
+
 .circle {
   position: absolute;
   top: 40px;
   left: 60px;
 }
+
 .circle span {
   height: 70px;
   width: 70px;
@@ -244,18 +274,21 @@ select {
   border: 2px solid #fff;
   border-radius: 50%;
 }
+
 .circle span img {
   width: 100%;
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
 }
+
 .social {
   display: flex;
   position: absolute;
   top: 100px;
   right: 10px;
 }
+
 .social span {
   height: 30px;
   width: 30px;
@@ -268,15 +301,19 @@ select {
   margin-left: 10px;
   color: #cbd6dc;
 }
+
 .social span i {
   cursor: pointer;
 }
+
 .heart {
   color: red !important;
 }
+
 .share {
   color: red !important;
 }
+
 .user_name {
   position: absolute;
   top: 110px;
@@ -286,19 +323,23 @@ select {
   flex-direction: column;
   width: 100%;
 }
+
 .user_name h3 {
   color: #4c5b68;
 }
+
 .detail {
   /*margin-top:10px;*/
   display: flex;
   justify-content: space-between;
   margin-right: 50px;
 }
+
 .detail p {
   font-size: 12px;
   font-weight: 700;
 }
+
 .detail p a {
   text-decoration: none;
   color: blue;
@@ -339,15 +380,19 @@ select {
     stroke-dashoffset: 0;
   }
 }
+
 @keyframes scale {
+
   0%,
   100% {
     transform: none;
   }
+
   50% {
     transform: scale3d(1.1, 1.1, 1);
   }
 }
+
 @keyframes fill {
   100% {
     box-shadow: inset 0px 0px 0px 30px #7ac142;
@@ -363,20 +408,23 @@ select {
   .container {
     height: scroll;
   }
+
   .container .card {
     max-width: 350px;
     height: auto !important;
     margin: 30px 0;
   }
+
   .container .card .right-side {
     width: 100%;
   }
+
   .input-text {
-    display: block;
+    /* display: block; */
   }
 
   .input-text .input-div {
-    margin-top: 20px;
+    /* margin-top: 20px; */
   }
 
   .container .card .left-side {
@@ -399,7 +447,7 @@ select {
           <BreadCrumbs />
 
           <div class="container">
-            <div class="card">
+            <div class="card" style="margin-left: -10%;">
               <div class="form">
                 <div class="left-side">
                   <div class="left-heading">
@@ -409,35 +457,21 @@ select {
                     <h3>
                       Step <span class="step-number">{{ formnumber + 1 }}</span>
                     </h3>
-                    <p
-                      v-for="(content, index) in stepNumContent"
-                      :key="index"
-                      :class="{
-                        'step-number-content': true,
-                        active: index === formnumber,
-                        'd-none': index !== formnumber,
-                      }"
-                    >
-                      {{ content }}
-                    </p>
+                    <p v-for="(content, index) in stepNumContent" :key="index"
+                      :class="{ 'step-number-content': true, active: index === formnumber, 'd-none': index !== formnumber, }">
+                      {{ content }} </p>
                   </div>
                   <ul class="progress-barv2" style="background-color: #30476 !important">
-                    <li
-                      v-for="(step, index) in steps"
-                      :key="index"
-                      :class="{ active: index === formnumber }"
-                    >
+                    <li v-for="(step, index) in steps" :key="index" :class="{ active: index === formnumber }">
                       {{ step }}
                     </li>
                   </ul>
                 </div>
                 <div class="right-side">
-                  <div
-                    v-for="(main, index) in mainForms"
-                    :key="index"
-                    class="main"
-                    :class="{ active: index === formnumber }"
-                  >
+              
+
+                  <div v-for="(main, index) in mainForms" :key="index" class="main"
+                    :class="{ active: index === formnumber }">
                     <small><i class="fa fa-smile-o"></i></small>
                     <div class="text">
                       <h2>{{ main }}</h2>
@@ -445,19 +479,15 @@ select {
                     </div>
                     <!-- Your existing form inputs go here -->
                     <!-- Your form inputs go here -->
-                    <div class="input-text">
+                    <div class="input-text" :style="{ display: shouldDisplayInput(0) }">
                       <div class="input-div" v-if="index === 0">
                         <input v-model="formData[index].firstName" type="text" required />
                         <span>Purchase Request No.</span>
                       </div>
                     </div>
-                    <div class="input-text">
+                    <div class="input-text" :style="{ display: shouldDisplayInput(1) }">
                       <div class="input-div" v-if="index === 1">
-                        <input
-                          v-model="formData[index].schoolName"
-                          type="text"
-                          required
-                        />
+                        <input v-model="formData[index].schoolName" type="text" required />
                         <span>Office</span>
                       </div>
                       <div class="input-div" v-if="index === 1">
@@ -465,7 +495,7 @@ select {
                         <span>Type</span>
                       </div>
                     </div>
-                    <div class="input-text">
+                    <div class="input-text" :style="{ display: shouldDisplayInput(1) }">
                       <div class="input-div" v-if="index === 1">
                         <input v-model="formData[index].boardName" type="text" required />
                         <span>Purchase Date</span>
@@ -475,12 +505,98 @@ select {
                         <span>Target Date</span>
                       </div>
                     </div>
-                    <div class="input-text">
+                    <div class="input-text" :style="{ display: shouldDisplayInput(1) }">
                       <div class="input-div" v-if="index === 1">
                         <input v-model="formData[index].boardName" type="text" required />
                         <span>Particulars</span>
                       </div>
                     </div>
+                    <div class="input-text" :style="{ display: shouldDisplayInput(2) }">
+                      <div class="input-div" v-if="index === 2">
+                        <input v-model="formData[index].firstName" type="text" required />
+                        <span>Search App Item</span>
+                        <div class="col-md-12 grid-margin stretch-card" style="height:250px;overflow: auto;">
+                          <div class="card" style="box-shadow: none !important;">
+                            <div class="card-body">
+                              <h4 class="card-title">List of all App Item</h4>
+                              <div class="table-responsive">
+                                <table class="table table-striped table-borderless">
+                                  <thead>
+                                    <tr>
+                                      <th>Product</th>
+                                      <th>Price</th>
+                                      <th>Date</th>
+                                      <th>Status</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr>
+                                      <td>Search Engine Marketing</td>
+                                      <td class="font-weight-bold">$362</td>
+                                      <td>21 Sep 2018</td>
+                                      <td class="font-weight-medium">
+                                        <div class="badge badge-success">Completed</div>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>Search Engine Optimization</td>
+                                      <td class="font-weight-bold">$116</td>
+                                      <td>13 Jun 2018</td>
+                                      <td class="font-weight-medium">
+                                        <div class="badge badge-success">Completed</div>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>Display Advertising</td>
+                                      <td class="font-weight-bold">$551</td>
+                                      <td>28 Sep 2018</td>
+                                      <td class="font-weight-medium">
+                                        <div class="badge badge-warning">Pending</div>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>Pay Per Click Advertising</td>
+                                      <td class="font-weight-bold">$523</td>
+                                      <td>30 Jun 2018</td>
+                                      <td class="font-weight-medium">
+                                        <div class="badge badge-warning">Pending</div>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>E-Mail Marketing</td>
+                                      <td class="font-weight-bold">$781</td>
+                                      <td>01 Nov 2018</td>
+                                      <td class="font-weight-medium">
+                                        <div class="badge badge-danger">Cancelled</div>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>Referral Marketing</td>
+                                      <td class="font-weight-bold">$283</td>
+                                      <td>20 Mar 2018</td>
+                                      <td class="font-weight-medium">
+                                        <div class="badge badge-warning">Pending</div>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>Social media marketing</td>
+                                      <td class="font-weight-bold">$897</td>
+                                      <td>26 Oct 2018</td>
+                                      <td class="font-weight-medium">
+                                        <div class="badge badge-success">Completed</div>
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+
+                      </div>
+                    </div>
+
 
                     <!-- Add a button to go to the next step -->
                     <div v-if="index < mainForms.length - 1" class="buttons button_space">
@@ -491,10 +607,7 @@ select {
                     </div>
 
                     <!-- Add a button to submit the form on the last step -->
-                    <div
-                      v-if="index === mainForms.length - 1"
-                      class="buttons button_space"
-                    >
+                    <div v-if="index === mainForms.length - 1" class="buttons button_space">
                       <button class="back_button" @click="backStep">Back</button>
                       <button class="submit_button" @click="submitForm">Submit</button>
                     </div>
@@ -502,6 +615,7 @@ select {
                 </div>
               </div>
             </div>
+
           </div>
         </div>
         <!-- content-wrapper ends -->
@@ -538,8 +652,8 @@ export default {
       mainForms: [
         "Generate Purchase Request No.",
         "Purchase Request Information",
-        "Education",
-        "Work Experiences",
+        "Choose APP Item",
+        "Review your cart",
         "User Photo",
         // Add more forms as needed
       ],
@@ -552,7 +666,17 @@ export default {
       ],
     };
   },
+  computed: {
+
+    shouldDisplayInput() {
+
+      return index => (this.formnumber === index ? '' : 'none');
+
+    }
+  },
+
   methods: {
+
     nextStep() {
       if (!this.validateForm()) {
         return false;

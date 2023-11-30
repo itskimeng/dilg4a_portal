@@ -23428,7 +23428,7 @@ __webpack_require__.r(__webpack_exports__);
         return {};
       }),
       steps: ["Generate Purchase Request No.", "Purchase Request Information", "Choose APP Item", "Save Data"],
-      mainForms: ["Generate Purchase Request No.", "Purchase Request Information", "Education", "Work Experiences", "User Photo"
+      mainForms: ["Generate Purchase Request No.", "Purchase Request Information", "Choose APP Item", "Review your cart", "User Photo"
       // Add more forms as needed
       ],
 
@@ -23438,6 +23438,14 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
 
+  computed: {
+    shouldDisplayInput: function shouldDisplayInput() {
+      var _this = this;
+      return function (index) {
+        return _this.formnumber === index ? '' : 'none';
+      };
+    }
+  },
   methods: {
     nextStep: function nextStep() {
       if (!this.validateForm()) {
@@ -25103,7 +25111,10 @@ var _hoisted_5 = {
   "class": "container"
 };
 var _hoisted_6 = {
-  "class": "card"
+  "class": "card",
+  style: {
+    "margin-left": "-10%"
+  }
 };
 var _hoisted_7 = {
   "class": "form"
@@ -25136,53 +25147,47 @@ var _hoisted_15 = {
   "class": "text"
 };
 var _hoisted_16 = {
-  "class": "input-text"
-};
-var _hoisted_17 = {
   key: 0,
   "class": "input-div"
 };
-var _hoisted_18 = ["onUpdate:modelValue"];
-var _hoisted_19 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Purchase Request No.", -1 /* HOISTED */);
-var _hoisted_20 = {
-  "class": "input-text"
-};
-var _hoisted_21 = {
+var _hoisted_17 = ["onUpdate:modelValue"];
+var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Purchase Request No.", -1 /* HOISTED */);
+var _hoisted_19 = {
   key: 0,
   "class": "input-div"
 };
-var _hoisted_22 = ["onUpdate:modelValue"];
-var _hoisted_23 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Office", -1 /* HOISTED */);
-var _hoisted_24 = {
+var _hoisted_20 = ["onUpdate:modelValue"];
+var _hoisted_21 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Office", -1 /* HOISTED */);
+var _hoisted_22 = {
   key: 1,
   "class": "input-div"
 };
-var _hoisted_25 = ["onUpdate:modelValue"];
-var _hoisted_26 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Type", -1 /* HOISTED */);
-var _hoisted_27 = {
-  "class": "input-text"
-};
-var _hoisted_28 = {
+var _hoisted_23 = ["onUpdate:modelValue"];
+var _hoisted_24 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Type", -1 /* HOISTED */);
+var _hoisted_25 = {
   key: 0,
+  "class": "input-div"
+};
+var _hoisted_26 = ["onUpdate:modelValue"];
+var _hoisted_27 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Purchase Date", -1 /* HOISTED */);
+var _hoisted_28 = {
+  key: 1,
   "class": "input-div"
 };
 var _hoisted_29 = ["onUpdate:modelValue"];
-var _hoisted_30 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Purchase Date", -1 /* HOISTED */);
+var _hoisted_30 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Target Date", -1 /* HOISTED */);
 var _hoisted_31 = {
-  key: 1,
-  "class": "input-div"
-};
-var _hoisted_32 = ["onUpdate:modelValue"];
-var _hoisted_33 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Target Date", -1 /* HOISTED */);
-var _hoisted_34 = {
-  "class": "input-text"
-};
-var _hoisted_35 = {
   key: 0,
   "class": "input-div"
 };
-var _hoisted_36 = ["onUpdate:modelValue"];
-var _hoisted_37 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Particulars", -1 /* HOISTED */);
+var _hoisted_32 = ["onUpdate:modelValue"];
+var _hoisted_33 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Particulars", -1 /* HOISTED */);
+var _hoisted_34 = {
+  key: 0,
+  "class": "input-div"
+};
+var _hoisted_35 = ["onUpdate:modelValue"];
+var _hoisted_36 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<span>Search App Item</span><div class=\"col-md-12 grid-margin stretch-card\" style=\"height:250px;overflow:auto;\"><div class=\"card\" style=\"box-shadow:none !important;\"><div class=\"card-body\"><h4 class=\"card-title\">List of all App Item</h4><div class=\"table-responsive\"><table class=\"table table-striped table-borderless\"><thead><tr><th>Product</th><th>Price</th><th>Date</th><th>Status</th></tr></thead><tbody><tr><td>Search Engine Marketing</td><td class=\"font-weight-bold\">$362</td><td>21 Sep 2018</td><td class=\"font-weight-medium\"><div class=\"badge badge-success\">Completed</div></td></tr><tr><td>Search Engine Optimization</td><td class=\"font-weight-bold\">$116</td><td>13 Jun 2018</td><td class=\"font-weight-medium\"><div class=\"badge badge-success\">Completed</div></td></tr><tr><td>Display Advertising</td><td class=\"font-weight-bold\">$551</td><td>28 Sep 2018</td><td class=\"font-weight-medium\"><div class=\"badge badge-warning\">Pending</div></td></tr><tr><td>Pay Per Click Advertising</td><td class=\"font-weight-bold\">$523</td><td>30 Jun 2018</td><td class=\"font-weight-medium\"><div class=\"badge badge-warning\">Pending</div></td></tr><tr><td>E-Mail Marketing</td><td class=\"font-weight-bold\">$781</td><td>01 Nov 2018</td><td class=\"font-weight-medium\"><div class=\"badge badge-danger\">Cancelled</div></td></tr><tr><td>Referral Marketing</td><td class=\"font-weight-bold\">$283</td><td>20 Mar 2018</td><td class=\"font-weight-medium\"><div class=\"badge badge-warning\">Pending</div></td></tr><tr><td>Social media marketing</td><td class=\"font-weight-bold\">$897</td><td>26 Oct 2018</td><td class=\"font-weight-medium\"><div class=\"badge badge-success\">Completed</div></td></tr></tbody></table></div></div></div></div>", 2);
 var _hoisted_38 = {
   key: 0,
   "class": "buttons button_space"
@@ -25218,43 +25223,74 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["main", {
         active: index === $data.formnumber
       }])
-    }, [_hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(main), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.stepNumContent[index]), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Your existing form inputs go here "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Your form inputs go here "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [index === 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    }, [_hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(main), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.stepNumContent[index]), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Your existing form inputs go here "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Your form inputs go here "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+      "class": "input-text",
+      style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)({
+        display: $options.shouldDisplayInput(0)
+      })
+    }, [index === 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
       "onUpdate:modelValue": function onUpdateModelValue($event) {
         return $data.formData[index].firstName = $event;
       },
       type: "text",
       required: ""
-    }, null, 8 /* PROPS */, _hoisted_18), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.formData[index].firstName]]), _hoisted_19])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [index === 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_21, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    }, null, 8 /* PROPS */, _hoisted_17), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.formData[index].firstName]]), _hoisted_18])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 4 /* STYLE */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+      "class": "input-text",
+      style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)({
+        display: $options.shouldDisplayInput(1)
+      })
+    }, [index === 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
       "onUpdate:modelValue": function onUpdateModelValue($event) {
         return $data.formData[index].schoolName = $event;
       },
       type: "text",
       required: ""
-    }, null, 8 /* PROPS */, _hoisted_22), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.formData[index].schoolName]]), _hoisted_23])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), index === 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_24, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    }, null, 8 /* PROPS */, _hoisted_20), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.formData[index].schoolName]]), _hoisted_21])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), index === 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_22, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
       "onUpdate:modelValue": function onUpdateModelValue($event) {
         return $data.formData[index].boardName = $event;
       },
       type: "text",
       required: ""
-    }, null, 8 /* PROPS */, _hoisted_25), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.formData[index].boardName]]), _hoisted_26])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_27, [index === 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_28, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    }, null, 8 /* PROPS */, _hoisted_23), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.formData[index].boardName]]), _hoisted_24])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 4 /* STYLE */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+      "class": "input-text",
+      style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)({
+        display: $options.shouldDisplayInput(1)
+      })
+    }, [index === 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_25, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
       "onUpdate:modelValue": function onUpdateModelValue($event) {
         return $data.formData[index].boardName = $event;
       },
       type: "text",
       required: ""
-    }, null, 8 /* PROPS */, _hoisted_29), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.formData[index].boardName]]), _hoisted_30])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), index === 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_31, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    }, null, 8 /* PROPS */, _hoisted_26), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.formData[index].boardName]]), _hoisted_27])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), index === 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_28, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
       "onUpdate:modelValue": function onUpdateModelValue($event) {
         return $data.formData[index].boardName = $event;
       },
       type: "text",
       required: ""
-    }, null, 8 /* PROPS */, _hoisted_32), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.formData[index].boardName]]), _hoisted_33])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_34, [index === 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_35, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    }, null, 8 /* PROPS */, _hoisted_29), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.formData[index].boardName]]), _hoisted_30])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 4 /* STYLE */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+      "class": "input-text",
+      style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)({
+        display: $options.shouldDisplayInput(1)
+      })
+    }, [index === 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_31, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
       "onUpdate:modelValue": function onUpdateModelValue($event) {
         return $data.formData[index].boardName = $event;
       },
       type: "text",
       required: ""
-    }, null, 8 /* PROPS */, _hoisted_36), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.formData[index].boardName]]), _hoisted_37])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Add a button to go to the next step "), index < $data.mainForms.length - 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_38, [index > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
+    }, null, 8 /* PROPS */, _hoisted_32), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.formData[index].boardName]]), _hoisted_33])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 4 /* STYLE */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+      "class": "input-text",
+      style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)({
+        display: $options.shouldDisplayInput(2)
+      })
+    }, [index === 2 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_34, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+      "onUpdate:modelValue": function onUpdateModelValue($event) {
+        return $data.formData[index].firstName = $event;
+      },
+      type: "text",
+      required: ""
+    }, null, 8 /* PROPS */, _hoisted_35), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.formData[index].firstName]]), _hoisted_36])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 4 /* STYLE */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Add a button to go to the next step "), index < $data.mainForms.length - 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_38, [index > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
       key: 0,
       "class": "back_button",
       onClick: _cache[0] || (_cache[0] = function () {
@@ -30269,7 +30305,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.container .card {\r\n  height: 500px;\r\n  width: 1000px;\r\n  background-color: #fff;\r\n  position: relative;\r\n  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);\r\n  font-family: \"Poppins\", sans-serif;\r\n  border-radius: 20px;\n}\n.container .card .form {\r\n  width: 100%;\r\n  height: 100%;\r\n\r\n  display: flex;\n}\n.container .card .left-side {\r\n  width: 35%;\r\n  background-color: #304767;\r\n  height: 100%;\r\n  border-top-left-radius: 20px;\r\n  border-bottom-left-radius: 20px;\r\n  padding: 20px 30px;\r\n  box-sizing: border-box;\n}\r\n/*left-side-start*/\n.left-heading {\r\n  color: #fff;\n}\n.steps-content {\r\n  margin-top: 30px;\r\n  color: #fff;\n}\n.steps-content p {\r\n  font-size: 12px;\r\n  margin-top: 15px;\n}\n.progress-barv2 !important {\r\n  list-style: none;\r\n  /*color:#fff;*/\r\n  margin-top: 30px;\r\n  font-size: 13px;\r\n  font-weight: 700;\r\n  text-align: left;\r\n  counter-reset: container 0;\n}\n.progress-barv2 li {\r\n  position: relative;\r\n  margin-left: 40px;\r\n  margin-top: 50px;\r\n  counter-increment: container 1;\r\n  color: #4f6581;\n}\n.progress-barv2 li::before {\r\n  content: counter(container);\r\n  line-height: 25px;\r\n  text-align: center;\r\n  position: absolute;\r\n  height: 25px;\r\n  width: 25px;\r\n  border: 1px solid #4f6581;\r\n  border-radius: 50%;\r\n  left: -40px;\r\n  top: -5px;\r\n  z-index: 10;\r\n  background-color: #304767;\n}\n.progress-barv2 li::after {\r\n  content: \"\";\r\n  position: absolute;\r\n  height: 90px;\r\n  width: 2px;\r\n  background-color: #4f6581;\r\n  z-index: 1;\r\n  left: -27px;\r\n  top: -70px;\n}\n.progress-barv2 li.active::after {\r\n  background-color: #fff;\n}\n.progress-barv2 li:first-child:after {\r\n  display: none;\n}\r\n\r\n/*.progress-barv2 li:last-child:after{*/\r\n/*  display:none;  */\r\n/*}*/\n.progress-barv2 li.active::before {\r\n  color: #fff;\r\n  border: 1px solid #fff;\n}\n.progress-barv2 li.active {\r\n  color: #fff;\n}\n.d-none {\r\n  display: none;\n}\r\n\r\n/*left-side-end*/\n.container .card .right-side {\r\n  width: 65%;\r\n  background-color: #fff;\r\n  height: 100%;\r\n  border-radius: 20px;\n}\r\n/*right-side-start*/\n.main {\r\n  display: none;\n}\n.active {\r\n  display: block;\n}\n.main {\r\n  padding: 40px;\n}\n.main small {\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  margin-top: 2px;\r\n  height: 30px;\r\n  width: 30px;\r\n  background-color: #ccc;\r\n  border-radius: 50%;\r\n  color: yellow;\r\n  font-size: 19px;\n}\n.text {\r\n  margin-top: 20px;\n}\n.congrats {\r\n  text-align: center;\n}\n.text p {\r\n  margin-top: 10px;\r\n  font-size: 13px;\r\n  font-weight: 700;\r\n  color: #cbced4;\n}\n.input-text {\r\n  margin: 30px 0;\r\n  display: flex;\r\n  gap: 20px;\n}\n.input-text .input-div {\r\n  width: 100%;\r\n  position: relative;\n}\ninput[type=\"text\"] {\r\n  width: 100%;\r\n  height: 40px;\r\n  border: none;\r\n  outline: 0;\r\n  border-radius: 5px;\r\n  border: 1px solid #cbced4;\r\n  gap: 20px;\r\n  box-sizing: border-box;\r\n  padding: 0px 10px;\n}\nselect {\r\n  width: 100%;\r\n  height: 40px;\r\n  border: none;\r\n  outline: 0;\r\n  border-radius: 5px;\r\n  border: 1px solid #cbced4;\r\n  gap: 20px;\r\n  box-sizing: border-box;\r\n  padding: 0px 10px;\n}\n.input-text .input-div span {\r\n  position: absolute;\r\n  top: 10px;\r\n  left: 10px;\r\n  font-size: 14px;\r\n  transition: all 0.5s;\n}\n.input-div input:focus ~ span,\r\n.input-div input:valid ~ span {\r\n  top: -15px;\r\n  left: 6px;\r\n  font-size: 10px;\r\n  font-weight: 600;\n}\n.input-div span {\r\n  top: -15px;\r\n  left: 6px;\r\n  font-size: 10px;\n}\n.buttons button {\r\n  height: 40px;\r\n  width: 100px;\r\n  border: none;\r\n  border-radius: 5px;\r\n  background-color: #0075ff;\r\n  font-size: 12px;\r\n  color: #fff;\r\n  cursor: pointer;\n}\n.button_space {\r\n  display: flex;\r\n  gap: 20px;\n}\n.button_space button:nth-child(1) {\r\n  background-color: #fff;\r\n  color: #000;\r\n  border: 1px solid#000;\n}\n.user_card {\r\n  margin-top: 20px;\r\n  margin-bottom: 40px;\r\n  height: 200px;\r\n  width: 100%;\r\n  border: 1px solid #c7d3d9;\r\n  border-radius: 10px;\r\n  display: flex;\r\n  overflow: hidden;\r\n  position: relative;\r\n  box-sizing: border-box;\n}\n.user_card span {\r\n  height: 80px;\r\n  width: 100%;\r\n  background-color: #dfeeff;\n}\n.circle {\r\n  position: absolute;\r\n  top: 40px;\r\n  left: 60px;\n}\n.circle span {\r\n  height: 70px;\r\n  width: 70px;\r\n  background-color: #fff;\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  border: 2px solid #fff;\r\n  border-radius: 50%;\n}\n.circle span img {\r\n  width: 100%;\r\n  height: 100%;\r\n  border-radius: 50%;\r\n  -o-object-fit: cover;\r\n     object-fit: cover;\n}\n.social {\r\n  display: flex;\r\n  position: absolute;\r\n  top: 100px;\r\n  right: 10px;\n}\n.social span {\r\n  height: 30px;\r\n  width: 30px;\r\n  border-radius: 7px;\r\n  background-color: #fff;\r\n  border: 1px solid #cbd6dc;\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  margin-left: 10px;\r\n  color: #cbd6dc;\n}\n.social span i {\r\n  cursor: pointer;\n}\n.heart {\r\n  color: red !important;\n}\n.share {\r\n  color: red !important;\n}\n.user_name {\r\n  position: absolute;\r\n  top: 110px;\r\n  margin: 10px;\r\n  padding: 0 30px;\r\n  display: flex;\r\n  flex-direction: column;\r\n  width: 100%;\n}\n.user_name h3 {\r\n  color: #4c5b68;\n}\n.detail {\r\n  /*margin-top:10px;*/\r\n  display: flex;\r\n  justify-content: space-between;\r\n  margin-right: 50px;\n}\n.detail p {\r\n  font-size: 12px;\r\n  font-weight: 700;\n}\n.detail p a {\r\n  text-decoration: none;\r\n  color: blue;\n}\n.checkmark__circle {\r\n  stroke-dasharray: 166;\r\n  stroke-dashoffset: 166;\r\n  stroke-width: 2;\r\n  stroke-miterlimit: 10;\r\n  stroke: #7ac142;\r\n  fill: none;\r\n  animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;\n}\n.checkmark {\r\n  width: 56px;\r\n  height: 56px;\r\n  border-radius: 50%;\r\n  display: block;\r\n  stroke-width: 2;\r\n  stroke: #fff;\r\n  stroke-miterlimit: 10;\r\n  margin: 10% auto;\r\n  box-shadow: inset 0px 0px 0px #7ac142;\r\n  animation: fill 0.4s ease-in-out 0.4s forwards, scale 0.3s ease-in-out 0.9s both;\n}\n.checkmark__check {\r\n  transform-origin: 50% 50%;\r\n  stroke-dasharray: 48;\r\n  stroke-dashoffset: 48;\r\n  animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;\n}\n@keyframes stroke {\n100% {\r\n    stroke-dashoffset: 0;\n}\n}\n@keyframes scale {\n0%,\r\n  100% {\r\n    transform: none;\n}\n50% {\r\n    transform: scale3d(1.1, 1.1, 1);\n}\n}\n@keyframes fill {\n100% {\r\n    box-shadow: inset 0px 0px 0px 30px #7ac142;\n}\n}\n.warning {\r\n  border: 1px solid red !important;\n}\r\n\r\n/*right-side-end*/\n@media (max-width: 750px) {\n.container {\r\n    height: scroll;\n}\n.container .card {\r\n    max-width: 350px;\r\n    height: auto !important;\r\n    margin: 30px 0;\n}\n.container .card .right-side {\r\n    width: 100%;\n}\n.input-text {\r\n    display: block;\n}\n.input-text .input-div {\r\n    margin-top: 20px;\n}\n.container .card .left-side {\r\n    display: none;\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.container .card {\r\n  height: 600px;\r\n  width: auto;\r\n  background-color: #fff;\r\n  position: relative;\r\n  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);\r\n  font-family: \"Poppins\", sans-serif;\r\n  border-radius: 20px;\n}\n.container .card .form {\r\n  width: 100%;\r\n  height: 100%;\r\n\r\n  display: flex;\n}\n.container .card .left-side {\r\n  width: 35%;\r\n  background-color: #304767;\r\n  height: 100%;\r\n  border-top-left-radius: 20px;\r\n  border-bottom-left-radius: 20px;\r\n  padding: 20px 30px;\r\n  box-sizing: border-box;\n}\r\n\r\n/*left-side-start*/\n.left-heading {\r\n  color: #fff;\n}\n.steps-content {\r\n  margin-top: 30px;\r\n  color: #fff;\n}\n.steps-content p {\r\n  font-size: 12px;\r\n  margin-top: 15px;\n}\n.progress-barv2 {\r\n  list-style: none;\r\n  /*color:#fff;*/\r\n  margin-top: 30px;\r\n  font-size: 13px;\r\n  font-weight: 700;\r\n  text-align: left;\r\n  counter-reset: container 0;\n}\n.progress-barv2 li {\r\n  position: relative;\r\n  margin-left: 40px;\r\n  margin-top: 50px;\r\n  counter-increment: container 1;\r\n  color: #4f6581;\n}\n.progress-barv2 li::before {\r\n  content: counter(container);\r\n  line-height: 25px;\r\n  text-align: center;\r\n  position: absolute;\r\n  height: 25px;\r\n  width: 25px;\r\n  border: 1px solid #4f6581;\r\n  border-radius: 50%;\r\n  left: -40px;\r\n  top: -5px;\r\n  z-index: 10;\r\n  background-color: #304767;\n}\n.progress-barv2 li::after {\r\n  content: \"\";\r\n  position: absolute;\r\n  height: 90px;\r\n  width: 2px;\r\n  background-color: #4f6581;\r\n  z-index: 1;\r\n  left: -27px;\r\n  top: -70px;\n}\n.progress-barv2 li.active::after {\r\n  background-color: #fff;\n}\n.progress-barv2 li:first-child:after {\r\n  display: none;\n}\r\n\r\n/*.progress-barv2 li:last-child:after{*/\r\n/*  display:none;  */\r\n/*}*/\n.progress-barv2 li.active::before {\r\n  color: #fff;\r\n  border: 1px solid #fff;\n}\n.progress-barv2 li.active {\r\n  color: #fff;\n}\n.d-none {\r\n  display: none;\n}\r\n\r\n/*left-side-end*/\n.container .card .right-side {\r\n  width: 100% !important;\r\n  background-color: #fff;\r\n  height: 100%;\r\n  border-radius: 20px;\n}\r\n\r\n/*right-side-start*/\n.main {\r\n  display: none;\n}\n.active {\r\n  display: block;\n}\n.main {\r\n  padding: 40px;\n}\n.main small {\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  margin-top: 2px;\r\n  height: 30px;\r\n  width: 30px;\r\n  background-color: #ccc;\r\n  border-radius: 50%;\r\n  color: yellow;\r\n  font-size: 19px;\n}\n.text {\r\n  margin-top: 20px;\n}\n.congrats {\r\n  text-align: center;\n}\n.text p {\r\n  margin-top: 10px;\r\n  font-size: 13px;\r\n  font-weight: 700;\r\n  color: #cbced4;\n}\n.input-text {\r\n  margin: 30px 0;\r\n  display: flex;\r\n  gap: 20px;\n}\n.input-text .input-div {\r\n  width: 100%;\r\n  position: relative;\n}\ninput[type=\"text\"] {\r\n  width: 100%;\r\n  height: 40px;\r\n  border: none;\r\n  outline: 0;\r\n  border-radius: 5px;\r\n  border: 1px solid #cbced4;\r\n  gap: 20px;\r\n  box-sizing: border-box;\r\n  padding: 0px 10px;\n}\nselect {\r\n  width: 100%;\r\n  height: 40px;\r\n  border: none;\r\n  outline: 0;\r\n  border-radius: 5px;\r\n  border: 1px solid #cbced4;\r\n  gap: 20px;\r\n  box-sizing: border-box;\r\n  padding: 0px 10px;\n}\n.input-text .input-div span {\r\n  position: absolute;\r\n  top: 10px;\r\n  left: 10px;\r\n  font-size: 14px;\r\n  transition: all 0.5s;\n}\n.input-div input:focus~span,\r\n.input-div input:valid~span {\r\n  top: -15px;\r\n  left: 6px;\r\n  font-size: 10px;\r\n  font-weight: 600;\n}\n.input-div span {\r\n  top: -15px;\r\n  left: 6px;\r\n  font-size: 10px;\n}\n.buttons button {\r\n  height: 40px;\r\n  width: 100px;\r\n  border: none;\r\n  border-radius: 5px;\r\n  background-color: #0075ff;\r\n  font-size: 12px;\r\n  color: #fff;\r\n  cursor: pointer;\n}\n.button_space {\r\n  display: flex;\r\n  gap: 20px;\n}\n.button_space button:nth-child(1) {\r\n  background-color: #fff;\r\n  color: #000;\r\n  border: 1px solid#000;\n}\n.user_card {\r\n  margin-top: 20px;\r\n  margin-bottom: 40px;\r\n  height: 200px;\r\n  width: 100%;\r\n  border: 1px solid #c7d3d9;\r\n  border-radius: 10px;\r\n  display: flex;\r\n  overflow: hidden;\r\n  position: relative;\r\n  box-sizing: border-box;\n}\n.user_card span {\r\n  height: 80px;\r\n  width: 100%;\r\n  background-color: #dfeeff;\n}\n.circle {\r\n  position: absolute;\r\n  top: 40px;\r\n  left: 60px;\n}\n.circle span {\r\n  height: 70px;\r\n  width: 70px;\r\n  background-color: #fff;\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  border: 2px solid #fff;\r\n  border-radius: 50%;\n}\n.circle span img {\r\n  width: 100%;\r\n  height: 100%;\r\n  border-radius: 50%;\r\n  -o-object-fit: cover;\r\n     object-fit: cover;\n}\n.social {\r\n  display: flex;\r\n  position: absolute;\r\n  top: 100px;\r\n  right: 10px;\n}\n.social span {\r\n  height: 30px;\r\n  width: 30px;\r\n  border-radius: 7px;\r\n  background-color: #fff;\r\n  border: 1px solid #cbd6dc;\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  margin-left: 10px;\r\n  color: #cbd6dc;\n}\n.social span i {\r\n  cursor: pointer;\n}\n.heart {\r\n  color: red !important;\n}\n.share {\r\n  color: red !important;\n}\n.user_name {\r\n  position: absolute;\r\n  top: 110px;\r\n  margin: 10px;\r\n  padding: 0 30px;\r\n  display: flex;\r\n  flex-direction: column;\r\n  width: 100%;\n}\n.user_name h3 {\r\n  color: #4c5b68;\n}\n.detail {\r\n  /*margin-top:10px;*/\r\n  display: flex;\r\n  justify-content: space-between;\r\n  margin-right: 50px;\n}\n.detail p {\r\n  font-size: 12px;\r\n  font-weight: 700;\n}\n.detail p a {\r\n  text-decoration: none;\r\n  color: blue;\n}\n.checkmark__circle {\r\n  stroke-dasharray: 166;\r\n  stroke-dashoffset: 166;\r\n  stroke-width: 2;\r\n  stroke-miterlimit: 10;\r\n  stroke: #7ac142;\r\n  fill: none;\r\n  animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;\n}\n.checkmark {\r\n  width: 56px;\r\n  height: 56px;\r\n  border-radius: 50%;\r\n  display: block;\r\n  stroke-width: 2;\r\n  stroke: #fff;\r\n  stroke-miterlimit: 10;\r\n  margin: 10% auto;\r\n  box-shadow: inset 0px 0px 0px #7ac142;\r\n  animation: fill 0.4s ease-in-out 0.4s forwards, scale 0.3s ease-in-out 0.9s both;\n}\n.checkmark__check {\r\n  transform-origin: 50% 50%;\r\n  stroke-dasharray: 48;\r\n  stroke-dashoffset: 48;\r\n  animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;\n}\n@keyframes stroke {\n100% {\r\n    stroke-dashoffset: 0;\n}\n}\n@keyframes scale {\n0%,\r\n  100% {\r\n    transform: none;\n}\n50% {\r\n    transform: scale3d(1.1, 1.1, 1);\n}\n}\n@keyframes fill {\n100% {\r\n    box-shadow: inset 0px 0px 0px 30px #7ac142;\n}\n}\n.warning {\r\n  border: 1px solid red !important;\n}\r\n\r\n/*right-side-end*/\n@media (max-width: 750px) {\n.container {\r\n    height: scroll;\n}\n.container .card {\r\n    max-width: 350px;\r\n    height: auto !important;\r\n    margin: 30px 0;\n}\n.container .card .right-side {\r\n    width: 100%;\n}\n.input-text {\r\n    /* display: block; */\n}\n.input-text .input-div {\r\n    /* margin-top: 20px; */\n}\n.container .card .left-side {\r\n    display: none;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
