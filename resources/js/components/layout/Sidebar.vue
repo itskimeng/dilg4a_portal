@@ -70,17 +70,28 @@ export default {
                     ],
                 },
                 {
-                    link: '/',
+                    link: '/dashboard',
                     name: 'RICTU',
                     tooltip: 'RICTU',
-                    icon: 'icon-layout menu-icon',
+                    icon: 'icon-grid menu-icon',
+                    children: [
+                        {
+                            link: '/gss/AnnualProcurementPlan',
+                            name: 'Reports and Statistics',
+                            tooltip: 'Buttons',
+                            icon: 'icon-grid menu-icon',
+                        },
+                        {
+                            link: '/gss/procurement',
+                            name: 'ICT TA Tickets',
+                            tooltip: 'Buttons',
+                            icon: 'icon-grid menu-icon',
+                        },
+                      
+
+                    ],
                 },
-                {
-                    link: '/ExampleComponent',
-                    name: 'ExampleComponent',
-                    tooltip: 'RICTU',
-                    icon: 'icon-layout menu-icon',
-                }
+              
 
                 // Add more menu items as needed
             ],

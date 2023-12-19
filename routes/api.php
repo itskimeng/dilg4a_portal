@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AppItemController;
+use App\Http\Controllers\PurchaseRequestController;
 use App\Models\AppItemModel;
+use App\Models\PurchaseRequestModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 /*
@@ -31,6 +33,11 @@ Route::middleware('api')->group(function () {
     Route::get('appitems', [AppItemController::class, 'getAppData']);
 
 });
+Route::middleware('api')->group(function () {
+    Route::get('generatePurchaseRequestNo', [PurchaseRequestController::class, 'generatePurchaseRequestNo']);
+
+});
+
 Route::middleware('api')->group(function () {
     Route::get('generateStockNumber', [AppItemController::class, 'generateStockNumber']);
 });

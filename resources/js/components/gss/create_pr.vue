@@ -441,7 +441,6 @@ select {
       <!-- partial -->
       <!-- partial:partials/_sidebar.html -->
       <Sidebar />
-      <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
           <BreadCrumbs />
@@ -481,36 +480,51 @@ select {
                     <!-- Your form inputs go here -->
                     <div class="input-text" :style="{ display: shouldDisplayInput(0) }">
                       <div class="input-div" v-if="index === 0">
-                        <input v-model="formData[index].firstName" type="text" required />
+                        <input v-model="purchase_no" type="text" required />
                         <span>Purchase Request No.</span>
                       </div>
                     </div>
-                    <div class="input-text" :style="{ display: shouldDisplayInput(1) }">
-                      <div class="input-div" v-if="index === 1">
-                        <input v-model="formData[index].schoolName" type="text" required />
-                        <span>Office</span>
+                    <div class="row">
+                      <div class="col-md-12 col-sm-12 col-xs-12 col-lg-6">
+                        <div class="form-group" :style="{ display: shouldDisplayInput(1) }">
+                          <label for="exampleInputPassword1">Office</label>
+                          <select class="form-control">
+                            <option v-for="option in pmo" :key="option.value" :value="option.value">{{ option.label
+                            }}</option>
+                          </select>
+                        </div>
                       </div>
-                      <div class="input-div" v-if="index === 1">
-                        <input v-model="formData[index].boardName" type="text" required />
-                        <span>Type</span>
+                      <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group" :style="{ display: shouldDisplayInput(1) }">
+                          <label for="exampleInputPassword1">Procurement Type</label>
+                          <select class="form-control">
+                            <option v-for="option in procurementType" :key="option.value" :value="option.value">{{
+                              option.label
+                            }}</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group" :style="{ display: shouldDisplayInput(1) }">
+                          <label for="exampleInputPassword1">Purchase Request Date</label>
+                          <input type="date" class="form-control" value="12/12/2023" required />
+                        </div>
+                      </div>
+                      <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group" :style="{ display: shouldDisplayInput(1) }">
+                          <label for="exampleInputPassword1">Target Date</label>
+                          <input type="date" class="form-control" value="12/12/2023" required />
+                        </div>
+                      </div>
+                      <div class="col-lg-12">
+                        <div class="form-group" :style="{ display: shouldDisplayInput(1) }">
+                          <label for="exampleInputPassword1">Particulars</label>
+                          <textarea class="form-control"> </textarea>
+                        </div>
                       </div>
                     </div>
-                    <div class="input-text" :style="{ display: shouldDisplayInput(1) }">
-                      <div class="input-div" v-if="index === 1">
-                        <input v-model="formData[index].boardName" type="text" required />
-                        <span>Purchase Date</span>
-                      </div>
-                      <div class="input-div" v-if="index === 1">
-                        <input v-model="formData[index].boardName" type="text" required />
-                        <span>Target Date</span>
-                      </div>
-                    </div>
-                    <div class="input-text" :style="{ display: shouldDisplayInput(1) }">
-                      <div class="input-div" v-if="index === 1">
-                        <input v-model="formData[index].boardName" type="text" required />
-                        <span>Particulars</span>
-                      </div>
-                    </div>
+
+
                     <div class="input-text" :style="{ display: shouldDisplayInput(2) }">
                       <div class="input-div" v-if="index === 2">
                         <input type="text" v-model="searchValue" class="form-control" name="" id="" />
@@ -524,7 +538,8 @@ select {
                               <router-link :to="{ name: 'Dashboard', params: { id: 1 } }">
                                 <img src="../../../assets/proc1.jpg" class="card-img-top" alt="Sunset Over the Sea" />
                               </router-link>
-                              <p style="text-align: center;margin-top:-40px;font-weight: bolder;"> {{item.sn}} <br>{{ shorten(item.item_title, 11) }}</p>
+                              <p style="text-align: center;margin-top:-40px;font-weight: bolder;"> {{ item.sn }} <br>{{
+                                shorten(item.item_title, 11) }}</p>
                               <p style="margin-top: -10px;text-align:center">Php. {{ item.app_price }}</p>
 
                             </div>
@@ -536,6 +551,37 @@ select {
 
                       </div>
                     </div>
+
+
+                    <div class="col-lg-12" :style="{ display: shouldDisplayInput(3) }">
+                      <div class="input-div" v-if="index === 3">
+                        
+                        <div class="row" style="height: 400px;overflow-y:auto">
+                          <table id="item_table" class="table table-striped table-borderless "
+                            style="height:300px;overflow: auto;">
+                            <thead>
+                              <tr role="row">
+                                <th class="select-checkbox sorting_disabled" rowspan="1" colspan="1" aria-label="Quote#"
+                                  style="width: 61px;"> Stock #</th>
+                                <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
+                                  aria-label="Business type: activate to sort column ascending" style="width: 20px;">Item
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
+                                  aria-label="Updated at: activate to sort column ascending" style="width: 93px;">App
+                                  Price</th>
+                                <th class="details-control sorting_disabled" rowspan="1" colspan="1" aria-label=""
+                                  style="width: 100px;">App Year</th>
+                                <th class="details-control sorting_disabled" rowspan="1" colspan="1" aria-label=""
+                                  style="width: 4px;"> Actions</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+
 
 
                     <!-- Add a button to go to the next step -->
@@ -558,14 +604,9 @@ select {
 
           </div>
         </div>
-        <!-- content-wrapper ends -->
-        <!-- partial:partials/_footer.html -->
         <FooterVue />
-        <!-- partial -->
       </div>
-      <!-- main-panel ends -->
     </div>
-    <!-- page-body-wrapper ends -->
   </div>
 </template>
 
@@ -582,6 +623,7 @@ import "vue3-toastify/dist/index.css";
 export default {
   data() {
     return {
+      purchase_no: null,
       formnumber: 0,
       searchValue: '',
       searchResultsCount: null,
@@ -611,6 +653,20 @@ export default {
         "Add your profile picture and let companies find you fast.",
         // Add more content as needed
       ],
+      procurementType: [
+        { value: '1', label: 'Catering Services' },
+        { value: '2', label: 'Meals, Venue and Accomodation' },
+        { value: '3', label: 'Repair and Maintenance' },
+        { value: '4', label: 'Supplies, Materials and Devices' },
+        { value: '5', label: 'Other Services' },
+        { value: '6', label: 'Reimbursement and Petty Cash' }
+      ],
+      pmo: [
+        { value: '1', label: 'ORD' },
+        { value: '2', label: 'FAD' },
+        { value: '3', label: 'LGMED' },
+        { value: '4', label: 'LGCDD' },
+      ]
     };
   },
   computed: {
@@ -644,6 +700,7 @@ export default {
   },
   mounted() {
     this.fetchAppData();
+    this.generatePurchaseRequestNo();
     axios
       .get('../api/appitems')
       .then(response => (this.item_title = response.data))
@@ -707,6 +764,24 @@ export default {
       }).catch((error) => console.log(error));
 
     },
+    generatePurchaseRequestNo() {
+      axios.get('../api/generatePurchaseRequestNo')
+        .then(response => {
+          const currentDate = new Date();
+          const year = currentDate.getFullYear();
+          const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Adding 1 because months are zero-indexed
+          const purchaseNoFormat = `${year}-${month}`;
+
+          const purchaseNoFromApi = response.data[0].pr_count;
+          const formattedSequence = purchaseNoFromApi.toString().padStart(5, '0');
+
+          this.purchase_no = `${purchaseNoFormat}-${formattedSequence}`;
+        })
+        .catch(error => {
+          console.error('Error fetching data', error);
+        });
+
+    }
   },
   components: {
     Navbar,
