@@ -28,5 +28,7 @@ class PurchaseRequestModel extends Model
         'availability_code',
         'is_urgent',
         'requested_by',
+        'updated_at',
+        'created_at'
     ];
 }

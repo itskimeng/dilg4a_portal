@@ -1,6 +1,6 @@
 <style>
 .container .card {
-  height: 600px;
+  height: 840px;
   width: auto;
   background-color: #fff;
   position: relative;
@@ -12,7 +12,6 @@
 .container .card .form {
   width: 100%;
   height: 100%;
-
   display: flex;
 }
 
@@ -215,7 +214,7 @@ select {
   font-size: 10px;
 }
 
-.buttons button {
+/* .buttons button {
   height: 40px;
   width: 100px;
   border: none;
@@ -224,7 +223,7 @@ select {
   font-size: 12px;
   color: #fff;
   cursor: pointer;
-}
+} */
 
 
 
@@ -431,174 +430,274 @@ select {
     display: none;
   }
 }
+
+.selected img {
+  border: 2px solid #007bff;
+  /* Change the border color as needed */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  /* Change the box shadow as needed */
+}
 </style>
 <template>
   <div class="container-scroller">
-    <!-- partial:partials/_navbar.html -->
     <Navbar></Navbar>
-    <!-- partial -->
     <div class="container-fluid page-body-wrapper">
-      <!-- partial -->
-      <!-- partial:partials/_sidebar.html -->
       <Sidebar />
       <div class="main-panel">
         <div class="content-wrapper">
           <BreadCrumbs />
-
-          <div class="container">
-            <div class="card" style="margin-left: -10%;">
-              <div class="form">
-                <div class="left-side">
-                  <div class="left-heading">
-                    <h3>Create Purchase Request</h3>
+          <div class="row">
+            <div class="col-lg-3">
+              <div class="card card_shadow">
+                <div class="card-body" style="height: 320px;text-align: center;">
+                  <img src="../../../assets/logo.png" class="profile_img">
+                  <div class="user_info">
+                    <p>Office:</p>
+                    <p>ORD-RICTU</p>
                   </div>
-                  <div class="steps-content">
-                    <h3>
-                      Step <span class="step-number">{{ formnumber + 1 }}</span>
-                    </h3>
-                    <p v-for="(content, index) in stepNumContent" :key="index"
-                      :class="{ 'step-number-content': true, active: index === formnumber, 'd-none': index !== formnumber, }">
-                      {{ content }} </p>
+                  <div class="user_info">
+                    <p>Position:</p>
+                    <p>Database Admin</p>
                   </div>
-                  <ul class="progress-barv2" style="background-color: #30476 !important">
-                    <li v-for="(step, index) in steps" :key="index" :class="{ active: index === formnumber }">
-                      {{ step }}
-                    </li>
-                  </ul>
+                  <div class="user_info">
+                    <p>Cancelled PR:</p>
+                    <p>10</p>
+                  </div>
+                  <div class="user_info">
+                    <p>Total PR's:</p>
+                    <p>10</p>
+                  </div>
                 </div>
-                <div class="right-side">
-
-
-                  <div v-for="(main, index) in mainForms" :key="index" class="main"
-                    :class="{ active: index === formnumber }">
-                    <small><i class="fa fa-smile-o"></i></small>
-                    <div class="text">
-                      <h2>{{ main }}</h2>
-                      <p>{{ stepNumContent[index] }}</p>
+              </div>
+              <div class="card card_shadow" style="margin-top: 10px;">
+                <div class="card-body" style="height: 500px;">
+                  <h5>Supplier Rankings</h5><select class="form-control">
+                    <option>This Week</option>
+                    <option>This Month</option>
+                    <option>This Year</option>
+                  </select>
+                  <div class="card" style="margin-top: 10px;">
+                    <div class="card-body" style="height: 90px;">
+                      <div class="media" style="margin-top: -25px;">
+                        <div style="width: 65px; height: 65px;">
+                          <img src="../../../assets/logo.png" alt="..."
+                            style="margin-top:10px;border-radius: 5px; width: 100%; object-fit: cover; margin-left: -14px;">
+                        </div>
+                        <div class="media-body">
+                          <div class="media-content" style="margin-top:5%;">Supplier Title<br>
+                          </div>
+                          <div class="media-content">0955136565</div>
+                          <div class="media-content">Calamba City, Laguna</div>
+                        </div>
+                      </div>
+                      <p class="rank_wrapper rank_banner">1st</p>
                     </div>
-                    <!-- Your existing form inputs go here -->
-                    <!-- Your form inputs go here -->
-                    <div class="input-text" :style="{ display: shouldDisplayInput(0) }">
-                      <div class="input-div" v-if="index === 0">
-                        <input v-model="purchase_no" type="text" required />
-                        <span>Purchase Request No.</span>
+                  </div>
+                  <div class="card" style="margin-top: 10px;">
+                    <div class="card-body" style="height: 90px;">
+                      <div class="media" style="margin-top: -25px;">
+                        <div style="width: 65px; height: 65px;">
+                          <img src="../../../assets/logo.png" alt="..."
+                            style="border-radius: 5px; width: 100%; object-fit: cover; margin-left: -14px;">
+                        </div>
+                        <div class="media-body">
+                          <div class="media-content"><small>Supplier Title</small><br></div>
+                          <div class="media-content" style="margin-top:-1%;"></div>
+                          <div class="media-content" style="margin-top:-2%;"></div>
+                        </div>
                       </div>
+                      <p class="rank_wrapper rank_banner2">2nd</p>
                     </div>
-                    <div class="row">
-                      <div class="col-md-12 col-sm-12 col-xs-12 col-lg-6">
-                        <div class="form-group" :style="{ display: shouldDisplayInput(1) }">
-                          <label for="exampleInputPassword1">Office</label>
-                          <select class="form-control">
-                            <option v-for="option in pmo" :key="option.value" :value="option.value">{{ option.label
-                            }}</option>
-                          </select>
+                  </div>
+                  <div class="card" style="margin-top: 10px;">
+                    <div class="card-body" style="height: 90px;">
+                      <div class="media" style="margin-top: -25px;">
+                        <div style="width: 65px; height: 65px;">
+                          <img src="../../../assets/logo.png" alt="..."
+                            style="border-radius: 5px; width: 100%; object-fit: cover; margin-left: -14px;">
+                        </div>
+                        <div class="media-body">
+                          <div class="media-content"><small>Supplier Title</small><br></div>
+                          <div class="media-content" style="margin-top:-1%;"></div>
+                          <div class="media-content" style="margin-top:-2%;"></div>
                         </div>
                       </div>
-                      <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
-                        <div class="form-group" :style="{ display: shouldDisplayInput(1) }">
-                          <label for="exampleInputPassword1">Procurement Type</label>
-                          <select class="form-control">
-                            <option v-for="option in procurementType" :key="option.value" :value="option.value">{{
-                              option.label
-                            }}</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
-                        <div class="form-group" :style="{ display: shouldDisplayInput(1) }">
-                          <label for="exampleInputPassword1">Purchase Request Date</label>
-                          <input type="date" class="form-control" value="12/12/2023" required />
-                        </div>
-                      </div>
-                      <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
-                        <div class="form-group" :style="{ display: shouldDisplayInput(1) }">
-                          <label for="exampleInputPassword1">Target Date</label>
-                          <input type="date" class="form-control" value="12/12/2023" required />
-                        </div>
-                      </div>
-                      <div class="col-lg-12">
-                        <div class="form-group" :style="{ display: shouldDisplayInput(1) }">
-                          <label for="exampleInputPassword1">Particulars</label>
-                          <textarea class="form-control"> </textarea>
-                        </div>
-                      </div>
+                      <p class="rank_wrapper rank_banner3">3rd</p>
                     </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <div class="col-md-9 grid-margin mb-4 stretch-card">
+              <div class="container">
+                <div class="card" style="margin-left: -2%;">
+                  <div class="form">
+                    <div class="left-side">
+                      <div class="left-heading">
+                        <h3>Create Purchase Request</h3>
+                      </div>
+                      <div class="steps-content">
+                        <h3>
+                          Step <span class="step-number">{{ formnumber + 1 }}</span>
+                        </h3>
+                        <p v-for="(content, index) in stepNumContent" :key="index"
+                          :class="{ 'step-number-content': true, active: index === formnumber, 'd-none': index !== formnumber, }">
+                          {{ content }} </p>
+                      </div>
+                      <ul class="progress-barv2" style="background-color: #30476 !important">
+                        <li v-for="(step, index) in steps" :key="index" :class="{ active: index === formnumber }">
+                          {{ step }}
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="right-side">
 
 
-                    <div class="input-text" :style="{ display: shouldDisplayInput(2) }">
-                      <div class="input-div" v-if="index === 2">
-                        <input type="text" v-model="searchValue" class="form-control" name="" id="" />
-                        <div v-if="searchResultsCount !== null">
-                          <p>{{ searchResultsCount }} result(s) found.</p>
+                      <div v-for="(main, index) in mainForms" :key="index" class="main"
+                        :class="{ active: index === formnumber }">
+                        <small><i class="fa fa-smile-o"></i></small>
+                        <div class="text">
+                          <h2>{{ main }}</h2>
+                          <p>{{ stepNumContent[index] }}</p>
                         </div>
-                        <div class="row" style="height: 300px;overflow-y:auto">
+                        <!-- Your existing form inputs go here -->
+                        <!-- Your form inputs go here -->
+                        <div class="input-text" :style="{ display: shouldDisplayInput(0) }">
+                          <div class="input-div" v-if="index === 0">
+                            <input v-model="purchase_no" type="text" required />
+                            <span>Purchase Request No.</span>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-12 col-sm-12 col-xs-12 col-lg-6">
+                            <div class="form-group" :style="{ display: shouldDisplayInput(1) }">
+                              <label for="exampleInputPassword1">Office</label>
+                              <select class="form-control"  v-model="purchaseRequestData.pmo">
+                                <option v-for="option in pmo" :key="option.value" :value="option.value">{{ option.label
+                                }}</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-group" :style="{ display: shouldDisplayInput(1) }">
+                              <label for="exampleInputPassword1">Procurement Type</label>
+                              <select class="form-control" v-model="purchaseRequestData.pr_type">
+                                <option v-for="option in procurementType" :key="option.value" :value="option.value">{{
+                                  option.label
+                                }}</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-group" :style="{ display: shouldDisplayInput(1) }">
+                              <label for="exampleInputPassword1">Purchase Request Date</label>
+                              <input type="date" v-model="purchaseRequestData.pr_date" class="form-control" required />
+                            </div>
+                          </div>
+                          <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-group" :style="{ display: shouldDisplayInput(1) }">
+                              <label for="exampleInputPassword1">Target Date</label>
+                              <input type="date" v-model="purchaseRequestData.target_date" class="form-control"  required />
+                            </div>
+                          </div>
+                          <div class="col-lg-12">
+                            <div class="form-group" :style="{ display: shouldDisplayInput(1) }">
+                              <label for="exampleInputPassword1">Particulars</label>
+                              <textarea v-model="purchaseRequestData.particulars" class="form-control"> </textarea>
+                            </div>
+                          </div>
+                        </div>
 
-                          <div class="col-lg-4 d-none d-lg-block" v-for="item in item_title" v-bind:key="item.id">
-                            <div class="card" style="height: 10% !important;">
-                              <router-link :to="{ name: 'Dashboard', params: { id: 1 } }">
-                                <img src="../../../assets/proc1.jpg" class="card-img-top" alt="Sunset Over the Sea" />
-                              </router-link>
-                              <p style="text-align: center;margin-top:-40px;font-weight: bolder;"> {{ item.sn }} <br>{{
-                                shorten(item.item_title, 11) }}</p>
-                              <p style="margin-top: -10px;text-align:center">Php. {{ item.app_price }}</p>
+                        <div class="input-text" :style="{ display: shouldDisplayInput(2) }">
+                          <div class="input-div" v-if="index === 2">
+                            <p v-if="index === 2" class="pull-right" style="margin-top:-30px;">My Cart: {{
+                              getSelectedItemCount() }}</p>
 
+                            <input type="text" v-model="searchValue" class="form-control" name="" id="" />
+                            <div v-if="searchResultsCount !== null">
+                              <p>{{ searchResultsCount }} result(s) found.</p>
+                            </div>
+                            <div class="row" style="height: 500px;overflow-y:auto">
+
+                              <div class="col-lg-4 d-none d-lg-block" v-for="item in item_title" :key="item.id">
+                                <div :class="{ 'card': true, 'selected': isSelected(item.id) }"
+                                  style="height: 10% !important;">
+                                  <img @click="toggleItemSelection(item.id)" src="../../../assets/proc1.jpg"
+                                    class="card-img-top" alt="Sunset Over the Sea" />
+                                  <p style="text-align: center;margin-top:-40px;font-weight: bolder;"> {{ item.sn }}
+                                    <br>{{ shorten(item.item_title, 11) }}
+                                  </p>
+                                  <p style="margin-top: -10px;text-align:center">Php. {{ item.app_price }}</p>
+                                </div>
+                              </div>
+
+
+                            </div>
+
+
+
+
+                          </div>
+                        </div>
+
+
+                        <div class="col-lg-12" :style="{ display: shouldDisplayInput(3) }">
+                          <div class="input-div" v-if="index === 3">
+
+                            <div class="row" style="height: 650px;overflow-y:auto">
+                              <table id="item_table" class="table table-striped table-borderless "
+                                style="height:300px;overflow: auto;">
+                                <thead>
+                                  <tr role="row">
+                                    <th class="select-checkbox sorting_disabled" rowspan="1" colspan="1"
+                                      aria-label="Quote#" style="width: 61px;"> Stock #</th>
+                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
+                                      aria-label="Business type: activate to sort column ascending" style="width: 20px;">
+                                      Item
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
+                                      aria-label="Business type: activate to sort column ascending" style="width: 20px;">
+                                      Description
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
+                                      aria-label="Updated at: activate to sort column ascending" style="width: 93px;">App
+                                      Price</th>
+
+                                    <th class="details-control sorting_disabled" rowspan="1" colspan="1" aria-label=""
+                                      style="width: 4px;"> Actions</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                              </table>
                             </div>
                           </div>
                         </div>
 
 
 
+                        <!-- Add a button to go to the next step -->
+                        <div v-if="index < mainForms.length - 1" class="buttons button_space">
+                          <button class="btn btn-primary back_button" @click="backStep" v-if="index > 0">
+                            Back
+                          </button>
+                          <button  class="btn btn-primary next_button" @click="nextStep">Next Step</button>
+                          <button v-if="index == mainForms.length - 3" class="btn btn-success next_button" @click="updatePurchaseRequestDetails">Save as Draft</button>
+                          <button v-if="index == mainForms.length - 4 && !$route.query.pr_no" @click="savePurchaseNo"
+                            class="btn btn-success submit_button">Save as Draft</button>
+                        </div>
 
-                      </div>
-                    </div>
-
-
-                    <div class="col-lg-12" :style="{ display: shouldDisplayInput(3) }">
-                      <div class="input-div" v-if="index === 3">
-                        
-                        <div class="row" style="height: 400px;overflow-y:auto">
-                          <table id="item_table" class="table table-striped table-borderless "
-                            style="height:300px;overflow: auto;">
-                            <thead>
-                              <tr role="row">
-                                <th class="select-checkbox sorting_disabled" rowspan="1" colspan="1" aria-label="Quote#"
-                                  style="width: 61px;"> Stock #</th>
-                                <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
-                                  aria-label="Business type: activate to sort column ascending" style="width: 20px;">Item
-                                </th>
-                                <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
-                                  aria-label="Updated at: activate to sort column ascending" style="width: 93px;">App
-                                  Price</th>
-                                <th class="details-control sorting_disabled" rowspan="1" colspan="1" aria-label=""
-                                  style="width: 100px;">App Year</th>
-                                <th class="details-control sorting_disabled" rowspan="1" colspan="1" aria-label=""
-                                  style="width: 4px;"> Actions</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                          </table>
+                        <!-- Add a button to submit the form on the last step -->
+                        <div v-if="index === mainForms.length - 1" class="buttons button_space">
+                          <button class="btn btn-primary back_button" @click="backStep">Back</button>
+                          <button class="btn btn-success submit_button" @click="submitForm">Submit</button>
                         </div>
                       </div>
                     </div>
-
-
-
-                    <!-- Add a button to go to the next step -->
-                    <div v-if="index < mainForms.length - 1" class="buttons button_space">
-                      <button class="back_button" @click="backStep" v-if="index > 0">
-                        Back
-                      </button>
-                      <button class="next_button" @click="nextStep">Next Step</button>
-                    </div>
-
-                    <!-- Add a button to submit the form on the last step -->
-                    <div v-if="index === mainForms.length - 1" class="buttons button_space">
-                      <button class="back_button" @click="backStep">Back</button>
-                      <button class="submit_button" @click="submitForm">Submit</button>
-                    </div>
                   </div>
                 </div>
+
               </div>
             </div>
 
@@ -616,6 +715,7 @@ import Sidebar from "../layout/Sidebar.vue";
 import FooterVue from "../layout/Footer.vue";
 import BreadCrumbs from "../dashboard_tiles/BreadCrumbs.vue";
 import item_table from "./item_table.vue";
+
 import axios from "axios";
 import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
@@ -623,27 +723,35 @@ import "vue3-toastify/dist/index.css";
 export default {
   data() {
     return {
+  
       purchase_no: null,
+      searchResultsCount: null,
       formnumber: 0,
       searchValue: '',
-      searchResultsCount: null,
 
 
       item_title: [], // Assuming item_title is an array of objects
+      selectedItems: [], // Array to store selected item IDs
 
       formData: Array.from({ length: 4 }, () => ({})),
+      purchaseRequestData: {
+        pmo: null,
+        pr_type: null,
+        pr_date: null,
+        target_date: null,
+        particulars: null
+      },
       steps: [
         "Generate Purchase Request No.",
         "Purchase Request Information",
         "Choose APP Item",
-        "Save Data",
+        "Reviewing Cart",
       ],
       mainForms: [
         "Generate Purchase Request No.",
         "Purchase Request Information",
         "Choose APP Item",
         "Review your cart",
-        "User Photo",
         // Add more forms as needed
       ],
       stepNumContent: [
@@ -670,6 +778,12 @@ export default {
     };
   },
   computed: {
+    isSelected: function () {
+      const selectedSet = new Set(this.selectedItems);
+      return function (itemId) {
+        return selectedSet.has(itemId);
+      };
+    },
     item_title: function () {
       var app_item = this.item_title;
       var searchValue = this.searchValue.trim().toLowerCase();
@@ -701,6 +815,7 @@ export default {
   mounted() {
     this.fetchAppData();
     this.generatePurchaseRequestNo();
+    this.fetchPurchaseRequestDetails();
     axios
       .get('../api/appitems')
       .then(response => (this.item_title = response.data))
@@ -726,16 +841,32 @@ export default {
       }
     },
     submitForm() {
-      // Handle form submission logic here
-
-      // After submission, you might want to reset the form or show a success message
+      toast.success('Successfully save!', {
+        autoClose: 1000,
+      });
       this.formnumber++;
     },
     validateForm() {
       // Implement your form validation logic
       return true; // For simplicity, always return true in this example
     },
+    toggleItemSelection(itemId) {
+      // Check if the item is already selected
+      const index = this.selectedItems.indexOf(itemId);
+      if (index !== -1) {
+        // If selected, remove it from the array
+        this.selectedItems.splice(index, 1);
+      } else {
+        // If not selected, add it to the array
+        this.selectedItems.push(itemId);
+      }
 
+      // Print the ID of the selected item to the console
+      console.log('Selected Item ID:', itemId);
+    },
+    getSelectedItemCount() {
+      return this.selectedItems.length;
+    },
     //feth data
     fetchAppData() {
       let btn = null;
@@ -746,24 +877,38 @@ export default {
           ordering: false,
           paging: true,
           pageLength: 10,
-
           columns: [
             { data: 'sn' },
-            { data: 'item_category_title' },
-            { data: 'price' },
-            { data: 'app_year' },
             {
-              data: null, orderable: false, render: function (data) {
+              data: 'item_category_title',
+              render: function (data, type, row) {
+                // Limit the item_category_title to 5 characters
+                if (type === 'display') {
+                  return data.length > 5 ? data.substr(0, 40) + '...' : data;
+                }
+                return data;
+              }
+            },
+            {
+              data: null,
+              orderable: false,
+              render: function (data) {
+                return '<label class="badge badge-success" @click="deletePid(' + data.id + ')">Add Item Description</label>';
+              },
+            },
+            { data: 'price' },
+            {
+              data: null,
+              orderable: false,
+              render: function (data) {
                 return '<label class="badge badge-success" @click="deletePid(' + data.id + ')">Add to Cart</label>';
               },
             },
-
           ],
-
         });
       }).catch((error) => console.log(error));
-
     },
+
     generatePurchaseRequestNo() {
       axios.get('../api/generatePurchaseRequestNo')
         .then(response => {
@@ -774,14 +919,85 @@ export default {
 
           const purchaseNoFromApi = response.data[0].pr_count;
           const formattedSequence = purchaseNoFromApi.toString().padStart(5, '0');
+          //set the draft pr no of the user
+          if (this.$route.query.pr_no) {
+            this.purchase_no = this.$route.query.pr_no;
+          } else {
+            this.purchase_no = `${purchaseNoFormat}-${formattedSequence}`;
+          }
 
-          this.purchase_no = `${purchaseNoFormat}-${formattedSequence}`;
         })
         .catch(error => {
           console.error('Error fetching data', error);
         });
 
+    },
+    //show data
+     fetchPurchaseRequestDetails() {
+      const pr_no = this.$route.query.pr_no;
+
+      // Make an API call to get purchase request details based on pr_no
+      axios.get(`/api/get_purchase_request_details?pr_no=${pr_no}`)
+        .then((response) => {
+          // Update purchaseRequestData with the fetched values
+          this.purchaseRequestData.pmo = response.data.pmo;
+          this.purchaseRequestData.pr_type = response.data.type;
+          this.purchaseRequestData.pr_date = response.data.pr_date;
+          this.purchaseRequestData.target_date = response.data.target_date;
+          this.purchaseRequestData.particulars = response.data.purpose;
+        })
+        .catch((error) => {
+          console.error('Error fetching purchase request details:', error);
+        });
+    },
+    //step 1
+    savePurchaseNo() {
+
+      axios.post('/api/post_insert_purchaseNo', {
+        pr_no: this.purchase_no,
+        updated_at: null,
+        created_at: null
+      }
+      ).then(() => {
+
+        toast.success('Successfully added!', {
+          autoClose: 100
+        });
+
+
+        setTimeout(() => {
+          this.$router.push({ path: '/gss/create_pr', query: { pr_no: this.purchase_no } });
+        }, 2000); // Adjust the delay as needed
+
+      }).catch((error) => {
+
+      })
+
+    },
+    //step 2
+    updatePurchaseRequestDetails() {
+      axios.post('/api/post_update_purchaseRequestDetails', {
+        pr_no:      this.$route.query.pr_no,
+        pmo:        this.purchaseRequestData.pmo,
+        type:    this.purchaseRequestData.pr_type,
+        pr_date:    this.purchaseRequestData.pr_date,
+        target_date:this.purchaseRequestData.target_date,
+        purpose:this.purchaseRequestData.particulars,
+      }
+      ).then(() => {
+
+        toast.success('Successfully added!', {
+          autoClose: 100
+        });
+
+
+        
+
+      }).catch((error) => {
+
+      })
     }
+
   },
   components: {
     Navbar,

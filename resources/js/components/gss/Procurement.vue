@@ -18,7 +18,7 @@
 }
 
 .rank_banner {
-    background-color: rgb(248, 182, 0);
+    background-color: rgb(104, 34, 142);
     color: rgb(255, 255, 255);
     font-family: Barlow, sans-serif;
     font-size: 1.25rem;
