@@ -23429,10 +23429,7 @@ __webpack_require__.r(__webpack_exports__);
       formnumber: 0,
       searchValue: '',
       item_title: [],
-      // Assuming item_title is an array of objects
       selectedItems: [],
-      // Array to store selected item IDs
-
       formData: Array.from({
         length: 4
       }, function () {
@@ -23519,6 +23516,7 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this2 = this;
     this.fetchAppData();
+    this.fetchCartDetails();
     this.generatePurchaseRequestNo();
     this.fetchPurchaseRequestDetails();
     axios__WEBPACK_IMPORTED_MODULE_5___default().get('../api/appitems').then(function (response) {
@@ -23560,13 +23558,60 @@ __webpack_require__.r(__webpack_exports__);
       if (index !== -1) {
         // If selected, remove it from the array
         this.selectedItems.splice(index, 1);
+        this.removePrItems(itemId);
       } else {
         // If not selected, add it to the array
         this.selectedItems.push(itemId);
+        //add the selected item id
+        this.addPrItems(itemId);
       }
-
-      // Print the ID of the selected item to the console
-      console.log('Selected Item ID:', itemId);
+      // this.fetchCartDetails();
+    },
+    addPrItems: function addPrItems(selectedItemIds) {
+      var _this3 = this;
+      // Call fetchPRId to get the ID
+      this.fetchPRId().then(function (id) {
+        // Make an API call to your server to add the selected items to the database
+        axios__WEBPACK_IMPORTED_MODULE_5___default().post('/api/post_insert_pritem', {
+          id: id,
+          pr_no: _this3.purchase_no,
+          itemIds: selectedItemIds
+        }).then(function (response) {
+          // Handle the success response
+          vue3_toastify__WEBPACK_IMPORTED_MODULE_6__.toast.success('Items added to the database:', {
+            autoClose: 100
+          });
+        })["catch"](function (error) {
+          // Handle the error
+          console.error('Error adding items to the database:', error);
+        });
+      });
+    },
+    fetchPRId: function fetchPRId() {
+      var pr_no = this.$route.query.pr_no;
+      // Return the promise from axios.get
+      return axios__WEBPACK_IMPORTED_MODULE_5___default().get("/api/get_purchase_request_details?pr_no=".concat(pr_no)).then(function (response) {
+        // Return the value from the response data
+        return response.data.id;
+      })["catch"](function (error) {
+        console.error('Error fetching purchase request details:', error);
+        // Throw the error to propagate it to the next catch block if needed
+        throw error;
+      });
+    },
+    removePrItems: function removePrItems(selectedItemIds) {
+      // Make an API call to your server to remove the selected items from the database
+      axios__WEBPACK_IMPORTED_MODULE_5___default().post('/api/post_remove_pritem', {
+        itemIds: selectedItemIds
+      }).then(function (response) {
+        // Handle the success response
+        vue3_toastify__WEBPACK_IMPORTED_MODULE_6__.toast.success('Items removed from the database:', {
+          autoClose: 100
+        });
+      })["catch"](function (error) {
+        // Handle the error
+        console.error('Error removing items from the database:', error);
+      });
     },
     getSelectedItemCount: function getSelectedItemCount() {
       return this.selectedItems.length;
@@ -23612,8 +23657,49 @@ __webpack_require__.r(__webpack_exports__);
         return console.log(error);
       });
     },
+    fetchCartDetails: function fetchCartDetails() {
+      this.fetchPRId().then(function (id) {
+        axios__WEBPACK_IMPORTED_MODULE_5___default().post('/api/fetchCart', {
+          id: id
+        }).then(function (response) {
+          $('#cart_table').DataTable({
+            retrieve: true,
+            data: response.data,
+            ordering: false,
+            paging: true,
+            pageLength: 10,
+            columns: [{
+              data: 'serial_no'
+            }, {
+              data: 'unit'
+            }, {
+              data: 'procurement',
+              render: function render(data, type, row) {
+                // Limit the 'procurement' text to 40 characters and add ellipsis
+                if (type === 'display') {
+                  return data.length > 40 ? data.substr(0, 40) + '...' : data;
+                }
+                return data;
+              }
+            }, {
+              data: 'description'
+            }, {
+              data: 'serial_no'
+            }, {
+              data: 'app_price'
+            }, {
+              data: 'app_price'
+            }, {
+              data: 'serial_no'
+            }]
+          });
+        })["catch"](function (error) {
+          return console.log(error);
+        });
+      });
+    },
     generatePurchaseRequestNo: function generatePurchaseRequestNo() {
-      var _this3 = this;
+      var _this4 = this;
       axios__WEBPACK_IMPORTED_MODULE_5___default().get('../api/generatePurchaseRequestNo').then(function (response) {
         var currentDate = new Date();
         var year = currentDate.getFullYear();
@@ -23622,10 +23708,10 @@ __webpack_require__.r(__webpack_exports__);
         var purchaseNoFromApi = response.data[0].pr_count;
         var formattedSequence = purchaseNoFromApi.toString().padStart(5, '0');
         //set the draft pr no of the user
-        if (_this3.$route.query.pr_no) {
-          _this3.purchase_no = _this3.$route.query.pr_no;
+        if (_this4.$route.query.pr_no) {
+          _this4.purchase_no = _this4.$route.query.pr_no;
         } else {
-          _this3.purchase_no = "".concat(purchaseNoFormat, "-").concat(formattedSequence);
+          _this4.purchase_no = "".concat(purchaseNoFormat, "-").concat(formattedSequence);
         }
       })["catch"](function (error) {
         console.error('Error fetching data', error);
@@ -23633,24 +23719,24 @@ __webpack_require__.r(__webpack_exports__);
     },
     //show data
     fetchPurchaseRequestDetails: function fetchPurchaseRequestDetails() {
-      var _this4 = this;
+      var _this5 = this;
       var pr_no = this.$route.query.pr_no;
 
       // Make an API call to get purchase request details based on pr_no
       axios__WEBPACK_IMPORTED_MODULE_5___default().get("/api/get_purchase_request_details?pr_no=".concat(pr_no)).then(function (response) {
         // Update purchaseRequestData with the fetched values
-        _this4.purchaseRequestData.pmo = response.data.pmo;
-        _this4.purchaseRequestData.pr_type = response.data.type;
-        _this4.purchaseRequestData.pr_date = response.data.pr_date;
-        _this4.purchaseRequestData.target_date = response.data.target_date;
-        _this4.purchaseRequestData.particulars = response.data.purpose;
+        _this5.purchaseRequestData.pmo = response.data.pmo;
+        _this5.purchaseRequestData.pr_type = response.data.type;
+        _this5.purchaseRequestData.pr_date = response.data.pr_date;
+        _this5.purchaseRequestData.target_date = response.data.target_date;
+        _this5.purchaseRequestData.particulars = response.data.purpose;
       })["catch"](function (error) {
         console.error('Error fetching purchase request details:', error);
       });
     },
     //step 1
     savePurchaseNo: function savePurchaseNo() {
-      var _this5 = this;
+      var _this6 = this;
       axios__WEBPACK_IMPORTED_MODULE_5___default().post('/api/post_insert_purchaseNo', {
         pr_no: this.purchase_no,
         updated_at: null,
@@ -23660,10 +23746,10 @@ __webpack_require__.r(__webpack_exports__);
           autoClose: 100
         });
         setTimeout(function () {
-          _this5.$router.push({
+          _this6.$router.push({
             path: '/gss/create_pr',
             query: {
-              pr_no: _this5.purchase_no
+              pr_no: _this6.purchase_no
             }
           });
         }, 2000); // Adjust the delay as needed
@@ -25481,7 +25567,7 @@ var _hoisted_43 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
     "overflow-y": "auto"
   }
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", {
-  id: "item_table",
+  id: "cart_table",
   "class": "table table-striped table-borderless",
   style: {
     "height": "300px",
@@ -25497,7 +25583,17 @@ var _hoisted_43 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
   style: {
     "width": "61px"
   }
-}, " Stock #"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+}, " Stock Number"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+  "class": "sorting",
+  tabindex: "0",
+  "aria-controls": "example",
+  rowspan: "1",
+  colspan: "1",
+  "aria-label": "Business type: activate to sort column ascending",
+  style: {
+    "width": "20px"
+  }
+}, " Unit "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
   "class": "sorting",
   tabindex: "0",
   "aria-controls": "example",
@@ -25513,11 +25609,11 @@ var _hoisted_43 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
   "aria-controls": "example",
   rowspan: "1",
   colspan: "1",
-  "aria-label": "Business type: activate to sort column ascending",
+  "aria-label": "Updated at: activate to sort column ascending",
   style: {
-    "width": "20px"
+    "width": "93px"
   }
-}, " Description "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+}, "App Description"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
   "class": "sorting",
   tabindex: "0",
   "aria-controls": "example",
@@ -25527,7 +25623,27 @@ var _hoisted_43 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
   style: {
     "width": "93px"
   }
-}, "App Price"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+}, "App Quantity"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+  "class": "sorting",
+  tabindex: "0",
+  "aria-controls": "example",
+  rowspan: "1",
+  colspan: "1",
+  "aria-label": "Updated at: activate to sort column ascending",
+  style: {
+    "width": "93px"
+  }
+}, "App Unit Cost"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+  "class": "sorting",
+  tabindex: "0",
+  "aria-controls": "example",
+  rowspan: "1",
+  colspan: "1",
+  "aria-label": "Updated at: activate to sort column ascending",
+  style: {
+    "width": "93px"
+  }
+}, "App Total Cost"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
   "class": "details-control sorting_disabled",
   rowspan: "1",
   colspan: "1",
@@ -25538,12 +25654,11 @@ var _hoisted_43 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 }, " Actions")])]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody")])], -1 /* HOISTED */);
 var _hoisted_44 = [_hoisted_43];
 var _hoisted_45 = {
-  key: 0,
   "class": "buttons button_space"
 };
 var _hoisted_46 = {
-  key: 1,
-  "class": "buttons button_space"
+  key: 3,
+  "class": "btn btn-success next_button"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Navbar = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Navbar");
@@ -25685,40 +25800,31 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)({
         display: $options.shouldDisplayInput(3)
       })
-    }, [index === 3 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_42, _hoisted_44)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 4 /* STYLE */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Add a button to go to the next step "), index < $data.mainForms.length - 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_45, [index > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
+    }, [index === 3 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_42, _hoisted_44)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 4 /* STYLE */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_45, [index > 0 || index === $data.mainForms.length - 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
       key: 0,
       "class": "btn btn-primary back_button",
       onClick: _cache[7] || (_cache[7] = function () {
         return $options.backStep && $options.backStep.apply($options, arguments);
       })
-    }, " Back ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    }, " Back ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), index < $data.mainForms.length - 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
+      key: 1,
       "class": "btn btn-primary next_button",
       onClick: _cache[8] || (_cache[8] = function () {
         return $options.nextStep && $options.nextStep.apply($options, arguments);
       })
-    }, "Next Step"), index == $data.mainForms.length - 3 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
-      key: 1,
+    }, " Next Step ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), index === $data.mainForms.length - 3 || index === $data.mainForms.length - 4 && !_ctx.$route.query.pr_no ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
+      key: 2,
       "class": "btn btn-success next_button",
       onClick: _cache[9] || (_cache[9] = function () {
         return $options.updatePurchaseRequestDetails && $options.updatePurchaseRequestDetails.apply($options, arguments);
       })
-    }, "Save as Draft")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), index == $data.mainForms.length - 4 && !_ctx.$route.query.pr_no ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
-      key: 2,
-      onClick: _cache[10] || (_cache[10] = function () {
-        return $options.savePurchaseNo && $options.savePurchaseNo.apply($options, arguments);
-      }),
-      "class": "btn btn-success submit_button"
-    }, "Save as Draft")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Add a button to submit the form on the last step "), index === $data.mainForms.length - 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_46, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-      "class": "btn btn-primary back_button",
-      onClick: _cache[11] || (_cache[11] = function () {
-        return $options.backStep && $options.backStep.apply($options, arguments);
-      })
-    }, "Back"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    }, " Save as Draft ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), index === $data.mainForms.length - 2 || index === $data.mainForms.length - 4 && !_ctx.$route.query.pr_no ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", _hoisted_46, " Save as Draft ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), index === $data.mainForms.length - 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
+      key: 4,
       "class": "btn btn-success submit_button",
-      onClick: _cache[12] || (_cache[12] = function () {
+      onClick: _cache[10] || (_cache[10] = function () {
         return $options.submitForm && $options.submitForm.apply($options, arguments);
       })
-    }, "Submit")])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 2 /* CLASS */);
+    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(index === $data.mainForms.length - 1 ? 'Submit' : 'Save as Draft'), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])], 2 /* CLASS */);
   }), 128 /* KEYED_FRAGMENT */))])])])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_FooterVue)])])]);
 }
 

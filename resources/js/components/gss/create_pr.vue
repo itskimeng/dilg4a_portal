@@ -573,7 +573,7 @@ select {
                           <div class="col-md-12 col-sm-12 col-xs-12 col-lg-6">
                             <div class="form-group" :style="{ display: shouldDisplayInput(1) }">
                               <label for="exampleInputPassword1">Office</label>
-                              <select class="form-control"  v-model="purchaseRequestData.pmo">
+                              <select class="form-control" v-model="purchaseRequestData.pmo">
                                 <option v-for="option in pmo" :key="option.value" :value="option.value">{{ option.label
                                 }}</option>
                               </select>
@@ -598,7 +598,8 @@ select {
                           <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
                             <div class="form-group" :style="{ display: shouldDisplayInput(1) }">
                               <label for="exampleInputPassword1">Target Date</label>
-                              <input type="date" v-model="purchaseRequestData.target_date" class="form-control"  required />
+                              <input type="date" v-model="purchaseRequestData.target_date" class="form-control"
+                                required />
                             </div>
                           </div>
                           <div class="col-lg-12">
@@ -646,23 +647,32 @@ select {
                           <div class="input-div" v-if="index === 3">
 
                             <div class="row" style="height: 650px;overflow-y:auto">
-                              <table id="item_table" class="table table-striped table-borderless "
+                              <table id="cart_table" class="table table-striped table-borderless "
                                 style="height:300px;overflow: auto;">
                                 <thead>
                                   <tr role="row">
                                     <th class="select-checkbox sorting_disabled" rowspan="1" colspan="1"
-                                      aria-label="Quote#" style="width: 61px;"> Stock #</th>
+                                      aria-label="Quote#" style="width: 61px;"> Stock Number</th>
+                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
+                                      aria-label="Business type: activate to sort column ascending" style="width: 20px;">
+                                      Unit
+                                    </th>
                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
                                       aria-label="Business type: activate to sort column ascending" style="width: 20px;">
                                       Item
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
-                                      aria-label="Business type: activate to sort column ascending" style="width: 20px;">
-                                      Description
-                                    </th>
+                                      aria-label="Updated at: activate to sort column ascending" style="width: 93px;">App
+                                      Description</th>
                                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
                                       aria-label="Updated at: activate to sort column ascending" style="width: 93px;">App
-                                      Price</th>
+                                      Quantity</th>
+                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
+                                      aria-label="Updated at: activate to sort column ascending" style="width: 93px;">App
+                                      Unit Cost</th>
+                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
+                                      aria-label="Updated at: activate to sort column ascending" style="width: 93px;">App
+                                      Total Cost</th>
 
                                     <th class="details-control sorting_disabled" rowspan="1" colspan="1" aria-label=""
                                       style="width: 4px;"> Actions</th>
@@ -677,22 +687,21 @@ select {
 
 
 
-                        <!-- Add a button to go to the next step -->
-                        <div v-if="index < mainForms.length - 1" class="buttons button_space">
-                          <button class="btn btn-primary back_button" @click="backStep" v-if="index > 0">
-                            Back
-                          </button>
-                          <button  class="btn btn-primary next_button" @click="nextStep">Next Step</button>
-                          <button v-if="index == mainForms.length - 3" class="btn btn-success next_button" @click="updatePurchaseRequestDetails">Save as Draft</button>
-                          <button v-if="index == mainForms.length - 4 && !$route.query.pr_no" @click="savePurchaseNo"
-                            class="btn btn-success submit_button">Save as Draft</button>
+                        <div class="buttons button_space">
+                          <button class="btn btn-primary back_button" @click="backStep"
+                            v-if="index > 0 || index === mainForms.length - 1"> Back </button>
+                          <button class="btn btn-primary next_button" @click="nextStep"
+                            v-if="index < mainForms.length - 1"> Next Step </button>
+                          <button class="btn btn-success next_button" @click="updatePurchaseRequestDetails"
+                            v-if="index === mainForms.length - 3 || (index === mainForms.length - 4 && !$route.query.pr_no)">
+                            Save as Draft </button>
+                          <button class="btn btn-success next_button"
+                            v-if="index === mainForms.length - 2 || (index === mainForms.length - 4 && !$route.query.pr_no)">
+                            Save as Draft </button>
+                          <button class="btn btn-success submit_button" @click="submitForm"
+                            v-if="index === mainForms.length - 1"> {{ index === mainForms.length - 1 ? 'Submit' : 'Save as Draft' }} </button>
                         </div>
 
-                        <!-- Add a button to submit the form on the last step -->
-                        <div v-if="index === mainForms.length - 1" class="buttons button_space">
-                          <button class="btn btn-primary back_button" @click="backStep">Back</button>
-                          <button class="btn btn-success submit_button" @click="submitForm">Submit</button>
-                        </div>
                       </div>
                     </div>
                   </div>
@@ -723,16 +732,13 @@ import "vue3-toastify/dist/index.css";
 export default {
   data() {
     return {
-  
+
       purchase_no: null,
       searchResultsCount: null,
       formnumber: 0,
       searchValue: '',
-
-
-      item_title: [], // Assuming item_title is an array of objects
-      selectedItems: [], // Array to store selected item IDs
-
+      item_title: [],
+      selectedItems: [],
       formData: Array.from({ length: 4 }, () => ({})),
       purchaseRequestData: {
         pmo: null,
@@ -813,7 +819,9 @@ export default {
 
   },
   mounted() {
+
     this.fetchAppData();
+    this.fetchCartDetails();
     this.generatePurchaseRequestNo();
     this.fetchPurchaseRequestDetails();
     axios
@@ -821,6 +829,7 @@ export default {
       .then(response => (this.item_title = response.data))
       .catch(error => console.log(error.response))
   },
+ 
   methods: {
     shorten: function (string, len) {
       return string.substring(0, len + string.substring(len - 1).indexOf(' '));
@@ -856,13 +865,68 @@ export default {
       if (index !== -1) {
         // If selected, remove it from the array
         this.selectedItems.splice(index, 1);
+        this.removePrItems(itemId);
       } else {
         // If not selected, add it to the array
         this.selectedItems.push(itemId);
-      }
+        //add the selected item id
+        this.addPrItems(itemId);
 
-      // Print the ID of the selected item to the console
-      console.log('Selected Item ID:', itemId);
+      }
+// this.fetchCartDetails();
+
+
+    },
+    addPrItems(selectedItemIds) {
+      // Call fetchPRId to get the ID
+      this.fetchPRId().then((id) => {
+        // Make an API call to your server to add the selected items to the database
+        axios.post('/api/post_insert_pritem', {
+          id: id,
+          pr_no: this.purchase_no,
+          itemIds: selectedItemIds
+        })
+          .then((response) => {
+            // Handle the success response
+            toast.success('Items added to the database:', {
+              autoClose: 100
+            });
+          })
+          .catch((error) => {
+            // Handle the error
+            console.error('Error adding items to the database:', error);
+          });
+      });
+    },
+
+    fetchPRId() {
+      const pr_no = this.$route.query.pr_no;
+      // Return the promise from axios.get
+      return axios.get(`/api/get_purchase_request_details?pr_no=${pr_no}`)
+        .then((response) => {
+          // Return the value from the response data
+          return response.data.id;
+        })
+        .catch((error) => {
+          console.error('Error fetching purchase request details:', error);
+          // Throw the error to propagate it to the next catch block if needed
+          throw error;
+        });
+    },
+
+    removePrItems(selectedItemIds) {
+      // Make an API call to your server to remove the selected items from the database
+      axios.post('/api/post_remove_pritem', { itemIds: selectedItemIds })
+        .then((response) => {
+          // Handle the success response
+          toast.success('Items removed from the database:', {
+            autoClose: 100
+          });
+        })
+        .catch((error) => {
+          // Handle the error
+          console.error('Error removing items from the database:', error);
+        });
     },
     getSelectedItemCount() {
       return this.selectedItems.length;
@@ -908,6 +972,39 @@ export default {
         });
       }).catch((error) => console.log(error));
     },
+    fetchCartDetails() {
+      this.fetchPRId().then((id) => {
+        axios.post('/api/fetchCart', { id: id }).then((response) => {
+          $('#cart_table').DataTable({
+            retrieve: true,
+            data: response.data,
+            ordering: false,
+            paging: true,
+            pageLength: 10,
+            columns: [
+              { data: 'serial_no' },
+              { data: 'unit' },
+              {
+                data: 'procurement',
+                render: function (data, type, row) {
+                  // Limit the 'procurement' text to 40 characters and add ellipsis
+                  if (type === 'display') {
+                    return data.length > 40 ? data.substr(0, 40) + '...' : data;
+                  }
+                  return data;
+                },
+              },
+              { data: 'description' },
+              { data: 'serial_no' },
+              { data: 'app_price' },
+              { data: 'app_price' },
+              { data: 'serial_no' },
+            ],
+          });
+        }).catch((error) => console.log(error));
+      });
+    },
+
 
     generatePurchaseRequestNo() {
       axios.get('../api/generatePurchaseRequestNo')
@@ -933,7 +1030,7 @@ export default {
 
     },
     //show data
-     fetchPurchaseRequestDetails() {
+    fetchPurchaseRequestDetails() {
       const pr_no = this.$route.query.pr_no;
 
       // Make an API call to get purchase request details based on pr_no
@@ -977,12 +1074,12 @@ export default {
     //step 2
     updatePurchaseRequestDetails() {
       axios.post('/api/post_update_purchaseRequestDetails', {
-        pr_no:      this.$route.query.pr_no,
-        pmo:        this.purchaseRequestData.pmo,
-        type:    this.purchaseRequestData.pr_type,
-        pr_date:    this.purchaseRequestData.pr_date,
-        target_date:this.purchaseRequestData.target_date,
-        purpose:this.purchaseRequestData.particulars,
+        pr_no: this.$route.query.pr_no,
+        pmo: this.purchaseRequestData.pmo,
+        type: this.purchaseRequestData.pr_type,
+        pr_date: this.purchaseRequestData.pr_date,
+        target_date: this.purchaseRequestData.target_date,
+        purpose: this.purchaseRequestData.particulars,
       }
       ).then(() => {
 
@@ -991,7 +1088,7 @@ export default {
         });
 
 
-        
+
 
       }).catch((error) => {
 

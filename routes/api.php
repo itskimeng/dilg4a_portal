@@ -4,6 +4,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AppItemController;
 use App\Http\Controllers\PurchaseRequestController;
 use App\Models\AppItemModel;
+use App\Models\PurchaseRequestItemModel;
 use App\Models\PurchaseRequestModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -24,7 +25,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::middleware('auth:sanctum')->get('/authenticated', function () {
     return true;
 });
-
 Route::middleware('api')->group(function () {
     Route::get('fetchAppData', [AppItemController::class, 'fetchAppData']);
 });
@@ -53,8 +53,11 @@ Route::middleware('api')->group(function () {
 
 Route::post('login',[UserController::class,'login']);
 Route::post('post_add_appItem',[AppItemController::class,'post_add_appItem']);
+Route::post('post_insert_pritem',[PurchaseRequestController::class,'post_insert_pritem']);
+Route::post('post_remove_pritem',[PurchaseRequestController::class,'post_remove_pritem']);
 Route::post('post_insert_purchaseNo',[PurchaseRequestController::class,'post_insert_purchaseNo']);
 Route::post('post_update_purchaseRequestDetails',[PurchaseRequestController::class,'post_update_purchaseRequestDetails']);
+Route::post('fetchCart', [PurchaseRequestController::class, 'fetchCart']);
 
 
 
