@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 
 class PurchaseRequestController extends Controller
 {
-    public function generatePurchaseRequestNo($cur_year = 2023)
+    public function generatePurchaseRequestNo($cur_year = 2024)
     {
 
         return response()->json(

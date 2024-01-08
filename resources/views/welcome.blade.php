@@ -54,3 +54,4 @@
 <script src="{{ asset('js/template.js') }}"></script>
 <script src="{{ asset('js/settings.js') }}"></script>
 <script src="{{ asset('js/todolist.js') }}"></script>
+

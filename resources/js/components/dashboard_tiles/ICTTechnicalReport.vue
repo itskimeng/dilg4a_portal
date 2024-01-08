@@ -1,5 +1,5 @@
 <template>
-    <div class="row">
+    <div class="row" style="margin-top:2%;">
         <div class="col-md-7 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">

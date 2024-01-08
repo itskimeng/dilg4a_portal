@@ -662,18 +662,7 @@ select {
                                       aria-label="Business type: activate to sort column ascending" style="width: 20px;">
                                       Item
                                     </th>
-                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
-                                      aria-label="Updated at: activate to sort column ascending" style="width: 93px;">App
-                                      Description</th>
-                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
-                                      aria-label="Updated at: activate to sort column ascending" style="width: 93px;">App
-                                      Quantity</th>
-                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
-                                      aria-label="Updated at: activate to sort column ascending" style="width: 93px;">App
-                                      Unit Cost</th>
-                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
-                                      aria-label="Updated at: activate to sort column ascending" style="width: 93px;">App
-                                      Total Cost</th>
+
 
                                     <th class="details-control sorting_disabled" rowspan="1" colspan="1" aria-label=""
                                       style="width: 4px;"> Actions</th>
@@ -686,19 +675,42 @@ select {
                           </div>
                         </div>
 
-
+ <!-- Modal -->
+ <div v-if="isModalOpen" class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" @click="closeModal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Your modal content goes here -->
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" @click="closeModal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 
                         <div class="buttons button_space">
+                          <button @click="openModal" class="btn btn-primary">
+                            Launch demo modal
+                          </button>
                           <button class="btn btn-primary back_button" @click="backStep"
                             v-if="index > 0 || index === mainForms.length - 1"> Back </button>
                           <button class="btn btn-primary next_button" @click="nextStep"
-                            v-if="index < mainForms.length - 1"> Next Step </button>
+                            v-if="index == 0 || index == 1 || index == 3"> Next Step </button> 
+                            <div v-if="index === 2">
+                              <button class="btn btn-primary next_button" @click="nextStepAndFetchDetails"> Next Steps</button>
+                          </div>
+
                           <button class="btn btn-success next_button" @click="updatePurchaseRequestDetails"
-                            v-if="index === mainForms.length - 3 || (index === mainForms.length - 4 && !$route.query.pr_no)">
-                            Save as Draft </button>
-                          <button class="btn btn-success next_button"
-                            v-if="index === mainForms.length - 2 || (index === mainForms.length - 4 && !$route.query.pr_no)">
-                            Save as Draft </button>
+                            v-if="index === 1"> Update </button>
+                          <button class="btn btn-info next_button" @click="savePurchaseNo" v-if="(index === 0)"> Reserved
+                            PR No </button>
                           <button class="btn btn-success submit_button" @click="submitForm"
                             v-if="index === mainForms.length - 1"> {{ index === mainForms.length - 1 ? 'Submit' : 'Save as Draft' }} </button>
                         </div>
@@ -720,389 +732,408 @@ select {
 </template>
 
 <script>
-  import Navbar from "../layout/Navbar.vue";
-  import Sidebar from "../layout/Sidebar.vue";
-  import FooterVue from "../layout/Footer.vue";
-  import BreadCrumbs from "../dashboard_tiles/BreadCrumbs.vue";
-  import item_table from "./item_table.vue";
+import Navbar from "../layout/Navbar.vue";
+import Sidebar from "../layout/Sidebar.vue";
+import FooterVue from "../layout/Footer.vue";
+import BreadCrumbs from "../dashboard_tiles/BreadCrumbs.vue";
+import item_table from "./item_table.vue";
+import axios from "axios";
+import { toast } from "vue3-toastify";
+import "vue3-toastify/dist/index.css";
 
-  import axios from "axios";
-  import { toast } from "vue3-toastify";
-  import "vue3-toastify/dist/index.css";
+export default {
+  data() {
+    return {
+      isModalOpen: false,
 
-  export default {
-    data() {
-      return {
-
-        purchase_no: null,
-        searchResultsCount: null,
-        formnumber: 0,
-        searchValue: '',
-        item_title: [],
-        selectedItems: [],
-        formData: Array.from({ length: 4 }, () => ({})),
-        purchaseRequestData: {
-          pmo: null,
-          pr_type: null,
-          pr_date: null,
-          target_date: null,
-          particulars: null
-        },
-        steps: [
-          "Generate Purchase Request No.",
-          "Purchase Request Information",
-          "Choose APP Item",
-          "Reviewing Cart",
-        ],
-        mainForms: [
-          "Generate Purchase Request No.",
-          "Purchase Request Information",
-          "Choose APP Item",
-          "Review your cart",
-          // Add more forms as needed
-        ],
-        stepNumContent: [
-          "Enter your personal information to get closer to companies.",
-          "Get to know better by adding your diploma, certificate, and education life.",
-          "Help companies get to know you better by telling them about your past experiences.",
-          "Add your profile picture and let companies find you fast.",
-          // Add more content as needed
-        ],
-        procurementType: [
-          { value: '1', label: 'Catering Services' },
-          { value: '2', label: 'Meals, Venue and Accomodation' },
-          { value: '3', label: 'Repair and Maintenance' },
-          { value: '4', label: 'Supplies, Materials and Devices' },
-          { value: '5', label: 'Other Services' },
-          { value: '6', label: 'Reimbursement and Petty Cash' }
-        ],
-        pmo: [
-          { value: '1', label: 'ORD' },
-          { value: '2', label: 'FAD' },
-          { value: '3', label: 'LGMED' },
-          { value: '4', label: 'LGCDD' },
-        ]
+      purchase_no: null,
+      searchResultsCount: null,
+      formnumber: 0,
+      searchValue: '',
+      item_title: [],
+      selectedItems: [],
+      formData: Array.from({ length: 4 }, () => ({})),
+      purchaseRequestData: {
+        pmo: null,
+        pr_type: null,
+        pr_date: null,
+        target_date: null,
+        particulars: null
+      },
+      steps: [
+        "Generate Purchase Request No.",
+        "Purchase Request Information",
+        "Choose APP Item",
+        "Reviewing Cart",
+      ],
+      mainForms: [
+        "Generate Purchase Request No.",
+        "Purchase Request Information",
+        "Choose APP Item",
+        "Review your cart",
+        // Add more forms as needed
+      ],
+      stepNumContent: [
+        "Enter your personal information to get closer to companies.",
+        "Get to know better by adding your diploma, certificate, and education life.",
+        "Help companies get to know you better by telling them about your past experiences.",
+        "Add your profile picture and let companies find you fast.",
+        // Add more content as needed
+      ],
+      procurementType: [
+        { value: '1', label: 'Catering Services' },
+        { value: '2', label: 'Meals, Venue and Accomodation' },
+        { value: '3', label: 'Repair and Maintenance' },
+        { value: '4', label: 'Supplies, Materials and Devices' },
+        { value: '5', label: 'Other Services' },
+        { value: '6', label: 'Reimbursement and Petty Cash' }
+      ],
+      pmo: [
+        { value: '1', label: 'ORD' },
+        { value: '2', label: 'FAD' },
+        { value: '3', label: 'LGMED' },
+        { value: '4', label: 'LGCDD' },
+      ]
+    };
+  },
+  computed: {
+    isSelected: function () {
+      const selectedSet = new Set(this.selectedItems);
+      return function (itemId) {
+        return selectedSet.has(itemId);
       };
     },
-    computed: {
-      isSelected: function () {
-        const selectedSet = new Set(this.selectedItems);
-        return function (itemId) {
-          return selectedSet.has(itemId);
-        };
-      },
-      item_title: function () {
-        var app_item = this.item_title;
-        var searchValue = this.searchValue.trim().toLowerCase();
+    item_title: function () {
+      var app_item = this.item_title;
+      var searchValue = this.searchValue.trim().toLowerCase();
 
-        if (!searchValue) {
-          this.searchResultsCount = null;
+      if (!searchValue) {
+        this.searchResultsCount = null;
 
-          return app_item;
-        }
-        // Use Array.filter to filter items based on search criteria
-        var filteredItems = app_item.filter(function (item) {
-          return (
-            item.item_title.toLowerCase().indexOf(searchValue) !== -1 ||
-            item.sn.toLowerCase().indexOf(searchValue) !== -1
-          );
-        });
+        return app_item;
+      }
+      // Use Array.filter to filter items based on search criteria
+      var filteredItems = app_item.filter(function (item) {
+        return (
+          item.item_title.toLowerCase().indexOf(searchValue) !== -1 ||
+          item.sn.toLowerCase().indexOf(searchValue) !== -1
+        );
+      });
 
-        this.searchResultsCount = filteredItems.length;
-        return filteredItems;
-
-      },
-      shouldDisplayInput() {
-
-        return index => (this.formnumber === index ? '' : 'none');
-
-      },
+      this.searchResultsCount = filteredItems.length;
+      return filteredItems;
 
     },
-    mounted() {
+    shouldDisplayInput() {
 
-      this.fetchAppData();
-      this.fetchCartDetails();
-      this.generatePurchaseRequestNo();
-      this.fetchPurchaseRequestDetails();
-      axios
-        .get('../api/appitems')
-        .then(response => (this.item_title = response.data))
-        .catch(error => console.log(error.response))
+      return index => (this.formnumber === index ? '' : 'none');
+
     },
 
-    methods: {
-      shorten: function (string, len) {
-        return string.substring(0, len + string.substring(len - 1).indexOf(' '));
+  },
+  mounted() {
 
-      },
-      nextStep() {
-        if (!this.validateForm()) {
-          return false;
-        }
+    this.fetchAppData();
+    this.generatePurchaseRequestNo();
+    axios
+      .get('../api/appitems')
+      .then(response => (this.item_title = response.data))
+      .catch(error => console.log(error.response))
+      
+  },
 
-        if (this.formnumber < this.mainForms.length - 1) {
-          this.formnumber++;
-        }
-      },
-      backStep() {
-        if (this.formnumber > 0) {
-          this.formnumber--;
-        }
-      },
-      submitForm() {
-        toast.success('Successfully save!', {
-          autoClose: 1000,
-        });
+  methods: {
+    openModal() {
+          this.isModalOpen = true;
+        },
+        closeModal() {
+          this.isModalOpen = false;
+        },
+    shorten: function (string, len) {
+      return string.substring(0, len + string.substring(len - 1).indexOf(' '));
+
+    },
+   
+    nextStep() {
+      if (!this.validateForm()) {
+        return false;
+      }
+
+      if (this.formnumber < this.mainForms.length - 1) {
         this.formnumber++;
-      },
-      validateForm() {
-        // Implement your form validation logic
-        return true; // For simplicity, always return true in this example
-      },
-      toggleItemSelection(itemId) {
-        // Check if the item is already selected
-        const index = this.selectedItems.indexOf(itemId);
-        if (index !== -1) {
-          // If selected, remove it from the array
-          this.selectedItems.splice(index, 1);
-          this.removePrItems(itemId);
-        } else {
-          // If not selected, add it to the array
-          this.selectedItems.push(itemId);
-          //add the selected item id
-          this.addPrItems(itemId);
+        console.log(this.formnumber);
 
-        }
-        // this.fetchCartDetails();
+      } else if (this.formnumber === 3) {
+        // Call fetchCartDetails when the form is at index 3
+        this.generatePurchaseRequestNo();
+      }else{
+        
+      }
+
+    },
+    nextStepAndFetchDetails(){
+        this.nextStep(); // Call your existing nextStep logic
+        this.fetchCartDetails(); 
+    } ,
+    backStep() {
+      if (this.formnumber > 0) {
+        this.formnumber--;
+      }
+    },
+    submitForm() {
+      toast.success('Successfully save!', {
+        autoClose: 1000,
+      });
+      this.formnumber++;
+    },
+    validateForm() {
+      // Implement your form validation logic
+      return true; // For simplicity, always return true in this example
+    },
+    toggleItemSelection(itemId) {
+      // Check if the item is already selected
+      const index = this.selectedItems.indexOf(itemId);
+      if (index !== -1) {
+        // If selected, remove it from the array
+        this.selectedItems.splice(index, 1);
+        this.removePrItems(itemId);
+      } else {
+        // If not selected, add it to the array
+        this.selectedItems.push(itemId);
+        //add the selected item id
+        this.addPrItems(itemId);
+
+      }
 
 
-      },
-      addPrItems(selectedItemIds) {
-        // Call fetchPRId to get the ID
-        this.fetchPRId().then((id) => {
-          // Make an API call to your server to add the selected items to the database
-          axios.post('/api/post_insert_pritem', {
-            id: id,
-            pr_no: this.purchase_no,
-            itemIds: selectedItemIds
-          })
-            .then((response) => {
-              // Handle the success response
-              toast.success('Items added to the database:', {
-                autoClose: 100
-              });
-            })
-            .catch((error) => {
-              // Handle the error
-              console.error('Error adding items to the database:', error);
-            });
-        });
-      },
-
-      fetchPRId() {
-        const pr_no = this.$route.query.pr_no;
-        // Return the promise from axios.get
-        return axios.get(`/api/get_purchase_request_details?pr_no=${pr_no}`)
-          .then((response) => {
-            // Return the value from the response data
-            return response.data.id;
-          })
-          .catch((error) => {
-            console.error('Error fetching purchase request details:', error);
-            // Throw the error to propagate it to the next catch block if needed
-            throw error;
-          });
-      },
-
-      removePrItems(selectedItemIds) {
-        // Make an API call to your server to remove the selected items from the database
-        axios.post('/api/post_remove_pritem', { itemIds: selectedItemIds })
+    },
+    addPrItems(selectedItemIds) {
+      // Call fetchPRId to get the ID
+      this.fetchPRId().then((id) => {
+        // Make an API call to your server to add the selected items to the database
+        axios.post('/api/post_insert_pritem', {
+          id: id,
+          pr_no: this.purchase_no,
+          itemIds: selectedItemIds
+        })
           .then((response) => {
             // Handle the success response
-            toast.success('Items removed from the database:', {
+            toast.success('Items added to the database:', {
               autoClose: 100
             });
           })
           .catch((error) => {
             // Handle the error
-            console.error('Error removing items from the database:', error);
+            console.error('Error adding items to the database:', error);
           });
-      },
-      getSelectedItemCount() {
-        return this.selectedItems.length;
-      },
-      //feth data
-      fetchAppData() {
-        let btn = null;
-        axios.get('../api/fetchAppData').then((response) => {
-          $('#item_table').DataTable({
+      });
+    },
+    fetchPRId() {
+      let pr_no = this.purchase_no;
+      // Return the promise from axios.get
+      return axios.get(`/api/get_purchase_request_details?pr_no=${pr_no}`)
+        .then((response) => {
+          // Return the value from the response data
+          return response.data.id;
+        })
+        .catch((error) => {
+          console.error('Error fetching purchase request details:', error);
+          // Throw the error to propagate it to the next catch block if needed
+          throw error;
+        });
+    },
+    removePrItems(selectedItemIds) {
+      // Make an API call to your server to remove the selected items from the database
+      axios.post('/api/post_remove_pritem', { itemIds: selectedItemIds })
+        .then((response) => {
+          // Handle the success response
+          toast.success('Items removed from the database:', {
+            autoClose: 100
+          });
+        })
+        .catch((error) => {
+          // Handle the error
+          console.error('Error removing items from the database:', error);
+        });
+    },
+    getSelectedItemCount() {
+      return this.selectedItems.length;
+    },
+    //feth data
+    fetchAppData() {
+      let btn = null;
+      axios.get('../api/fetchAppData').then((response) => {
+        $('#item_table').DataTable({
+          retrieve: true,
+          data: response.data,
+          ordering: false,
+          paging: true,
+          pageLength: 10,
+          columns: [
+            { data: 'sn' },
+            {
+              data: 'item_category_title',
+              render: function (data, type, row) {
+                // Limit the item_category_title to 5 characters
+                if (type === 'display') {
+                  return data.length > 5 ? data.substr(0, 40) + '...' : data;
+                }
+                return data;
+              }
+            },
+            {
+              data: null,
+              orderable: false,
+              render: function (data) {
+                return '<label class="badge badge-success" @click="deletePid(' + data.id + ')">Add Item Description</label>';
+              },
+            },
+            { data: 'price' },
+            {
+              data: null,
+              orderable: false,
+              render: function (data) {
+                return '<label class="badge badge-success" @click="deletePid(' + data.id + ')">Add to Cart</label>';
+              },
+            },
+          ],
+        });
+      }).catch((error) => console.log(error));
+    },
+    nextStep() {
+      if (!this.validateForm()) {
+        return false;
+      }
+
+      if (this.formnumber < this.mainForms.length - 1) {
+        this.formnumber++;
+      }
+
+    },
+    fetchCartDetails() {
+      this.fetchPRId().then((id) => {
+        axios.post('/api/fetchCart', { id: id }).then((response) => {
+          $('#cart_table').DataTable({
             retrieve: true,
             data: response.data,
             ordering: false,
             paging: true,
             pageLength: 10,
             columns: [
-              { data: 'sn' },
+              { data: 'serial_no' },
+              { data: 'unit' },
               {
-                data: 'item_category_title',
+                data: 'procurement',
                 render: function (data, type, row) {
-                  // Limit the item_category_title to 5 characters
+                  // Limit the 'procurement' text to 40 characters and add ellipsis
                   if (type === 'display') {
-                    return data.length > 5 ? data.substr(0, 40) + '...' : data;
+                    return data.length > 40 ? data.substr(0, 40) + '...' : data;
                   }
                   return data;
-                }
-              },
-              {
-                data: null,
-                orderable: false,
-                render: function (data) {
-                  return '<label class="badge badge-success" @click="deletePid(' + data.id + ')">Add Item Description</label>';
-                },
-              },
-              { data: 'price' },
-              {
-                data: null,
-                orderable: false,
-                render: function (data) {
-                  return '<label class="badge badge-success" @click="deletePid(' + data.id + ')">Add to Cart</label>';
                 },
               },
             ],
           });
         }).catch((error) => console.log(error));
-      },
-      fetchCartDetails() {
-        this.fetchPRId().then((id) => {
-          axios.post('/api/fetchCart', { id: id }).then((response) => {
-            $('#cart_table').DataTable({
-              retrieve: true,
-              data: response.data,
-              ordering: false,
-              paging: true,
-              pageLength: 10,
-              columns: [
-                { data: 'serial_no' },
-                { data: 'unit' },
-                {
-                  data: 'procurement',
-                  render: function (data, type, row) {
-                    // Limit the 'procurement' text to 40 characters and add ellipsis
-                    if (type === 'display') {
-                      return data.length > 40 ? data.substr(0, 40) + '...' : data;
-                    }
-                    return data;
-                  },
-                },
-                { data: 'description' },
-                { data: 'serial_no' },
-                { data: 'app_price' },
-                { data: 'app_price' },
-                { data: 'serial_no' },
-              ],
-            });
-          }).catch((error) => console.log(error));
-        });
-      },
+      });
 
 
-      generatePurchaseRequestNo() {
-        axios.get('../api/generatePurchaseRequestNo')
-          .then(response => {
-            const currentDate = new Date();
-            const year = currentDate.getFullYear();
-            const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Adding 1 because months are zero-indexed
-            const purchaseNoFormat = `${year}-${month}`;
+    },
+    generatePurchaseRequestNo: async function () {
+      try {
+        const response = await axios.get('../api/generatePurchaseRequestNo');
+        const currentDate = new Date();
+        const year = currentDate.getFullYear();
+        const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Adding 1 because months are zero-indexed
+        const purchaseNoFormat = `${year}-${month}`;
+        const purchaseNoFromApi = response.data[0].pr_count;
+        const formattedSequence = purchaseNoFromApi.toString().padStart(5, '0');
 
-            const purchaseNoFromApi = response.data[0].pr_count;
-            const formattedSequence = purchaseNoFromApi.toString().padStart(5, '0');
-            //set the draft pr no of the user
-            if (this.$route.query.pr_no) {
-              this.purchase_no = this.$route.query.pr_no;
-            } else {
-              this.purchase_no = `${purchaseNoFormat}-${formattedSequence}`;
-            }
-
-          })
-          .catch(error => {
-            console.error('Error fetching data', error);
-          });
-
-      },
-      //show data
-      fetchPurchaseRequestDetails() {
-        const pr_no = this.$route.query.pr_no;
-
-        // Make an API call to get purchase request details based on pr_no
-        axios.get(`/api/get_purchase_request_details?pr_no=${pr_no}`)
-          .then((response) => {
-            // Update purchaseRequestData with the fetched values
-            this.purchaseRequestData.pmo = response.data.pmo;
-            this.purchaseRequestData.pr_type = response.data.type;
-            this.purchaseRequestData.pr_date = response.data.pr_date;
-            this.purchaseRequestData.target_date = response.data.target_date;
-            this.purchaseRequestData.particulars = response.data.purpose;
-          })
-          .catch((error) => {
-            console.error('Error fetching purchase request details:', error);
-          });
-      },
-      //step 1
-      savePurchaseNo() {
-
-        axios.post('/api/post_insert_purchaseNo', {
-          pr_no: this.purchase_no,
-          updated_at: null,
-          created_at: null
+        // set the draft pr no of the user
+        if (this.$route.query.pr_no) {
+          this.purchase_no = this.$route.query.pr_no;
+        } else {
+          this.purchase_no = `${purchaseNoFormat}-${formattedSequence}`;
         }
-        ).then(() => {
-
-          toast.success('Successfully added!', {
-            autoClose: 100
-          });
-
-
-          setTimeout(() => {
-            this.$router.push({ path: '/gss/create_pr', query: { pr_no: this.purchase_no } });
-          }, 2000); // Adjust the delay as needed
-
-        }).catch((error) => {
-
-        })
-
-      },
-      //step 2
-      updatePurchaseRequestDetails() {
-        axios.post('/api/post_update_purchaseRequestDetails', {
-          pr_no: this.$route.query.pr_no,
-          pmo: this.purchaseRequestData.pmo,
-          type: this.purchaseRequestData.pr_type,
-          pr_date: this.purchaseRequestData.pr_date,
-          target_date: this.purchaseRequestData.target_date,
-          purpose: this.purchaseRequestData.particulars,
-        }
-        ).then(() => {
-
-          toast.success('Successfully added!', {
-            autoClose: 100
-          });
-
-
-
-
-        }).catch((error) => {
-
-        })
+        this.fetchCartDetails();
+        this.fetchPurchaseRequestDetails();
+      } catch (error) {
+        console.error('Error fetching data', error);
       }
+    },
+    //show data
+    fetchPurchaseRequestDetails() {
+      let pr_no = this.purchase_no;
+
+      // Make an API call to get purchase request details based on pr_no
+      axios.get(`/api/get_purchase_request_details?pr_no=${pr_no}`)
+        .then((response) => {
+          // Update purchaseRequestData with the fetched values
+          this.purchaseRequestData.pmo = response.data.pmo;
+          this.purchaseRequestData.pr_type = response.data.type;
+          this.purchaseRequestData.pr_date = response.data.pr_date;
+          this.purchaseRequestData.target_date = response.data.target_date;
+          this.purchaseRequestData.particulars = response.data.purpose;
+        })
+        .catch((error) => {
+          console.log('Error fetching purchase request details:', error);
+        });
+    },
+    //step 1
+    savePurchaseNo() {
+
+      axios.post('/api/post_insert_purchaseNo', {
+        pr_no: this.purchase_no,
+        updated_at: null,
+        created_at: null
+      }
+      ).then(() => {
+
+        toast.success('Successfully added!', {
+          autoClose: 100
+        });
+
+        this.formnumber++;
+        setTimeout(() => {
+          this.$router.push({ path: '/gss/create_pr', query: { pr_no: this.purchase_no } });
+        }, 2000); // Adjust the delay as needed
+
+      }).catch((error) => {
+
+      })
 
     },
-    components: {
-      Navbar,
-      Sidebar,
-      FooterVue,
-      BreadCrumbs,
-      item_table
-    },
-  };
+    //step 2
+    updatePurchaseRequestDetails() {
+      axios.post('/api/post_update_purchaseRequestDetails', {
+        pr_no: this.purchase_no,
+        pmo: this.purchaseRequestData.pmo,
+        type: this.purchaseRequestData.pr_type,
+        pr_date: this.purchaseRequestData.pr_date,
+        target_date: this.purchaseRequestData.target_date,
+        purpose: this.purchaseRequestData.particulars,
+      }
+      ).then(() => {
+
+        toast.success('Successfully added!', {
+          autoClose: 100
+        });
+
+
+
+
+      }).catch((error) => {
+
+      })
+    }
+
+  },
+  components: {
+    Navbar,
+    Sidebar,
+    FooterVue,
+    BreadCrumbs,
+    item_table
+  },
+};
 </script>
