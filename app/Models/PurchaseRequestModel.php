@@ -24,7 +24,7 @@ class PurchaseRequestModel extends Model
         'target_date',
         'submitted_date',
         'received_date',
-        'status',
+        'stat',
         'availability_code',
         'is_urgent',
         'requested_by',

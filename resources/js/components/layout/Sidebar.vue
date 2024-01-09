@@ -65,6 +65,18 @@ export default {
                             tooltip: 'Buttons',
                             icon: 'icon-grid menu-icon',
                         },
+                        {
+                            link: '/gss/statistic',
+                            name: 'Statistics',
+                            tooltip: 'Buttons',
+                            icon: 'icon-grid menu-icon',
+                        },
+                        {
+                            link: '/gss/procurement',
+                            name: 'Reports',
+                            tooltip: 'Buttons',
+                            icon: 'icon-grid menu-icon',
+                        },
                       
 
                     ],

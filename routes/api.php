@@ -58,6 +58,7 @@ Route::post('post_remove_pritem',[PurchaseRequestController::class,'post_remove_
 Route::post('post_insert_purchaseNo',[PurchaseRequestController::class,'post_insert_purchaseNo']);
 Route::post('post_update_purchaseRequestDetails',[PurchaseRequestController::class,'post_update_purchaseRequestDetails']);
 Route::post('fetchCart', [PurchaseRequestController::class, 'fetchCart']);
+Route::post('fetchPurchaseReqData', [PurchaseRequestController::class, 'fetchPurchaseReqData']);
 
 
 

@@ -26,13 +26,13 @@ class PurchaseRequestController extends Controller
         $pr_opts = new PurchaseRequestModel([
             'id'    => null,
             'pr_no' => $request->input('pr_no'),
+            'stat'  => $request->input('status'),
             'updated_at' => null,
             'created_at' => null
 
         ]);
         $pr_opts->save();
     }
-
     public function post_update_purchaseRequestDetails(Request $request)
     {
         // Assuming your model is named PurchaseRequestModel
@@ -85,6 +85,7 @@ class PurchaseRequestController extends Controller
         $pr_id = $request->input('id');
         $pr_no = $request->input('pr_no');
         $itemIds = $request->input('itemIds');
+        $status = $request->input('status');
         $pr_opts = new PurchaseRequestItemModel([
             'id'    => null,
             'pr_id' => $pr_id,
@@ -134,11 +135,11 @@ class PurchaseRequestController extends Controller
         unit.item_unit_title as `unit`,
         pr_items.description as `description`,
         tbl_app.app_price as `app_price`
-    '))
-    ->leftJoin('pr_items', 'pr_items.pr_item_id', '=', 'tbl_app.id')
-    ->leftJoin('item_unit as unit', 'unit.id', '=', 'tbl_app.unit_id')
-    ->leftJoin('pr', 'pr.id', '=', 'pr_items.pr_id')
-    ->where('pr.id', $pr_id);
+        '))
+            ->leftJoin('pr_items', 'pr_items.pr_item_id', '=', 'tbl_app.id')
+            ->leftJoin('item_unit as unit', 'unit.id', '=', 'tbl_app.unit_id')
+            ->leftJoin('pr', 'pr.id', '=', 'pr_items.pr_id')
+            ->where('pr.id', $pr_id);
         // Print the SQL query to check
         // dd($query->toSql());
 
@@ -146,5 +147,42 @@ class PurchaseRequestController extends Controller
         $app_item = $query->get();
 
         return response()->json($app_item);
+    }
+    public function fetchPurchaseReqData(Request $request)
+    {
+        $page = $request->query('page');
+        $itemsPerPage = $request->query('itemsPerPage',500);
+
+        $query = PurchaseRequestModel::select(PurchaseRequestModel::raw('
+        pr.id AS `id`,
+        MAX(pr.pr_no) AS `pr_no`,
+        MAX(pmo.pmo_title) AS `office`,
+        MAX(pr.submitted_by) AS `submitted_by`,
+        MAX(pr.purpose) AS `particulars`,
+        MAX(pr.pr_date) AS `pr_date`,
+        MAX(pr.target_date) AS `target_date`,
+        MAX(pr.is_urgent) AS `is_urgent`,
+        MAX(pr_items.qty) AS `quantity`,
+        MAX(pr_items.description) AS `desc`,
+        MAX(mode.mode_of_proc_title) AS `type`,
+        MAX(app.sn) AS `serial_no`,
+        MAX(app.item_title) AS `item_title`,
+        MAX(unit.item_unit_title) AS `unit`,
+        MAX(status.title) AS `status`,
+        SUM(app.app_price) AS `app_price`
+    '))
+            ->leftJoin('pmo', 'pmo.id', '=', 'pr.pmo')
+            ->leftJoin('mode_of_proc as mode', 'mode.id', '=', 'pr.type')
+            ->leftJoin('pr_items', 'pr_items.pr_id', '=', 'pr.id')
+            ->leftJoin('item_unit as unit', 'unit.id', '=', 'pr_items.unit')
+            ->leftJoin('tbl_app as app', 'app.id', '=', 'pr_items.pr_item_id')
+            ->leftJoin('tbl_status as status', 'status.id', '=', 'pr.stat')
+            ->groupBy('pr.id');
+
+        $prData = $query->paginate($itemsPerPage, ['*'], 'page', $page);
+
+        // Dump and die to output the SQL for debugging
+        // dd($prData);
+        return response()->json($prData);
     }
 }

@@ -9,6 +9,9 @@ import AnnualProcurementPlan from "../components/gss/AnnualProcurementPlan.vue";
 // FORMS
 import AddAppItem from "../components/gss/add_app_item.vue";
 import CreatePRItem from "../components/gss/create_pr.vue"
+
+// Statistics
+import procurement_stat from "../components/gss/procurement_stat.vue";
 import axios from "axios";
 
 const routes = [
@@ -49,6 +52,11 @@ const routes = [
         path: '/gss/create_pr',
         name: 'Create Purchase Request Item',
         component: CreatePRItem,
+    },
+    {
+        path: '/gss/statistic',
+        name: 'Procurement Stat',
+        component: procurement_stat,
     },
     {
         path: '/ExampleComponent',

@@ -566,10 +566,12 @@ select {
                         <!-- Your form inputs go here -->
                         <div class="input-text" :style="{ display: shouldDisplayInput(0) }">
                           <div class="input-div" v-if="index === 0">
-                            <input v-model="purchase_no" type="text" required />
+                            <input v-model="purchase_no" type="text" :readonly="isPurchaseNoEditable" />
                             <span>Purchase Request No.</span>
                           </div>
                         </div>
+
+                        <!-- Step #1 -->
                         <div class="row">
                           <div class="col-md-12 col-sm-12 col-xs-12 col-lg-6">
                             <div class="form-group" :style="{ display: shouldDisplayInput(1) }">
@@ -675,38 +677,19 @@ select {
                           </div>
                         </div>
 
- <!-- Modal -->
- <div v-if="isModalOpen" class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="btn-close" @click="closeModal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <!-- Your modal content goes here -->
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" @click="closeModal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
+                     
 
                         <div class="buttons button_space">
-                          <button @click="openModal" class="btn btn-primary">
-                            Launch demo modal
-                          </button>
+                         
                           <button class="btn btn-primary back_button" @click="backStep"
                             v-if="index > 0 || index === mainForms.length - 1"> Back </button>
-                          <button class="btn btn-primary next_button" @click="nextStep"
-                            v-if="index == 0 || index == 1 || index == 3"> Next Step </button> 
+                          <!-- <button class="btn btn-primary next_button" @click="nextStep" v-if="index == 0 || index == 3"> Next Step </button>  -->
                             <div v-if="index === 2">
                               <button class="btn btn-primary next_button" @click="nextStepAndFetchDetails"> Next Steps</button>
                           </div>
-
+                          <button  v-if="index == 1" @click="nextStep" class="btn btn-primary">
+                            Next Steps
+                          </button>
                           <button class="btn btn-success next_button" @click="updatePurchaseRequestDetails"
                             v-if="index === 1"> Update </button>
                           <button class="btn btn-info next_button" @click="savePurchaseNo" v-if="(index === 0)"> Reserved
@@ -744,9 +727,11 @@ import "vue3-toastify/dist/index.css";
 export default {
   data() {
     return {
-      isModalOpen: false,
 
       purchase_no: null,
+      
+      isPurchaseNoEditable: true, // Set initially as editable
+
       searchResultsCount: null,
       formnumber: 0,
       searchValue: '',
@@ -832,7 +817,6 @@ export default {
 
   },
   mounted() {
-
     this.fetchAppData();
     this.generatePurchaseRequestNo();
     axios
@@ -846,9 +830,9 @@ export default {
     openModal() {
           this.isModalOpen = true;
         },
-        closeModal() {
-          this.isModalOpen = false;
-        },
+    closeModal() {
+      this.isModalOpen = false;
+    },
     shorten: function (string, len) {
       return string.substring(0, len + string.substring(len - 1).indexOf(' '));
 
@@ -914,7 +898,8 @@ export default {
         axios.post('/api/post_insert_pritem', {
           id: id,
           pr_no: this.purchase_no,
-          itemIds: selectedItemIds
+          itemIds: selectedItemIds,
+          status: '1'
         })
           .then((response) => {
             // Handle the success response
@@ -1081,28 +1066,34 @@ export default {
     },
     //step 1
     savePurchaseNo() {
+      // Check if purchase_no is not empty and the field is not editable
+      if (this.purchase_no && !this.isPurchaseNoEditable) {
+        axios
+          .post('/api/post_insert_purchaseNo', {
+            pr_no: this.purchase_no,
+            status: '1',
+            updated_at: null,
+            created_at: null,
+          })
+          .then(() => {
+            toast.success('Successfully added!', {
+              autoClose: 100,
+            });
 
-      axios.post('/api/post_insert_purchaseNo', {
-        pr_no: this.purchase_no,
-        updated_at: null,
-        created_at: null
+            this.formnumber++;
+            setTimeout(() => {
+              this.$router.push({ path: '/gss/create_pr', query: { pr_no: this.purchase_no } });
+            }, 2000); // Adjust the delay as needed
+          })
+          .catch((error) => {
+            // Handle error
+          });
+      } else {
+        // Show error message or handle validation failure
+        toast.error('Please enter a valid Purchase Request No.');
       }
-      ).then(() => {
-
-        toast.success('Successfully added!', {
-          autoClose: 100
-        });
-
-        this.formnumber++;
-        setTimeout(() => {
-          this.$router.push({ path: '/gss/create_pr', query: { pr_no: this.purchase_no } });
-        }, 2000); // Adjust the delay as needed
-
-      }).catch((error) => {
-
-      })
-
     },
+
     //step 2
     updatePurchaseRequestDetails() {
       axios.post('/api/post_update_purchaseRequestDetails', {
