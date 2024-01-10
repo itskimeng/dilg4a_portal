@@ -51,6 +51,10 @@ Route::middleware('api')->group(function () {
     Route::get('countTotalItem/{cur_year}', [AppItemController::class, 'countTotalItem']);
 });
 
+Route::middleware('api')->group(function () {
+    Route::get('viewPurchaseRequest/{id}', [PurchaseRequestController::class, 'viewPurchaseRequest']);
+});
+
 Route::post('login',[UserController::class,'login']);
 Route::post('post_add_appItem',[AppItemController::class,'post_add_appItem']);
 Route::post('post_insert_pritem',[PurchaseRequestController::class,'post_insert_pritem']);

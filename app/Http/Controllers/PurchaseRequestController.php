@@ -130,6 +130,7 @@ class PurchaseRequestController extends Controller
         }
         $query = AppItemModel::select(AppItemModel::raw('
         tbl_app.id as `app_id`,
+        tbl_app.pr_no as `pr_no`,
         tbl_app.sn as `serial_no`,
         tbl_app.item_title as `procurement`,
         unit.item_unit_title as `unit`,
@@ -151,7 +152,7 @@ class PurchaseRequestController extends Controller
     public function fetchPurchaseReqData(Request $request)
     {
         $page = $request->query('page');
-        $itemsPerPage = $request->query('itemsPerPage',500);
+        $itemsPerPage = $request->query('itemsPerPage', 500);
 
         $query = PurchaseRequestModel::select(PurchaseRequestModel::raw('
         pr.id AS `id`,
@@ -170,7 +171,7 @@ class PurchaseRequestController extends Controller
         MAX(unit.item_unit_title) AS `unit`,
         MAX(status.title) AS `status`,
         SUM(app.app_price) AS `app_price`
-    '))
+        '))
             ->leftJoin('pmo', 'pmo.id', '=', 'pr.pmo')
             ->leftJoin('mode_of_proc as mode', 'mode.id', '=', 'pr.type')
             ->leftJoin('pr_items', 'pr_items.pr_id', '=', 'pr.id')
@@ -184,5 +185,29 @@ class PurchaseRequestController extends Controller
         // Dump and die to output the SQL for debugging
         // dd($prData);
         return response()->json($prData);
+    }
+
+    public function viewPurchaseRequest($id)
+    {
+
+        $query = AppItemModel::select(AppItemModel::raw('
+        tbl_app.id as `app_id`,
+        tbl_app.sn as `serial_no`,
+        tbl_app.item_title as `procurement`,
+        unit.item_unit_title as `unit`,
+        pr_items.description as `description`,
+        tbl_app.app_price as `app_price`
+        '))
+            ->leftJoin('pr_items', 'pr_items.pr_item_id', '=', 'tbl_app.id')
+            ->leftJoin('item_unit as unit', 'unit.id', '=', 'tbl_app.unit_id')
+            ->leftJoin('pr', 'pr.id', '=', 'pr_items.pr_id')
+            ->where('pr.id', $id);
+        // Print the SQL query to check
+        // dd($query->toSql());
+
+        // Execute the query and return the result
+        $app_item = $query->get();
+
+        return response()->json($app_item);
     }
 }

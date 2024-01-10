@@ -31,7 +31,7 @@
 
         <tbody>
             <tr v-for="purchaseRequest in displayedItems" :key="purchaseRequest.id">
-                <td> <div class="badge badge-default" @click="$router.push({ path: 'gss/create_pr', query: { id: purchaseRequest.id } })"> <b>{{ purchaseRequest.pr_no }}</b><br><i>~{{ purchaseRequest.office }}~</i></div>
+                <td> <div class="badge badge-default" @click="$router.push({ path: `/gss/view_pr/${purchaseRequest.id}` })"> <b>{{ purchaseRequest.pr_no }}</b><br><i>~{{ purchaseRequest.office }}~</i></div>
                 </td>
                 <td>{{ purchaseRequest.app_price }}</td>
                 <td>{{ purchaseRequest.particulars }}</td>
