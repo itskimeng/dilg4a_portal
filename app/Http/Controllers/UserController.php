@@ -32,21 +32,23 @@ class UserController extends Controller
     {
         $user = User::where('email', $request->input('email'))
             ->where('password', $request->input('password'))
-            ->get();
+            ->first();
 
-        // if ($user[0]->password == $request->input('password')) {
-        //     // $request->session()->put('user', $request->input('name'));
-        //     return response()->json([
-        //         'status' => true,
-        //         'message' => 'Success',
-        //     ]);
-        // } else {
-        //     return response()->json([
-        //         'status' => false,
-        //         'message' => 'Failed',
-        //     ]);
-        // }
+        if ($user) {
+            return response()->json([
+                'status' => true,
+                'message' => 'Success',
+                'userId' => $user->id, // Assuming 'id' is the user ID field in your User model
+
+            ]);
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Failed',
+            ]);
+        }
     }
+
 
 
     public function logout()

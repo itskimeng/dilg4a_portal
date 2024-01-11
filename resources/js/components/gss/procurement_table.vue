@@ -43,7 +43,7 @@
                 <td>5 minutes ago</td>
                 <td>
                     <div class="template-demo d-flex justify-content-between flex-nowrap">
-                        <button type="button" class="btn btn-success btn-rounded btn-icon">
+                        <button @click="$router.push({ path: `/gss/view_pr/${purchaseRequest.id}` })" type="button" class="btn btn-success btn-rounded btn-icon">
                             <i class="ti-eye" style="margin-left: -2px;"></i>
                         </button>
                         <button type="button" class="btn btn-info btn-rounded btn-icon">

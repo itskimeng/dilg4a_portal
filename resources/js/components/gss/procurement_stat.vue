@@ -160,12 +160,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-9 grid-margin mb-4 stretch-card">
+                        <div class="col-md-9 grid-margin mb-4">
                             <div class="card card_shadow">
                                 <div class="card-body">
-                                    <div id="detailedReports"
-                                        class="carousel slide detailed-report-carousel position-static pt-2"
-                                        data-ride="carousel">
+                                    <div id="detailedReports" class="carousel slide detailed-report-carousel position-static pt-2" data-ride="carousel">
                                         <div class="carousel-inner">
                                             <div class="carousel-item active">
                                                 <div class="row">

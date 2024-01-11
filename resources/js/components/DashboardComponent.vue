@@ -237,5 +237,24 @@ export default {
             pageTitle: 'Dashboard',
         }
     },
+    // Dashboard component
+    created() {
+    // Retrieve user ID from Vuex store
+    const userId = localStorage.getItem('userId');
+    console.log('User ID:', userId);
+
+    // Call the updateUserId method
+    // this.updateUserId();
+},
+methods: {
+    // Example of using a mutation (if needed)
+    updateUserId() {
+        // Update user ID using a mutation
+        this.$store.commit('setUserId', 'newUserId');
+        console.log('User ID updated:', this.$store.state.userId);
+    },
+},
+
+
 }
 </script>

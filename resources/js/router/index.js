@@ -55,6 +55,21 @@ const routes = [
         component: CreatePRItem,
     },
     {
+        path: '/gss/create_pr/:id',
+        name: 'Create Purchase Request Item with ID',
+        component: CreatePRItem,
+        beforeEnter: (to, from, next) => {
+            // Check if the page is being refreshed (F5 or browser refresh button)
+            if (!from.name) {
+                // Redirect to "/gss/procurement"
+                next({ name: 'Procurement' });
+            } else {
+                // Continue with the normal navigation
+                next();
+            }
+        },
+    },
+    {
         path: '/gss/view_pr/:id',
         name: 'View Purchase Request Item',
         component: ViewPRItem,

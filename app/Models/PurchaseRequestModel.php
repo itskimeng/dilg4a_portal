@@ -19,6 +19,8 @@ class PurchaseRequestModel extends Model
         'pr_no',
         'pmo',
         'fund_source',
+        'action_officer',
+        'current_step',
         'type',
         'pr_date',
         'target_date',

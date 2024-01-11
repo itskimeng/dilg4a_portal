@@ -199,6 +199,7 @@ export default {
 
 
     },
+   
     methods: {
 
         countTotalItem(cur_year) {

@@ -64,6 +64,8 @@
 <script>
 import dilg_banner from "../../../assets/images/login.png";
 import axios from 'axios';
+import { toast } from "vue3-toastify";
+
 export default {
     name: 'Login',
     data() {
@@ -78,15 +80,35 @@ export default {
         }
     },
     methods: {
+        showFailedNotification(message) {
+            toast.error(message, {
+                autoClose: 1000,
+            });
+        },
+        showSuccessNotification(message) {
+            toast.success(message, {
+                autoClose: 1000,
+            });
+        },
+        // Login component
         loginUser() {
             axios
                 .post('/api/login', this.form)
-                .then(() => {
-                    console.log('You are logged in');
-                    this.$router.push({ name: 'Dashboard' });
+                .then(response => {
+                    if (response.data.status) {
+                        //this code is to make user id accessible globally
+                        localStorage.setItem('userId', response.data.userId);
 
+                        this.showSuccessNotification('You are logged in');
+                        setTimeout(() => {
+                            this.$router.push({ name: 'Dashboard' });
+                        }, 1000);
+                    } else {
+                        this.showFailedNotification('Login Failed');
+                        // Handle login failure, show error message, etc.
+                    }
                 })
-                .catch((error) => {
+                .catch(error => {
                     if (error.response && error.response.data) {
                         // Server returned an error response
                         this.errors = error.response.data.errors;
@@ -95,12 +117,11 @@ export default {
                         console.log(error);
                     }
                 });
-        },
-    },
-    mounted() {
+        }
 
     }
 }
+
 
 
 </script>

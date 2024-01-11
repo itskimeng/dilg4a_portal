@@ -567,7 +567,6 @@ select {
                         <div class="input-text" :style="{ display: shouldDisplayInput(0) }">
                           <div class="input-div" v-if="index === 0">
                             <input v-model="purchase_no" type="text" :readonly="isPurchaseNoEditable" />
-                            <span>Purchase Request No.</span>
                           </div>
                         </div>
 
@@ -575,7 +574,7 @@ select {
                         <div class="row">
                           <div class="col-md-12 col-sm-12 col-xs-12 col-lg-6">
                             <div class="form-group" :style="{ display: shouldDisplayInput(1) }">
-                              <label for="exampleInputPassword1">Office</label>
+                              <label for="Office">Office</label>
                               <select class="form-control" v-model="purchaseRequestData.pmo">
                                 <option v-for="option in pmo" :key="option.value" :value="option.value">{{ option.label
                                 }}</option>
@@ -677,25 +676,28 @@ select {
                           </div>
                         </div>
 
-                     
+
 
                         <div class="buttons button_space">
-                         
+
                           <button class="btn btn-primary back_button" @click="backStep"
                             v-if="index > 0 || index === mainForms.length - 1"> Back </button>
                           <!-- <button class="btn btn-primary next_button" @click="nextStep" v-if="index == 0 || index == 3"> Next Step </button>  -->
-                            <div v-if="index === 2">
-                              <button class="btn btn-primary next_button" @click="nextStepAndFetchDetails"> Next Steps</button>
+                          <div v-if="index === 2">
+                            <button class="btn btn-primary next_button" @click="nextStepAndFetchDetails"> Next
+                              Steps</button>
                           </div>
-                          <button  v-if="index == 1" @click="nextStep" class="btn btn-primary">
+                          <button v-if="index == 1" @click="nextStep" class="btn btn-primary">
                             Next Steps
                           </button>
                           <button class="btn btn-success next_button" @click="updatePurchaseRequestDetails"
-                            v-if="index === 1"> Update </button>
+                            v-if="index === 1"> Save as Draft </button>
+
+
+
                           <button class="btn btn-info next_button" @click="savePurchaseNo" v-if="(index === 0)"> Reserved
                             PR No </button>
-                          <button class="btn btn-success submit_button" @click="submitForm"
-                            v-if="index === mainForms.length - 1"> {{ index === mainForms.length - 1 ? 'Submit' : 'Save as Draft' }} </button>
+                          <button class="btn btn-success submit_button" @click="submitForm" v-if="index === mainForms.length - 1"> {{ index === mainForms.length - 1 ? 'Submit' : 'Save as Draft' }} </button>
                         </div>
 
                       </div>
@@ -729,9 +731,8 @@ export default {
     return {
 
       purchase_no: null,
-      
+      userId: null,
       isPurchaseNoEditable: true, // Set initially as editable
-
       searchResultsCount: null,
       formnumber: 0,
       searchValue: '',
@@ -781,6 +782,10 @@ export default {
       ]
     };
   },
+  // 
+  created() {
+    this.userId = localStorage.getItem('userId');
+  },
   computed: {
     isSelected: function () {
       const selectedSet = new Set(this.selectedItems);
@@ -817,19 +822,17 @@ export default {
 
   },
   mounted() {
-    this.fetchAppData();
+    // this.fetchAppData();
     this.generatePurchaseRequestNo();
-    axios
-      .get('../api/appitems')
-      .then(response => (this.item_title = response.data))
-      .catch(error => console.log(error.response))
-      
+    this.fetchAppItem();
+    
+
   },
 
   methods: {
     openModal() {
-          this.isModalOpen = true;
-        },
+      this.isModalOpen = true;
+    },
     closeModal() {
       this.isModalOpen = false;
     },
@@ -837,7 +840,7 @@ export default {
       return string.substring(0, len + string.substring(len - 1).indexOf(' '));
 
     },
-   
+
     nextStep() {
       if (!this.validateForm()) {
         return false;
@@ -850,15 +853,15 @@ export default {
       } else if (this.formnumber === 3) {
         // Call fetchCartDetails when the form is at index 3
         this.generatePurchaseRequestNo();
-      }else{
-        
+      } else {
+
       }
 
     },
-    nextStepAndFetchDetails(){
-        this.nextStep(); // Call your existing nextStep logic
-        this.fetchCartDetails(); 
-    } ,
+    nextStepAndFetchDetails() {
+      this.nextStep(); // Call your existing nextStep logic
+      this.fetchCartDetails();
+    },
     backStep() {
       if (this.formnumber > 0) {
         this.formnumber--;
@@ -899,7 +902,8 @@ export default {
           id: id,
           pr_no: this.purchase_no,
           itemIds: selectedItemIds,
-          status: '1'
+          status: 1,
+          step:3
         })
           .then((response) => {
             // Handle the success response
@@ -913,6 +917,16 @@ export default {
           });
       });
     },
+    fetchAppItem(){
+    axios
+      .get('../api/appitems')
+      .then(response => {
+        this.item_title = response.data;
+      })
+      .catch(error => {
+        console.log(error.response);
+      });
+  },
     fetchPRId() {
       let pr_no = this.purchase_no;
       // Return the promise from axios.get
@@ -1040,8 +1054,8 @@ export default {
         } else {
           this.purchase_no = `${purchaseNoFormat}-${formattedSequence}`;
         }
-        this.fetchCartDetails();
-        this.fetchPurchaseRequestDetails();
+        //this.fetchCartDetails();
+        // this.fetchPurchaseRequestDetails();
       } catch (error) {
         console.error('Error fetching data', error);
       }
@@ -1067,11 +1081,13 @@ export default {
     //step 1
     savePurchaseNo() {
       // Check if purchase_no is not empty and the field is not editable
-      if (this.purchase_no && !this.isPurchaseNoEditable) {
+      if (this.purchase_no) {
         axios
           .post('/api/post_insert_purchaseNo', {
             pr_no: this.purchase_no,
-            status: '1',
+            status:1,
+            step:1,
+            user: this.userId,
             updated_at: null,
             created_at: null,
           })
@@ -1082,7 +1098,10 @@ export default {
 
             this.formnumber++;
             setTimeout(() => {
-              this.$router.push({ path: '/gss/create_pr', query: { pr_no: this.purchase_no } });
+              this.$router.push({
+                name: 'Create Purchase Request Item with ID',
+                params: { id: this.purchase_no },
+              });
             }, 2000); // Adjust the delay as needed
           })
           .catch((error) => {
@@ -1103,6 +1122,7 @@ export default {
         pr_date: this.purchaseRequestData.pr_date,
         target_date: this.purchaseRequestData.target_date,
         purpose: this.purchaseRequestData.particulars,
+        step:2
       }
       ).then(() => {
 
