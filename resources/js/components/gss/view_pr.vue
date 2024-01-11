@@ -137,6 +137,17 @@
                         </div>
 
                         <div class="col-md-10 grid-margin mb-4">
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <h4 class="card-title">Purchase Request No: <div class="badge badge-danger"
+                                                style="font-size: 15pt;">{{ pr_no }}</div>
+                                        </h4>
+                                        <h4 class="card-title">Total Amount: Php {{ total_amount }}</h4>
+                                    </div>
+                                    </div>
+                                    </div>
+
                             <div class="card mb-4" v-if="current_step <= 3">
                                 <div class="card-body">
                                     <div class="row">
@@ -186,29 +197,17 @@
                                     <!-- Add more form fields as needed -->
                                 </div>
                             </div>
-
-
-
                             <div class="card ">
                                 <div class="card-body">
-                                    <div class="d-flex justify-content-between">
-                                        <h4 class="card-title">Purchase Request No: <div class="badge badge-danger"
-                                                style="font-size: 15pt;">{{ pr_no }}</div>
-                                        </h4>
-                                        <h4 class="card-title">Total Amount: Php {{ total_amount }}</h4>
-                                    </div>
+                                
 
                                     <div class="table-responsive">
                                         <dtable :data="pr_data" :columns="tableColumns" />
                                     </div>
                                     <button type="submit" class="btn btn-success">Submit</button>
-
                                 </div>
                             </div>
-
-
                         </div>
-
                     </div>
                 </div>
                 <FooterVue />
@@ -234,41 +233,18 @@ export default {
             total_amount: null,
             disabled: false, // Add this if needed
             tableColumns: ['serial_no', 'procurement', 'unit', 'description', 'app_price', 'action'],
-            purchaseRequestData: {
-                pmo: null,
-                pr_type: null,
-                pr_date: null,
-                target_date: null,
-                particulars: null
-            },
-            procurementType: [
-                { value: '1', label: 'Catering Services' },
-                { value: '2', label: 'Meals, Venue and Accomodation' },
-                { value: '3', label: 'Repair and Maintenance' },
-                { value: '4', label: 'Supplies, Materials and Devices' },
-                { value: '5', label: 'Other Services' },
-                { value: '6', label: 'Reimbursement and Petty Cash' }
-            ],
-            pmo: [
-                { value: '1', label: 'ORD' },
-                { value: '2', label: 'FAD' },
-                { value: '3', label: 'LGMED' },
-                { value: '4', label: 'LGCDD' },
-            ]
+            purchaseRequestData: { pmo: null, pr_type: null, pr_date: null, target_date: null, particulars: null },
+            procurementType: [ { value: '1', label: 'Catering Services' }, { value: '2', label: 'Meals, Venue and Accomodation' }, { value: '3', label: 'Repair and Maintenance' }, { value: '4', label: 'Supplies, Materials and Devices' }, { value: '5', label: 'Other Services' }, { value: '6', label: 'Reimbursement and Petty Cash' } ],
+            pmo: [ { value: '1', label: 'ORD' }, { value: '2', label: 'FAD' }, { value: '3', label: 'LGMED' }, { value: '4', label: 'LGCDD' }, ]
         };
     },
     mounted() {
-this.fetchPurchaseRequestDetails();
-        axios
-            .get(`../../api/viewPurchaseRequest/${this.$route.params.id}`)
-            .then((res) => {
+        this.fetchPurchaseRequestDetails();
+        axios.get(`../../api/viewPurchaseRequest/${this.$route.params.id}`).then((res) => {
                 this.pr_data = res.data;
                 this.current_step = res.data[0].step;
                 this.pr_no = res.data[0].pr_no;
-            })
-            .catch((error) => {
-                console.error("Error fetching data:", error);
-            });
+            }).catch((error) => { console.error("Error fetching data:", error); });
         // T O T A L A M O U N T
         const pr_id = this.$route.params.id
         axios.post('../../api/total_amount', {
@@ -283,22 +259,22 @@ this.fetchPurchaseRequestDetails();
             this.current_step = step;
         },
         fetchPurchaseRequestDetails() {
-    const pr_id = this.$route.params.id;
+            const pr_id = this.$route.params.id;
 
-    // Make an API call to get purchase request details based on pr_no
-    axios.get(`/api/get_purchase_request_details`, { params: { id: pr_id } })
-        .then((response) => {
-            // Update purchaseRequestData with the fetched values
-            this.purchaseRequestData.pmo = response.data.pmo;
-            this.purchaseRequestData.pr_type = response.data.type;
-            this.purchaseRequestData.pr_date = response.data.pr_date;
-            this.purchaseRequestData.target_date = response.data.target_date;
-            this.purchaseRequestData.particulars = response.data.purpose;
-        })
-        .catch((error) => {
-            console.log('Error fetching purchase request details:', error);
-        });
-},
+            // Make an API call to get purchase request details based on pr_no
+            axios.get(`/api/get_purchase_request_details`, { params: { id: pr_id } })
+                .then((response) => {
+                    // Update purchaseRequestData with the fetched values
+                    this.purchaseRequestData.pmo = response.data.pmo;
+                    this.purchaseRequestData.pr_type = response.data.type;
+                    this.purchaseRequestData.pr_date = response.data.pr_date;
+                    this.purchaseRequestData.target_date = response.data.target_date;
+                    this.purchaseRequestData.particulars = response.data.purpose;
+                })
+                .catch((error) => {
+                    console.log('Error fetching purchase request details:', error);
+                });
+        },
 
         fetch_pr_no: () => {
 

@@ -78,7 +78,7 @@
                 <div class="content-wrapper">
                     <BreadCrumbs />
                     <div class="row">
-                        <div class="col-lg-3">
+                        <div class="col-lg-2">
                             <div class="card card_shadow">
                                 <div class="card-body" style="height: 320px;text-align: center;">
                                     <img src="../../../assets/logo.png" class="profile_img">
@@ -160,7 +160,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-9 grid-margin mb-4 stretch-card">
+                        <div class="col-md-10 grid-margin mb-4 stretch-card">
                             <DetailedReport />
                         </div>
                     </div>

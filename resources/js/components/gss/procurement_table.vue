@@ -4,8 +4,9 @@
 }
 </style>
 <template>
-    <table id="pr_tbl" style="width: 100%;"
-        class="table table-striped table-borderless display expandable-table dataTable no-footer" role="grid">
+    
+        <table  id="pr_tbl" style="width: 100%;" class="table table-striped display expandable-table dataTable no-footer" role="grid" >
+
         <thead>
             <tr role="row">
                 <th class="select-checkbox sorting_disabled" rowspan="1" colspan="1" aria-label="Quote#"
@@ -13,7 +14,7 @@
 
              
                 <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
-                    aria-label="Policy holder: activate to sort column ascending" style="width: 107px;">PRICE</th>
+                    aria-label="Policy holder: activate to sort column ascending" style="width: 107px;">TOTAL AMOUNT</th>
                 <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
                     aria-label="Premium: activate to sort column ascending" style="width: 126px;">PURPOSE</th>
                 <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
@@ -44,11 +45,9 @@
                 <td>
                     <div class="template-demo d-flex justify-content-between flex-nowrap">
                         <button @click="$router.push({ path: `/gss/view_pr/${purchaseRequest.id}` })" type="button" class="btn btn-success btn-rounded btn-icon">
-                            <i class="ti-eye" style="margin-left: -2px;"></i>
-                        </button>
-                        <button type="button" class="btn btn-info btn-rounded btn-icon">
                             <i class="ti-new-window" style="margin-left: -2px;"></i>
                         </button>
+                        
                         <button type="button" class="btn btn-danger btn-rounded btn-icon">
                             <i class="ti-trash" style="margin-left: -2px;"></i>
                         </button>

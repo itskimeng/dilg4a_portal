@@ -2,8 +2,7 @@
 
 <template>
   <div class="table-container">
-    <table class="table table-striped display expandable-table dataTable no-footer" role="grid"
-      style="table-layout: fixed;">
+    <table class="table table-striped display expandable-table dataTable no-footer" role="grid" style="table-layout: fixed;">
       <thead>
         <tr>
           <th v-for="column in columns" :key="column">{{ column }}</th>
@@ -16,7 +15,7 @@
             <!-- Check if the column is 'ACTION' -->
             <template v-if="column === 'action'">
               <div class="template-demo">
-                <button type="button" class="btn btn-info btn-rounded btn-icon mr-2"><i class="ti-new-window"></i></button>
+                <button type="button" class="btn btn-success btn-rounded btn-icon mr-2"><i class="ti-new-window"></i></button>
                 <button type="button" class="btn btn-danger btn-rounded btn-icon"><i class="ti-trash"></i></button>
               </div>
 
@@ -53,6 +52,14 @@ export default {
 
   
 <style scoped>
+.expandable-table tr td {
+  padding: 7px;
+  font-size: 14px;
+  text-align: center;
+}
+.table th{
+text-align: center;
+}
 .table-container {
   max-height: 700px;
   overflow-y: hidden;
