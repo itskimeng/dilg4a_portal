@@ -49,7 +49,7 @@ export default {
                 },
                 {
                     link: '',
-                    name: 'GSS Section',
+                    name: 'Procurement',
                     tooltip: 'General Service Section',
                     icon: 'icon-layout menu-icon',
                     children: [
@@ -81,28 +81,28 @@ export default {
 
                     ],
                 },
-                {
-                    link: '/dashboard',
-                    name: 'RICTU',
-                    tooltip: 'RICTU',
-                    icon: 'icon-grid menu-icon',
-                    children: [
-                        {
-                            link: '/gss/AnnualProcurementPlan',
-                            name: 'Reports and Statistics',
-                            tooltip: 'Buttons',
-                            icon: 'icon-grid menu-icon',
-                        },
-                        {
-                            link: '/gss/procurement',
-                            name: 'ICT TA Tickets',
-                            tooltip: 'Buttons',
-                            icon: 'icon-grid menu-icon',
-                        },
+                // {
+                //     link: '/dashboard',
+                //     name: 'RICTU',
+                //     tooltip: 'RICTU',
+                //     icon: 'icon-grid menu-icon',
+                //     children: [
+                //         {
+                //             link: '/gss/AnnualProcurementPlan',
+                //             name: 'Reports and Statistics',
+                //             tooltip: 'Buttons',
+                //             icon: 'icon-grid menu-icon',
+                //         },
+                //         {
+                //             link: '/gss/procurement',
+                //             name: 'ICT TA Tickets',
+                //             tooltip: 'Buttons',
+                //             icon: 'icon-grid menu-icon',
+                //         },
                       
 
-                    ],
-                },
+                //     ],
+                // },
               
 
                 // Add more menu items as needed

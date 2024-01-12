@@ -31,6 +31,7 @@ class PurchaseRequestModel extends Model
         'is_urgent',
         'requested_by',
         'updated_at',
-        'created_at'
+        'created_at',
+        'current_step'
     ];
 }

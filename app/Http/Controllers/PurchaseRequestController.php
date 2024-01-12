@@ -62,10 +62,10 @@ class PurchaseRequestController extends Controller
     }
     public function getPurchaseRequestDetails(Request $request)
     {
-        $pr_no = $request->input('id');
+        $pr_no = $request->input('pr_no');
 
         // Fetch purchase request details based on pr_no
-        $purchaseRequest = PurchaseRequestModel::where('id', $pr_no)->first();
+        $purchaseRequest = PurchaseRequestModel::where('pr_no', $pr_no)->first();
 
         // Check if the purchase request was found
         if ($purchaseRequest) {
@@ -142,7 +142,7 @@ class PurchaseRequestController extends Controller
         }
         $query = AppItemModel::select(AppItemModel::raw('
         tbl_app.id as `app_id`,
-        tbl_app.pr_no as `pr_no`,
+        pr.pr_no as `pr_no`,
         tbl_app.sn as `serial_no`,
         tbl_app.item_title as `procurement`,
         unit.item_unit_title as `unit`,
@@ -169,6 +169,7 @@ class PurchaseRequestController extends Controller
         $query = PurchaseRequestModel::select(PurchaseRequestModel::raw('
         pr.id AS `id`,
         MAX(pr.pr_no) AS `pr_no`,
+        MAX(pr.current_step) AS `step`,
         MAX(pmo.pmo_title) AS `office`,
         MAX(pr.submitted_by) AS `submitted_by`,
         MAX(pr.purpose) AS `particulars`,
@@ -182,6 +183,7 @@ class PurchaseRequestController extends Controller
         MAX(app.item_title) AS `item_title`,
         MAX(unit.item_unit_title) AS `unit`,
         MAX(status.title) AS `status`,
+        MAX(status.id) AS `status_id`,
         SUM(app.app_price) AS `app_price`
         '))
             ->leftJoin('pmo', 'pmo.id', '=', 'pr.pmo')

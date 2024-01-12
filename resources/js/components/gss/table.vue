@@ -20,6 +20,7 @@
               </div>
 
             </template>
+            
             <!-- If not 'ACTION', display the regular item[column] content -->
             <template v-else>
               {{ item[column] }}

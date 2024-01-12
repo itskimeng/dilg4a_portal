@@ -4,15 +4,15 @@
 }
 </style>
 <template>
-    
-        <table  id="pr_tbl" style="width: 100%;" class="table table-striped display expandable-table dataTable no-footer" role="grid" >
+    <table id="pr_tbl" style="width: 100%;" class="table table-striped display expandable-table dataTable no-footer"
+        role="grid">
 
         <thead>
             <tr role="row">
                 <th class="select-checkbox sorting_disabled" rowspan="1" colspan="1" aria-label="Quote#"
                     style="width: 61px;"> PURCHASE REQUEST #</th>
 
-             
+
                 <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
                     aria-label="Policy holder: activate to sort column ascending" style="width: 107px;">TOTAL AMOUNT</th>
                 <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
@@ -32,7 +32,9 @@
 
         <tbody>
             <tr v-for="purchaseRequest in displayedItems" :key="purchaseRequest.id">
-                <td> <div class="badge badge-default" @click="$router.push({ path: `/gss/view_pr/${purchaseRequest.id}` })"> <b>{{ purchaseRequest.pr_no }}</b><br><i>~{{ purchaseRequest.office }}~</i></div>
+                <td>
+                    <div class="badge badge-default" @click="$router.push({ path: `/gss/view_pr/${purchaseRequest.id}` })">
+                        <b>{{ purchaseRequest.pr_no }}</b><br><i>~{{ purchaseRequest.office }}~</i></div>
                 </td>
                 <td>{{ purchaseRequest.app_price }}</td>
                 <td>{{ purchaseRequest.particulars }}</td>
@@ -44,10 +46,8 @@
                 <td>5 minutes ago</td>
                 <td>
                     <div class="template-demo d-flex justify-content-between flex-nowrap">
-                        <button @click="$router.push({ path: `/gss/view_pr/${purchaseRequest.id}` })" type="button" class="btn btn-success btn-rounded btn-icon">
-                            <i class="ti-new-window" style="margin-left: -2px;"></i>
-                        </button>
-                        
+                        <button @click="viewPr(purchaseRequest.id,purchaseRequest.status_id,purchaseRequest.step)" type="button" class="btn btn-success btn-rounded btn-icon"> <i class="ti-new-window" style="margin-left: -2px;"></i> </button>
+
                         <button type="button" class="btn btn-danger btn-rounded btn-icon">
                             <i class="ti-trash" style="margin-left: -2px;"></i>
                         </button>
@@ -72,7 +72,7 @@ export default {
         return {
             purchaseRequests: [],
             currentPage: 1,
-            itemsPerPage: 10,
+            itemsPerPage: 5,
         };
     },
     components: {
@@ -106,6 +106,16 @@ export default {
             this.currentPage = page;
             // Fetch data for the new page
             this.loadData();
+        },
+        viewPr(pr_id,status,step_no) {
+            // Check if the status is DRAFT
+            if (status === 3) {
+                // If DRAFT, use 'gss/update_pr/' route
+                this.$router.push({ path: '/gss/update_pr', query: { pr: pr_id,step:step_no } });
+            } else {
+                // Otherwise, use the 'gss/view_pr/' route
+                this.$router.push({ path: `/gss/view_pr/${pr_id}` });
+            }
         },
     },
 };

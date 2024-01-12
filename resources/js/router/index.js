@@ -10,6 +10,7 @@ import AnnualProcurementPlan from "../components/gss/AnnualProcurementPlan.vue";
 import AddAppItem from "../components/gss/add_app_item.vue";
 import CreatePRItem from "../components/gss/create_pr.vue"
 import ViewPRItem from "../components/gss/view_pr.vue";
+import UpdatePRItem from "../components/gss/update_pr.vue";
 
 // Statistics
 import procurement_stat from "../components/gss/procurement_stat.vue";
@@ -54,6 +55,17 @@ const routes = [
         name: 'Create Purchase Request Item',
         component: CreatePRItem,
     },
+    {
+        path: '/gss/update_pr',
+        name: 'update_pr',
+        component: UpdatePRItem,
+        props: true, // Automatically bind route parameters as props
+        beforeEnter: (to, from, next) => {
+          // Your beforeEnter logic if needed
+          next();
+        },
+      },
+      
     {
         path: '/gss/create_pr/:id',
         name: 'Create Purchase Request Item with ID',

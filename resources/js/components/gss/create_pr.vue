@@ -448,7 +448,7 @@ select {
         <div class="content-wrapper">
           <BreadCrumbs />
           <div class="row">
-            <div class="col-lg-3">
+            <div class="col-lg-2">
               <div class="card card_shadow">
                 <div class="card-body" style="height: 320px;text-align: center;">
                   <img src="../../../assets/logo.png" class="profile_img">
@@ -530,13 +530,13 @@ select {
                 </div>
               </div>
             </div>
-            <div class="col-md-9 grid-margin mb-4 stretch-card">
+            <div class="col-md-10 grid-margin mb-4 stretch-card">
               <div class="container">
                 <div class="card" style="margin-left: -2%;">
                   <div class="form">
                     <div class="left-side">
                       <div class="left-heading">
-                        <h3>Create Purchase Request</h3>
+                        <h3>{{current_step}}Create Purchase Request</h3>
                       </div>
                       <div class="steps-content">
                         <h3>
@@ -647,32 +647,9 @@ select {
 
                         <div class="col-lg-12" :style="{ display: shouldDisplayInput(3) }">
                           <div class="input-div" v-if="index === 3">
-
-                            <div class="row" style="height: 650px;overflow-y:auto">
-                              <table id="cart_table" class="table table-striped table-borderless "
-                                style="height:300px;overflow: auto;">
-                                <thead>
-                                  <tr role="row">
-                                    <th class="select-checkbox sorting_disabled" rowspan="1" colspan="1"
-                                      aria-label="Quote#" style="width: 61px;"> Stock Number</th>
-                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
-                                      aria-label="Business type: activate to sort column ascending" style="width: 20px;">
-                                      Unit
-                                    </th>
-                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
-                                      aria-label="Business type: activate to sort column ascending" style="width: 20px;">
-                                      Item
-                                    </th>
-
-
-                                    <th class="details-control sorting_disabled" rowspan="1" colspan="1" aria-label=""
-                                      style="width: 4px;"> Actions</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                              </table>
-                            </div>
+                            <div class="table-responsive">
+                              <dtable :data="pr_data" :columns="tableColumns" />
+                          </div>
                           </div>
                         </div>
 
@@ -680,24 +657,12 @@ select {
 
                         <div class="buttons button_space">
 
-                          <button class="btn btn-primary back_button" @click="backStep"
-                            v-if="index > 0 || index === mainForms.length - 1"> Back </button>
-                          <!-- <button class="btn btn-primary next_button" @click="nextStep" v-if="index == 0 || index == 3"> Next Step </button>  -->
-                          <div v-if="index === 2">
-                            <button class="btn btn-primary next_button" @click="nextStepAndFetchDetails"> Next
-                              Steps</button>
-                          </div>
-                          <button v-if="index == 1" @click="nextStep" class="btn btn-primary">
-                            Next Steps
-                          </button>
-                          <button class="btn btn-success next_button" @click="updatePurchaseRequestDetails"
-                            v-if="index === 1"> Save as Draft </button>
-
-
-
-                          <button class="btn btn-info next_button" @click="savePurchaseNo" v-if="(index === 0)"> Reserved
-                            PR No </button>
-                          <button class="btn btn-success submit_button" @click="submitForm" v-if="index === mainForms.length - 1"> {{ index === mainForms.length - 1 ? 'Submit' : 'Save as Draft' }} </button>
+                          <button class="btn btn-primary back_button" @click="backStep" v-if="index > 0"> Back </button>
+                          <div v-if="index === 2"> <button class="btn btn-primary next_button" @click="nextStepAndFetchDetails"> Next Steps</button> </div>
+                          <button v-if="index == 1" @click="nextStep" class="btn btn-primary"> Next Steps </button>
+                          <button class="btn btn-success next_button" @click="updatePurchaseRequestDetails" v-if="index === 1"> Save as Draft </button>
+                          <button class="btn btn-info next_button" @click="savePurchaseNo" v-if="(index === 0)"> Reserved PR No </button>
+                          <button class="btn btn-success submit_button" @click="submitForm" v-if="index === mainForms.length - 1"> {{ index === mainForms.length - 1 ? 'Print Preview' : 'Save as Draft' }} </button>
                         </div>
 
                       </div>
@@ -722,6 +687,7 @@ import Sidebar from "../layout/Sidebar.vue";
 import FooterVue from "../layout/Footer.vue";
 import BreadCrumbs from "../dashboard_tiles/BreadCrumbs.vue";
 import item_table from "./item_table.vue";
+import dtable from "./table.vue";
 import axios from "axios";
 import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
@@ -731,13 +697,17 @@ export default {
     return {
 
       purchase_no: null,
-      userId: null,
+      userId:null,
       isPurchaseNoEditable: true, // Set initially as editable
       searchResultsCount: null,
       formnumber: 0,
       searchValue: '',
       item_title: [],
       selectedItems: [],
+      pr_data: [],
+
+      tableColumns: ['serial_no', 'procurement', 'unit', 'description', 'app_price', 'action'],
+
       formData: Array.from({ length: 4 }, () => ({})),
       purchaseRequestData: {
         pmo: null,
@@ -826,6 +796,9 @@ export default {
     this.generatePurchaseRequestNo();
     this.fetchAppItem();
     
+   
+    
+
 
   },
 
@@ -840,7 +813,8 @@ export default {
       return string.substring(0, len + string.substring(len - 1).indexOf(' '));
 
     },
-
+    
+   
     nextStep() {
       if (!this.validateForm()) {
         return false;
@@ -860,7 +834,14 @@ export default {
     },
     nextStepAndFetchDetails() {
       this.nextStep(); // Call your existing nextStep logic
-      this.fetchCartDetails();
+      this.fetchPRId().then((id) => {
+        axios.get(`../../api/viewPurchaseRequest/${id}}`).then((res) => {
+                this.pr_data = res.data;
+
+               
+            }).catch((error) => { console.error("Error fetching data:", error); });
+      });
+      
     },
     backStep() {
       if (this.formnumber > 0) {
@@ -903,7 +884,7 @@ export default {
           pr_no: this.purchase_no,
           itemIds: selectedItemIds,
           status: 1,
-          step:3
+          step: 3
         })
           .then((response) => {
             // Handle the success response
@@ -917,18 +898,18 @@ export default {
           });
       });
     },
-    fetchAppItem(){
-    axios
-      .get('../api/appitems')
-      .then(response => {
-        this.item_title = response.data;
-      })
-      .catch(error => {
-        console.log(error.response);
-      });
-  },
+    fetchAppItem() {
+      axios
+        .get('../api/appitems')
+        .then(response => {
+          this.item_title = response.data;
+        })
+        .catch(error => {
+          console.log(error.response);
+        });
+    },
     fetchPRId() {
-      let pr_no = this.purchase_no;
+      const pr_no = this.$route.params.id;
       // Return the promise from axios.get
       return axios.get(`/api/get_purchase_request_details?pr_no=${pr_no}`)
         .then((response) => {
@@ -936,7 +917,7 @@ export default {
           return response.data.id;
         })
         .catch((error) => {
-          console.error('Error fetching purchase request details:', error);
+          console.error(error);
           // Throw the error to propagate it to the next catch block if needed
           throw error;
         });
@@ -1020,7 +1001,6 @@ export default {
             pageLength: 10,
             columns: [
               { data: 'serial_no' },
-              { data: 'unit' },
               {
                 data: 'procurement',
                 render: function (data, type, row) {
@@ -1030,7 +1010,21 @@ export default {
                   }
                   return data;
                 },
+              }, { data: 'unit' },
+              { data: 'description' },
+              { data: 'app_price' },
+              // Edit button
+              {
+                data:null,
+              render: function (data, type, row) {
+                if (type === 'display') {
+                  return '<button class="btn btn-sm btn-primary">Edit</button>';
+                }
+                return data;
               },
+            }
+          
+
             ],
           });
         }).catch((error) => console.log(error));
@@ -1054,6 +1048,8 @@ export default {
         } else {
           this.purchase_no = `${purchaseNoFormat}-${formattedSequence}`;
         }
+        // localStorage.setItem('prId', response.data.userId);
+
         //this.fetchCartDetails();
         // this.fetchPurchaseRequestDetails();
       } catch (error) {
@@ -1062,10 +1058,9 @@ export default {
     },
     //show data
     fetchPurchaseRequestDetails() {
-      let pr_no = this.purchase_no;
-
-      // Make an API call to get purchase request details based on pr_no
-      axios.get(`/api/get_purchase_request_details?pr_no=${pr_no}`)
+      const pr_no = this.$route.params.id;
+      // Return the promise from axios.get
+      return axios.get(`/api/get_purchase_request_details?pr_no=${pr_no}`)
         .then((response) => {
           // Update purchaseRequestData with the fetched values
           this.purchaseRequestData.pmo = response.data.pmo;
@@ -1085,8 +1080,8 @@ export default {
         axios
           .post('/api/post_insert_purchaseNo', {
             pr_no: this.purchase_no,
-            status:1,
-            step:1,
+            status: 1,
+            step: 1,
             user: this.userId,
             updated_at: null,
             created_at: null,
@@ -1122,7 +1117,7 @@ export default {
         pr_date: this.purchaseRequestData.pr_date,
         target_date: this.purchaseRequestData.target_date,
         purpose: this.purchaseRequestData.particulars,
-        step:2
+        step: 2
       }
       ).then(() => {
 
@@ -1144,7 +1139,8 @@ export default {
     Sidebar,
     FooterVue,
     BreadCrumbs,
-    item_table
+    item_table,
+    dtable
   },
 };
 </script>
