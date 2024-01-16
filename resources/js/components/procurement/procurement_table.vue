@@ -33,7 +33,7 @@
         <tbody>
             <tr v-for="purchaseRequest in displayedItems" :key="purchaseRequest.id">
                 <td>
-                    <div class="badge badge-default" @click="$router.push({ path: `/gss/view_pr/${purchaseRequest.id}` })">
+                    <div class="badge badge-default" @click="$router.push({ path: `/procurement/view_pr/${purchaseRequest.id}` })">
                         <b>{{ purchaseRequest.pr_no }}</b><br><i>~{{ purchaseRequest.office }}~</i></div>
                 </td>
                 <td>{{ purchaseRequest.app_price }}</td>
@@ -109,12 +109,12 @@ export default {
         },
         viewPr(pr_id,status,step_no) {
             // Check if the status is DRAFT
-            if (status === 3) {
-                // If DRAFT, use 'gss/update_pr/' route
-                this.$router.push({ path: '/gss/update_pr', query: { pr: pr_id,step:step_no } });
+            if (step_no === 3) {
+                // If DRAFT, use 'procurement/update_pr/' route
+                this.$router.push({ path: '/procurement/update_pr', query: { id: pr_id,step:step_no } });
             } else {
-                // Otherwise, use the 'gss/view_pr/' route
-                this.$router.push({ path: `/gss/view_pr/${pr_id}` });
+                // Otherwise, use the 'procurement/view_pr/' route
+                this.$router.push({ path: `/procurement/view_pr/${pr_id}` });
             }
         },
     },

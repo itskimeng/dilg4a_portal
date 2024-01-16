@@ -262,7 +262,7 @@ export default {
 
 
                 setTimeout(() => {
-                    this.$router.push({ path: '/gss/AnnualProcurementPlan' });
+                    this.$router.push({ path: '/procurement/AnnualProcurementPlan' });
                 }, 2000); // Adjust the delay as needed
 
             }).catch((error) => {

@@ -64,8 +64,13 @@ Route::post('post_insert_purchaseNo',[PurchaseRequestController::class,'post_ins
 Route::post('post_update_purchaseRequestDetails',[PurchaseRequestController::class,'post_update_purchaseRequestDetails']);
 Route::post('fetchCart', [PurchaseRequestController::class, 'fetchCart']);
 Route::post('fetchPurchaseReqData', [PurchaseRequestController::class, 'fetchPurchaseReqData']);
-
 Route::post('total_amount', [PurchaseRequestController::class, 'total_amount']);
+
+// E X P O R T
+// routes/web.php or routes/api.php
+Route::middleware('api')->group(function () {
+    Route::get('export-purchase-request/{id}', [PurchaseRequestController::class, 'viewPurchaseRequest']);
+});
 
 
 

@@ -1,5 +1,12 @@
 <!-- DataTable.vue -->
-
+<style>
+.expandable-table thead tr th:last-child {
+  border-radius: 0px !important;
+}
+.expandable-table thead tr th:first-child {
+  border-radius: 0px !important;
+}
+</style>
 <template>
   <div class="table-container">
     <table class="table table-striped display expandable-table dataTable no-footer" role="grid" style="table-layout: fixed;">

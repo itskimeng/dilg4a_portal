@@ -54,25 +54,25 @@ export default {
                     icon: 'icon-layout menu-icon',
                     children: [
                         {
-                            link: '/gss/AnnualProcurementPlan',
+                            link: '/procurement/AnnualProcurementPlan',
                             name: 'APP',
                             tooltip: 'Buttons',
                             icon: 'icon-grid menu-icon',
                         },
                         {
-                            link: '/gss/procurement',
+                            link: '/procurement/index',
                             name: 'Procurement',
                             tooltip: 'Buttons',
                             icon: 'icon-grid menu-icon',
                         },
                         {
-                            link: '/gss/statistic',
+                            link: '/procurement/statistic',
                             name: 'Statistics',
                             tooltip: 'Buttons',
                             icon: 'icon-grid menu-icon',
                         },
                         {
-                            link: '/gss/procurement',
+                            link: '/procurement/procurement',
                             name: 'Reports',
                             tooltip: 'Buttons',
                             icon: 'icon-grid menu-icon',

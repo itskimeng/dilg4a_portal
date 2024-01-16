@@ -145,8 +145,8 @@
                                         </h4>
                                         <h4 class="card-title">Total Amount: Php {{ total_amount }}</h4>
                                     </div>
-                                    </div>
-                                    </div>
+                                </div>
+                            </div>
 
                             <div class="card mb-4" v-if="current_step <= 3">
                                 <div class="card-body">
@@ -199,7 +199,7 @@
                             </div>
                             <div class="card ">
                                 <div class="card-body">
-                                
+
 
                                     <div class="table-responsive">
                                         <dtable :data="pr_data" :columns="tableColumns" />
@@ -222,7 +222,7 @@ import FooterVue from "../layout/Footer.vue";
 import BreadCrumbs from "../dashboard_tiles/BreadCrumbs.vue";
 import axios from "axios";
 import { toast } from "vue3-toastify";
-import dtable from "../gss/table.vue";
+import dtable from "../procurement/table.vue";
 export default {
     name: "ViewPurchaseRequestItem",
     data() {
@@ -234,17 +234,17 @@ export default {
             disabled: false, // Add this if needed
             tableColumns: ['serial_no', 'procurement', 'unit', 'description', 'app_price', 'action'],
             purchaseRequestData: { pmo: null, pr_type: null, pr_date: null, target_date: null, particulars: null },
-            procurementType: [ { value: '1', label: 'Catering Services' }, { value: '2', label: 'Meals, Venue and Accomodation' }, { value: '3', label: 'Repair and Maintenance' }, { value: '4', label: 'Supplies, Materials and Devices' }, { value: '5', label: 'Other Services' }, { value: '6', label: 'Reimbursement and Petty Cash' } ],
-            pmo: [ { value: '1', label: 'ORD' }, { value: '2', label: 'FAD' }, { value: '3', label: 'LGMED' }, { value: '4', label: 'LGCDD' }, ]
+            procurementType: [{ value: '1', label: 'Catering Services' }, { value: '2', label: 'Meals, Venue and Accomodation' }, { value: '3', label: 'Repair and Maintenance' }, { value: '4', label: 'Supplies, Materials and Devices' }, { value: '5', label: 'Other Services' }, { value: '6', label: 'Reimbursement and Petty Cash' }],
+            pmo: [{ value: '1', label: 'ORD' }, { value: '2', label: 'FAD' }, { value: '3', label: 'LGMED' }, { value: '4', label: 'LGCDD' },]
         };
     },
     mounted() {
         this.fetchPurchaseRequestDetails();
         axios.get(`../../api/viewPurchaseRequest/${this.$route.params.id}`).then((res) => {
-                this.pr_data = res.data;
-                this.current_step = res.data[0].step;
-                this.pr_no = res.data[0].pr_no;
-            }).catch((error) => { console.error("Error fetching data:", error); });
+            this.pr_data = res.data;
+            this.current_step = res.data[0].step;
+            this.pr_no = res.data[0].pr_no;
+        }).catch((error) => { console.error("Error fetching data:", error); });
         // T O T A L A M O U N T
         const pr_id = this.$route.params.id
         axios.post('../../api/total_amount', {

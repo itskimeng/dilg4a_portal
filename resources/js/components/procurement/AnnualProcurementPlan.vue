@@ -147,7 +147,7 @@ export default {
     },
     methods: {
         addAppItem() {
-            this.$router.push("/gss/add_app_item");
+            this.$router.push("/procurement/add_app_item");
         },
         countTotalItem(cur_year) {
             axios.get(`../api/countTotalItem/${cur_year}`).then((res) => {

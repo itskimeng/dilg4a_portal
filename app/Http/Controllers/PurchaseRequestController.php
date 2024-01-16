@@ -7,6 +7,9 @@ use App\Models\PurchaseRequestModel;
 use App\Models\PurchaseRequestItemModel;
 use App\Models\AppItemModel;
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -201,7 +204,7 @@ class PurchaseRequestController extends Controller
         return response()->json($prData);
     }
 
-    public function viewPurchaseRequest($id)
+    public function viewPurchaseRequest($id, Request $request)
     {
 
         $query = AppItemModel::select(AppItemModel::raw('
@@ -212,11 +215,18 @@ class PurchaseRequestController extends Controller
         unit.item_unit_title as `unit`,
         pr_items.description as `description`,
         pr.pr_no as `pr_no`,
-        pr.current_step as `step`
+        pr.pmo as `office`,
+        pr.type as `type`,
+        pr.pr_date as `pr_date`,
+        pr.target_date as `target_date`,
+        pr.purpose as `particulars`,
+        pr.current_step as `step`,
+        tbl_status.title as `status`
         '))
             ->leftJoin('pr_items', 'pr_items.pr_item_id', '=', 'tbl_app.id')
             ->leftJoin('item_unit as unit', 'unit.id', '=', 'tbl_app.unit_id')
             ->leftJoin('pr', 'pr.id', '=', 'pr_items.pr_id')
+            ->leftJoin('tbl_status', 'pr.stat', '=', 'tbl_status.id')
             ->where('pr.id', $id);
         // Print the SQL query to check
         // dd($query->toSql());
@@ -224,30 +234,86 @@ class PurchaseRequestController extends Controller
         // Execute the query and return the result
         $app_item = $query->get();
 
+        if ($request->has('export')) {
+            // Export the data to Excel
+            return $this->exportToExcel($app_item);
+        }
+
         return response()->json($app_item);
     }
+
+
+
+
+    private function exportToExcel($data)
+    {
+        // Load the existing Excel template
+        $templatePath = public_path('templates/purchase_request_template.xlsx');
+        $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($templatePath);
+
+        // Get the active sheet
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // Define column headers
+        $headers = ['pr_no', 'serial_no', 'procurement'];
+
+        // Initialize row counter
+        $row = 11; // Assuming your data starts from the second row in the template
+        $particulars = $data[0]['particulars'];
+
+        $sheet->setCellValueByColumnAndRow(2, 36, $particulars);
+
+        // Iterate through data
+        foreach ($data as $rowData) {
+            // Iterate through columns
+            foreach ($data as $index => $field) {
+                // Set the cell value using the field name and row index
+                $sheet->setCellValueByColumnAndRow(1, $row, $rowData['serial_no']);
+                $sheet->setCellValueByColumnAndRow(2, $row, $rowData['unit']);
+                $sheet->setCellValueByColumnAndRow(3, $row, $rowData['procurement']);
+                $sheet->setCellValueByColumnAndRow(4, $row, 'qty');
+                $sheet->setCellValueByColumnAndRow(5, $row, $rowData['app_price']);
+                $sheet->setCellValueByColumnAndRow(6, $row, 'total');
+            }
+            // Increment the row counter
+            $row++;
+        }
+
+        // Create a writer and save the spreadsheet to a new file
+        $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
+        $fileName = $data[0]['pr_no'] . '.xlsx';
+        $writer->save($fileName);
+
+        // Download the file and delete it after sending
+        return response()->download($fileName)->deleteFileAfterSend(true);
+    }
+
+
+
+
+
     public function total_amount(Request $request)
     {
         $id = $request->input('id');
 
-    $query = PurchaseRequestModel::select(
-        'pr.id AS id',
-        DB::raw('SUM(app.app_price) AS total_amount')
-    )
-    ->leftJoin('pmo', 'pmo.id', '=', 'pr.pmo')
-    ->leftJoin('mode_of_proc as mode', 'mode.id', '=', 'pr.type')
-    ->leftJoin('pr_items', 'pr_items.pr_id', '=', 'pr.id')
-    ->leftJoin('item_unit as unit', 'unit.id', '=', 'pr_items.unit')
-    ->leftJoin('tbl_app as app', 'app.id', '=', 'pr_items.pr_item_id')
-    ->leftJoin('tbl_status as status', 'status.id', '=', 'pr.stat')
-    ->where('pr.id', $id)
-    ->groupBy('pr.id')
-    ->get();
+        $query = PurchaseRequestModel::select(
+            'pr.id AS id',
+            DB::raw('SUM(app.app_price) AS total_amount')
+        )
+            ->leftJoin('pmo', 'pmo.id', '=', 'pr.pmo')
+            ->leftJoin('mode_of_proc as mode', 'mode.id', '=', 'pr.type')
+            ->leftJoin('pr_items', 'pr_items.pr_id', '=', 'pr.id')
+            ->leftJoin('item_unit as unit', 'unit.id', '=', 'pr_items.unit')
+            ->leftJoin('tbl_app as app', 'app.id', '=', 'pr_items.pr_item_id')
+            ->leftJoin('tbl_status as status', 'status.id', '=', 'pr.stat')
+            ->where('pr.id', $id)
+            ->groupBy('pr.id')
+            ->get();
 
-    // Dump and die to output the SQL and the result for debugging
-    // dd($query);
+        // Dump and die to output the SQL and the result for debugging
+        // dd($query);
 
-    // If you want to return the result as JSON
-    return response()->json($query);
-}
+        // If you want to return the result as JSON
+        return response()->json($query);
+    }
 }

@@ -38,7 +38,7 @@
   </div>
 </template>
 <script>
-import procurement_table from '../../components/gss/procurement_table.vue';
+import procurement_table from '../../components/procurement/procurement_table.vue';
 
 export default {
   name: 'DetailedReport',
@@ -50,7 +50,7 @@ export default {
   },
   methods: {
     toCreatePR() {
-            this.$router.push("/gss/create_pr");
+            this.$router.push("/procurement/create_pr");
         },
     renderDetailedReportChart() {
       if ($("#north-america-chart").length) {
