@@ -267,7 +267,7 @@ dl li {
                             </div>
 
                         </div>
-                        <div class="col-lg-2">
+                        <div class="col-lg-3">
                             <div class="card ">
                                 <div class="card-body" style="height: 320px;text-align: center;">
                                     <img src="../../../assets/logo.png" class="profile_img">
@@ -350,7 +350,7 @@ dl li {
                             </div>
                         </div>
 
-                        <div class="col-md-10">
+                        <div class="col-md-9">
                             <div class="card mb-4">
 
                                 <div class="card-body">
