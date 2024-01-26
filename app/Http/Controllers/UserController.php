@@ -53,15 +53,18 @@ class UserController extends Controller
 
     public function fetchUserData($userId)
     {
-        $query = User::select(User::raw('
-        count(*) as total_pr,
-        pr.pr_no,
-        pmo.pmo_title,
-        users.name as `name`,
-        users.email as `email`'))
-        ->leftJoin('pr', 'pr.action_officer', '=', 'users.id')
-        ->leftJoin('pmo','pmo.id','=','users.pmo_id')
-        ->where('users.id', $userId);
+        $query = User::selectRaw('
+    pmo.pmo_title,
+    tblposition.position_title,
+    users.name as name,
+    users.email as email
+')
+            ->leftJoin('pr', 'pr.action_officer', '=', 'users.id')
+            ->leftJoin('pmo', 'pmo.id', '=', 'users.pmo_id')
+            ->leftJoin('tblposition', 'tblposition.id', '=', 'users.position_id')
+            ->where('users.id', $userId);
+
+
 
         // Optionally, you can print the SQL query to check
         // dd($query->toSql());

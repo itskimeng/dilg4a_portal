@@ -23691,16 +23691,17 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     fetchUserData: function fetchUserData(userId) {
+      var _this = this;
       axios__WEBPACK_IMPORTED_MODULE_5___default().get("../api/fetchUser/".concat(userId)).then(function (response) {
-        console.log(response.data);
+        _this.userData = response.data;
       })["catch"](function (error) {
         console.error('Error fetching user data:', error);
       });
     },
     countTotalItem: function countTotalItem(cur_year) {
-      var _this = this;
+      var _this2 = this;
       axios__WEBPACK_IMPORTED_MODULE_5___default().get("../api/countTotalItem/".concat(cur_year)).then(function (res) {
-        _this.appItem.app_total = res.data[0].item;
+        _this2.appItem.app_total = res.data[0].item;
       });
     }
   }
@@ -26199,8 +26200,43 @@ var _hoisted_4 = {
 var _hoisted_5 = {
   "class": "row"
 };
-var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"col-lg-3\"><div class=\"card card_shadow\"><div class=\"card-body\" style=\"height:320px;text-align:center;\"><img src=\"" + _assets_logo_png__WEBPACK_IMPORTED_MODULE_1__["default"] + "\" class=\"profile_img\"><div class=\"user_info\"><p>Office:</p><p>ORD-RICTU</p></div><div class=\"user_info\"><p>Position:</p><p>Database Admin</p></div><div class=\"user_info\"><p>Cancelled PR:</p><p>10</p></div><div class=\"user_info\"><p>Total PR&#39;s:</p><p>10</p></div></div></div><div class=\"card card_shadow\" style=\"margin-top:10px;\"><div class=\"card-body\" style=\"height:500px;\"><h5>Supplier Rankings</h5><select class=\"form-control\"><option>This Week</option><option>This Month</option><option>This Year</option></select><div class=\"card\" style=\"margin-top:10px;\"><div class=\"card-body\" style=\"height:90px;\"><div class=\"media\" style=\"margin-top:-25px;\"><div style=\"width:65px;height:65px;\"><img src=\"" + _assets_logo_png__WEBPACK_IMPORTED_MODULE_1__["default"] + "\" alt=\"...\" style=\"margin-top:10px;border-radius:5px;width:100%;object-fit:cover;margin-left:-14px;\"></div><div class=\"media-body\"><div class=\"media-content\" style=\"margin-top:5%;\">Supplier Title<br></div><div class=\"media-content\">0955136565</div><div class=\"media-content\">Calamba City, Laguna</div></div></div><p class=\"rank_wrapper rank_banner\">1st</p></div></div><div class=\"card\" style=\"margin-top:10px;\"><div class=\"card-body\" style=\"height:90px;\"><div class=\"media\" style=\"margin-top:-25px;\"><div style=\"width:65px;height:65px;\"><img src=\"" + _assets_logo_png__WEBPACK_IMPORTED_MODULE_1__["default"] + "\" alt=\"...\" style=\"border-radius:5px;width:100%;object-fit:cover;margin-left:-14px;\"></div><div class=\"media-body\"><div class=\"media-content\"><small>Supplier Title</small><br></div><div class=\"media-content\" style=\"margin-top:-1%;\"></div><div class=\"media-content\" style=\"margin-top:-2%;\"></div></div></div><p class=\"rank_wrapper rank_banner2\">2nd</p></div></div><div class=\"card\" style=\"margin-top:10px;\"><div class=\"card-body\" style=\"height:90px;\"><div class=\"media\" style=\"margin-top:-25px;\"><div style=\"width:65px;height:65px;\"><img src=\"" + _assets_logo_png__WEBPACK_IMPORTED_MODULE_1__["default"] + "\" alt=\"...\" style=\"border-radius:5px;width:100%;object-fit:cover;margin-left:-14px;\"></div><div class=\"media-body\"><div class=\"media-content\"><small>Supplier Title</small><br></div><div class=\"media-content\" style=\"margin-top:-1%;\"></div><div class=\"media-content\" style=\"margin-top:-2%;\"></div></div></div><p class=\"rank_wrapper rank_banner3\">3rd</p></div></div></div></div></div>", 1);
+var _hoisted_6 = {
+  "class": "col-lg-3"
+};
 var _hoisted_7 = {
+  "class": "card card_shadow"
+};
+var _hoisted_8 = {
+  "class": "card-body",
+  style: {
+    "height": "320px",
+    "text-align": "center"
+  }
+};
+var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+  src: _assets_logo_png__WEBPACK_IMPORTED_MODULE_1__["default"],
+  "class": "profile_img"
+}, null, -1 /* HOISTED */);
+var _hoisted_10 = {
+  "class": "user_info"
+};
+var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "Name:", -1 /* HOISTED */);
+var _hoisted_12 = {
+  "class": "user_info"
+};
+var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "Office:", -1 /* HOISTED */);
+var _hoisted_14 = {
+  "class": "user_info"
+};
+var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "Position:", -1 /* HOISTED */);
+var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "user_info"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "Cancelled PR:"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "10")], -1 /* HOISTED */);
+var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "user_info"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "Total PR's:"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "10")], -1 /* HOISTED */);
+var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"card card_shadow\" style=\"margin-top:10px;\"><div class=\"card-body\" style=\"height:500px;\"><h5>Supplier Rankings</h5><select class=\"form-control\"><option>This Week</option><option>This Month</option><option>This Year</option></select><div class=\"card\" style=\"margin-top:10px;\"><div class=\"card-body\" style=\"height:90px;\"><div class=\"media\" style=\"margin-top:-25px;\"><div style=\"width:65px;height:65px;\"><img src=\"" + _assets_logo_png__WEBPACK_IMPORTED_MODULE_1__["default"] + "\" alt=\"...\" style=\"margin-top:10px;border-radius:5px;width:100%;object-fit:cover;margin-left:-14px;\"></div><div class=\"media-body\"><div class=\"media-content\" style=\"margin-top:5%;\">Supplier Title<br></div><div class=\"media-content\">0955136565</div><div class=\"media-content\">Calamba City, Laguna</div></div></div><p class=\"rank_wrapper rank_banner\">1st</p></div></div><div class=\"card\" style=\"margin-top:10px;\"><div class=\"card-body\" style=\"height:90px;\"><div class=\"media\" style=\"margin-top:-25px;\"><div style=\"width:65px;height:65px;\"><img src=\"" + _assets_logo_png__WEBPACK_IMPORTED_MODULE_1__["default"] + "\" alt=\"...\" style=\"border-radius:5px;width:100%;object-fit:cover;margin-left:-14px;\"></div><div class=\"media-body\"><div class=\"media-content\"><small>Supplier Title</small><br></div><div class=\"media-content\" style=\"margin-top:-1%;\"></div><div class=\"media-content\" style=\"margin-top:-2%;\"></div></div></div><p class=\"rank_wrapper rank_banner2\">2nd</p></div></div><div class=\"card\" style=\"margin-top:10px;\"><div class=\"card-body\" style=\"height:90px;\"><div class=\"media\" style=\"margin-top:-25px;\"><div style=\"width:65px;height:65px;\"><img src=\"" + _assets_logo_png__WEBPACK_IMPORTED_MODULE_1__["default"] + "\" alt=\"...\" style=\"border-radius:5px;width:100%;object-fit:cover;margin-left:-14px;\"></div><div class=\"media-body\"><div class=\"media-content\"><small>Supplier Title</small><br></div><div class=\"media-content\" style=\"margin-top:-1%;\"></div><div class=\"media-content\" style=\"margin-top:-2%;\"></div></div></div><p class=\"rank_wrapper rank_banner3\">3rd</p></div></div></div></div>", 1);
+var _hoisted_19 = {
   "class": "col-md-9 grid-margin mb-4 stretch-card"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -26209,7 +26245,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_BreadCrumbs = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("BreadCrumbs");
   var _component_DetailedReport = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("DetailedReport");
   var _component_FooterVue = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("FooterVue");
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Navbar), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Sidebar), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_BreadCrumbs), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_DetailedReport)])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_FooterVue)])])]);
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Navbar), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Sidebar), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_BreadCrumbs), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [_hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [_hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(this.userData.name), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [_hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(this.userData.pmo_title), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [_hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(this.userData.position_title), 1 /* TEXT */)]), _hoisted_16, _hoisted_17])]), _hoisted_18]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_DetailedReport)])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_FooterVue)])])]);
 }
 
 /***/ }),

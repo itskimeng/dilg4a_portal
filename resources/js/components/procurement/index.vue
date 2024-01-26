@@ -83,13 +83,18 @@
                                 <div class="card-body" style="height: 320px;text-align: center;">
                                     <img src="../../../assets/logo.png" class="profile_img">
                                     <div class="user_info">
+                                        <p>Name:</p>
+                                        <p>{{this.userData.name}}</p>
+                                    </div>
+                                    <div class="user_info">
                                         <p>Office:</p>
-                                        <p>ORD-RICTU</p>
+                                        <p>{{this.userData.pmo_title}}</p>
                                     </div>
                                     <div class="user_info">
                                         <p>Position:</p>
-                                        <p>Database Admin</p>
+                                        <p>{{this.userData.position_title}}</p>
                                     </div>
+                                   
                                     <div class="user_info">
                                         <p>Cancelled PR:</p>
                                         <p>10</p>
@@ -210,7 +215,7 @@ export default {
         fetchUserData(userId) {
             axios.get(`../api/fetchUser/${userId}`)
             .then((response) => {
-                console.log(response.data);
+                this.userData = response.data;
             }).catch(error => {
                 console.error('Error fetching user data:', error);
             });
