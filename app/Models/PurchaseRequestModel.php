@@ -32,6 +32,8 @@ class PurchaseRequestModel extends Model
         'requested_by',
         'updated_at',
         'created_at',
-        'current_step'
+        'current_step',
+        'name',
+        'email'
     ];
 }

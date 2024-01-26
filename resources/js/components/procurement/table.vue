@@ -1,64 +1,63 @@
 <!-- DataTable.vue -->
+
 <style>
 .expandable-table thead tr th:last-child {
-  border-radius: 0px !important;
+    border-radius: 0px !important;
 }
+
 .expandable-table thead tr th:first-child {
-  border-radius: 0px !important;
+    border-radius: 0px !important;
 }
 </style>
 <template>
-  <div class="table-container">
+<div class="table-container">
     <table class="table table-striped display expandable-table dataTable no-footer" role="grid" style="table-layout: fixed;">
-      <thead>
-        <tr>
-          <th v-for="column in columns" :key="column">{{ column }}</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="item in data" :key="item.id">
-          <td v-for="column in columns" :key="column"
-            style="width: calc(100% / {{ columns.length }}); white-space: normal;">
-            <!-- Check if the column is 'ACTION' -->
-            <template v-if="column === 'action'">
-              <div class="template-demo">
-                <button type="button" class="btn btn-success btn-rounded btn-icon mr-2"><i class="ti-new-window"></i></button>
-                <button type="button" class="btn btn-danger btn-rounded btn-icon"><i class="ti-trash"></i></button>
-              </div>
+        <thead>
+            <tr>
+                <th v-for="column in columns" :key="column">{{ column }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="item in data" :key="item.id">
+                <td v-for="column in columns" :key="column" style="width: calc(100% / {{ columns.length }}); white-space: normal;">
+                    <!-- Check if the column is 'ACTION' -->
+                    <template v-if="column === 'action'">
+                        <div class="template-demo">
+                            <button type="button" class="btn btn-primary btn-rounded btn-icon mr-2"><i class="ti-new-window"></i></button>
+                            <button type="button" class="btn btn-primary btn-rounded btn-icon"><i class="ti-trash"></i></button>
+                        </div>
 
-            </template>
-            
-            <!-- If not 'ACTION', display the regular item[column] content -->
-            <template v-else>
-              {{ item[column] }}
-            </template>
-          </td>
-        </tr>
-      </tbody>
+                    </template>
+
+                    <!-- If not 'ACTION', display the regular item[column] content -->
+                    <template v-else>
+                        {{ item[column] }}
+                    </template>
+                </td>
+            </tr>
+        </tbody>
     </table>
-  </div>
+</div>
 </template>
 
 <script>
 export default {
-  props: {
-    data: {
-      type: Array,
-      required: true,
+    props: {
+        data: {
+            type: Array,
+            required: true,
+        },
+        columns: {
+            type: Array,
+            required: true,
+        },
     },
-    columns: {
-      type: Array,
-      required: true,
-    },
-  },
-  methods: {
+    methods: {
 
-  },
+    },
 };
 </script>
 
-
-  
 <style scoped>
 .expandable-table tr td {
   padding: 7px;
@@ -109,4 +108,3 @@ th {
   background-color: #f2f2f2;
 }
 </style>
-  

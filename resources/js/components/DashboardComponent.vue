@@ -241,7 +241,7 @@ export default {
     created() {
     // Retrieve user ID from Vuex store
     const userId = localStorage.getItem('userId');
-    console.log('User ID:', userId);
+    // console.log('User ID:', userId);
 
     // Call the updateUserId method
     // this.updateUserId();

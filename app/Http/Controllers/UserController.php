@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Models\PurchaseRequestModel;
 
 use Hash;
 
@@ -48,7 +50,31 @@ class UserController extends Controller
             ]);
         }
     }
-    
+
+    public function fetchUserData($userId)
+    {
+        $query = User::select(User::raw('
+        count(*) as total_pr,
+        pr.pr_no,
+        pmo.pmo_title,
+        users.name as `name`,
+        users.email as `email`'))
+        ->leftJoin('pr', 'pr.action_officer', '=', 'users.id')
+        ->leftJoin('pmo','pmo.id','=','users.pmo_id')
+        ->where('users.id', $userId);
+
+        // Optionally, you can print the SQL query to check
+        // dd($query->toSql());
+
+        // Execute the query and return the result
+        $userData = $query->first(); // Use first() instead of get() to retrieve a single result
+        return response()->json($userData);
+    }
+
+
+
+
+
 
 
 

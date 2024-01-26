@@ -33,8 +33,10 @@
         <tbody>
             <tr v-for="purchaseRequest in displayedItems" :key="purchaseRequest.id">
                 <td>
-                    <div class="badge badge-default" @click="$router.push({ path: `/procurement/view_pr/${purchaseRequest.id}` })">
-                        <b>{{ purchaseRequest.pr_no }}</b><br><i>~{{ purchaseRequest.office }}~</i></div>
+                    <div class="badge badge-default"
+                        @click="$router.push({ path: `/procurement/view_pr/${purchaseRequest.id}` })">
+                        <b>{{ purchaseRequest.pr_no }}</b><br><i>~{{ purchaseRequest.office }}~</i>
+                    </div>
                 </td>
                 <td>{{ purchaseRequest.app_price }}</td>
                 <td>{{ purchaseRequest.particulars }}</td>
@@ -46,7 +48,9 @@
                 <td>5 minutes ago</td>
                 <td>
                     <div class="template-demo d-flex justify-content-between flex-nowrap">
-                        <button @click="viewPr(purchaseRequest.id,purchaseRequest.status_id,purchaseRequest.step)" type="button" class="btn btn-success btn-rounded btn-icon"> <i class="ti-new-window" style="margin-left: -2px;"></i> </button>
+                        <button @click="viewPr(purchaseRequest.id, purchaseRequest.status_id, purchaseRequest.step)"
+                            type="button" class="btn btn-success btn-rounded btn-icon"> <i class="ti-new-window"
+                                style="margin-left: -2px;"></i> </button>
 
                         <button type="button" class="btn btn-danger btn-rounded btn-icon">
                             <i class="ti-trash" style="margin-left: -2px;"></i>
@@ -92,6 +96,7 @@ export default {
         this.loadData();
     },
     methods: {
+        
         loadData() {
             axios.post(`../api/fetchPurchaseReqData`)
                 .then(response => {
@@ -107,11 +112,11 @@ export default {
             // Fetch data for the new page
             this.loadData();
         },
-        viewPr(pr_id,status,step_no) {
+        viewPr(pr_id, status, step_no) {
             // Check if the status is DRAFT
             if (step_no === 3) {
                 // If DRAFT, use 'procurement/update_pr/' route
-                this.$router.push({ path: '/procurement/update_pr', query: { id: pr_id,step:step_no } });
+                this.$router.push({ path: '/procurement/update_pr', query: { id: pr_id, step: step_no } });
             } else {
                 // Otherwise, use the 'procurement/view_pr/' route
                 this.$router.push({ path: `/procurement/view_pr/${pr_id}` });

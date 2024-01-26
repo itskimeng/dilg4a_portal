@@ -78,7 +78,7 @@
                 <div class="content-wrapper">
                     <BreadCrumbs />
                     <div class="row">
-                        <div class="col-lg-2">
+                        <div class="col-lg-3">
                             <div class="card card_shadow">
                                 <div class="card-body" style="height: 320px;text-align: center;">
                                     <img src="../../../assets/logo.png" class="profile_img">
@@ -160,7 +160,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-10 grid-margin mb-4 stretch-card">
+                        <div class="col-md-9 grid-margin mb-4 stretch-card">
                             <DetailedReport />
                         </div>
                     </div>
@@ -182,6 +182,13 @@ export default {
     name: 'Procurement',
     data() {
         return {
+            userData: {
+                name: null,
+                office: null,
+                cancelled_pr: null,
+                total_pr: null
+
+            },
             appItem: {
                 app_total: null
             }
@@ -193,50 +200,26 @@ export default {
         FooterVue,
         BreadCrumbs,
         DetailedReport
-
     },
     mounted() {
-
-
+        const userId = localStorage.getItem('userId');
+        this.fetchUserData(userId);
     },
-   
     methods: {
 
+        fetchUserData(userId) {
+            axios.get(`../api/fetchUser/${userId}`)
+            .then((response) => {
+                console.log(response.data);
+            }).catch(error => {
+                console.error('Error fetching user data:', error);
+            });
+
+        },
         countTotalItem(cur_year) {
             axios.get(`../api/countTotalItem/${cur_year}`).then((res) => {
                 this.appItem.app_total = res.data[0].item;
             })
-        },
-        fetchAppData() {
-            let btn = null;
-            axios.get('../api/fetchAppData').then((response) => {
-                $('#app_table').DataTable({
-                    retrieve: true,
-                    data: response.data,
-                    ordering: false,
-                    paging: true,
-                    pageLength: 10,
-
-                    columns: [
-                        { data: 'sn' },
-                        { data: 'item_category_title' },
-                        { data: 'item_title' },
-                        { data: 'pmo_title' },
-                        { data: 'mode_of_proc_title' },
-                        { data: 'source_of_funds_title' },
-                        { data: 'price' },
-                        { data: 'app_year' },
-                        {
-                            data: null, orderable: false, render: function (data) {
-                                return '<label class="badge badge-info" @click="deletePid(' + data.id + ')">View</label>';
-                            },
-                        },
-
-                    ],
-
-                });
-            }).catch((error) => console.log(error));
-
         },
     },
 

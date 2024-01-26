@@ -72,7 +72,7 @@ export default {
                             icon: 'icon-grid menu-icon',
                         },
                         {
-                            link: '/procurement/procurement',
+                            link: '/procurement/index',
                             name: 'Reports',
                             tooltip: 'Buttons',
                             icon: 'icon-grid menu-icon',
