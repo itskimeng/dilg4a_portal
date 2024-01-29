@@ -1,69 +1,71 @@
-<!-- Modal.vue -->
 <template>
-    <div class="modal-overlay" v-if="showModal" @click="closeModal">
-      <div class="modal-container" @click.stop>
-        <div class="modal-header">
-          <span class="modal-close" @click="closeModal">&times;</span>
-        </div>
+  <div v-if="OpenClose" class="modal-background">
+    <div class="modal fade show" tabindex="-1" style="display: block;">
+      <div class="modal-dialog">
         <div class="modal-content">
-          <!-- Your modal content goes here -->
-          <img src="your-image-url.jpg" alt="Modal Image">
+          <div class="modal-header">
+            <h5 class="modal-title">Modal title</h5>
+          </div>
+          <div class="modal-body">
+            <p>Modal body text goes here.</p>
+            <input type="text" class="form-control" value="aaaa" />
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" @click="close()">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
         </div>
       </div>
     </div>
-  </template>
-  
-  <script>
-  export default {
-    data() {
-      return {
-        showModal: false,
-      };
+  </div>
+  <button type="button" class="btn btn-primary" @click="OpenCloseFun()">Open Modal</button>
+</template>
+
+<script>
+export default {
+  name: 'AlertDefault',
+  props: {
+    visible: Boolean,
+    variant: String,
+  },
+  data() {
+    return {
+      OpenClose: this.visible
+    }
+  },
+  methods: {
+    OpenCloseFun() {
+      this.OpenClose = true;
     },
-    methods: {
-      openModal() {
-        this.showModal = true;
-      },
-      closeModal() {
-        this.showModal = false;
-      },
+    close() {
+      this.OpenClose = false;
     },
-  };
-  </script>
-  
-  <style scoped>
-  .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  },
+  watch: {
+    visible: function (newVal, oldVal) { // watch it
+      this.OpenClose = newVal;
+      console.log('new' + newVal + '==' + oldVal)
+    }
   }
-  
-  .modal-container {
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  }
-  
-  .modal-header {
-    display: flex;
-    justify-content: flex-end;
-  }
-  
-  .modal-close {
-    cursor: pointer;
-    font-size: 20px;
-    color: #333;
-  }
-  
-  .modal-content {
-    margin-top: 10px;
-  }
-  </style>
-  
+}
+</script>
+
+<style>
+/* Style for dimming the background */
+.modal-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Adjust the opacity to make it darker or lighter */
+  z-index: 1050; /* Ensure it's above other elements */
+}
+
+/* Style for centering the modal */
+.modal-dialog {
+  margin-top: 10%; /* Adjust as needed */
+}
+
+/* You may need additional styles to customize the appearance of the modal */
+</style>

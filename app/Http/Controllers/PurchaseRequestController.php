@@ -316,38 +316,19 @@ class PurchaseRequestController extends Controller
         // If you want to return the result as JSON
         return response()->json($query);
     }
-    public function sample($userId)
-{
-    // Sample data array
-    $userData = array(
-        1 => array(
-            'name' => 'John Doe',
-            'office' => 'New York',
-            'position' => 'Software Engineer'
-        ),
-        2 => array(
-            'name' => 'Jane Smith',
-            'office' => 'London',
-            'position' => 'Project Manager'
-        ),
-        3 => array(
-            'name' => 'Alice Johnson',
-            'office' => 'San Francisco',
-            'position' => 'Data Scientist'
-        )
-        // Add more sample data as needed
-    );
-
-    // Check if the user exists in the sample data
-    if (array_key_exists($userId, $userData)) {
-        // Encode the user data as JSON and return
-        return json_encode($userData[$userId]);
-    } else {
-        // Return null if user is not found
-        return null;
+    public function countCancelledPR($userId)
+    {
+        return response()->json(PurchaseRequestModel::select(PurchaseRequestModel::raw('count(*) as cancelled_pr'))
+        ->where('stat',7)
+        ->where('action_officer', $userId)
+        ->get());
     }
-}
 
+    public function countUserTotalPR($userId)
+    {
+        return response()->json(PurchaseRequestModel::select(PurchaseRequestModel::raw('count(*) as total_pr'))
+        ->where('action_officer', $userId)
+        ->get());
+    }
 
-    
 }

@@ -61,7 +61,7 @@ class UserController extends Controller
 ')
             ->leftJoin('pr', 'pr.action_officer', '=', 'users.id')
             ->leftJoin('pmo', 'pmo.id', '=', 'users.pmo_id')
-            ->leftJoin('tblposition', 'tblposition.id', '=', 'users.position_id')
+            ->leftJoin('tblposition', 'tblposition.POSITION_C', '=', 'users.position_id')
             ->where('users.id', $userId);
 
 

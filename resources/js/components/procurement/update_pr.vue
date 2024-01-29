@@ -268,86 +268,7 @@ dl li {
 
                         </div>
                         <div class="col-lg-3">
-                            <div class="card ">
-                                <div class="card-body" style="height: 320px;text-align: center;">
-                                    <img src="../../../assets/logo.png" class="profile_img">
-                                    <div class="user_info">
-                                        <p>Office:</p>
-                                        <p>ORD-RICTU</p>
-                                    </div>
-                                    <div class="user_info">
-                                        <p>Position:</p>
-                                        <p>Database Admin</p>
-                                    </div>
-                                    <div class="user_info">
-                                        <p>Cancelled PR:</p>
-                                        <p>10</p>
-                                    </div>
-                                    <div class="user_info">
-                                        <p>Total PR's:</p>
-                                        <p>10</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card " style="margin-top: 10px;">
-                                <div class="card-body" style="height: 500px;">
-                                    <h5>Supplier Rankings</h5><select class="form-control">
-                                        <option>This Week</option>
-                                        <option>This Month</option>
-                                        <option>This Year</option>
-                                    </select>
-                                    <div class="card" style="margin-top: 10px;">
-                                        <div class="card-body" style="height: 90px;">
-                                            <div class="media" style="margin-top: -25px;">
-                                                <div style="width: 65px; height: 65px;">
-                                                    <img src="../../../assets/logo.png" alt="..."
-                                                        style="margin-top:10px;border-radius: 5px; width: 100%; object-fit: cover; margin-left: -14px;">
-                                                </div>
-                                                <div class="media-body">
-                                                    <div class="media-content" style="margin-top:5%;">Supplier Title<br>
-                                                    </div>
-                                                    <div class="media-content">0955136565</div>
-                                                    <div class="media-content">Calamba City, Laguna</div>
-                                                </div>
-                                            </div>
-                                            <p class="rank_wrapper rank_banner">1st</p>
-                                        </div>
-                                    </div>
-                                    <div class="card" style="margin-top: 10px;">
-                                        <div class="card-body" style="height: 90px;">
-                                            <div class="media" style="margin-top: -25px;">
-                                                <div style="width: 65px; height: 65px;">
-                                                    <img src="../../../assets/logo.png" alt="..."
-                                                        style="border-radius: 5px; width: 100%; object-fit: cover; margin-left: -14px;">
-                                                </div>
-                                                <div class="media-body">
-                                                    <div class="media-content"><small>Supplier Title</small><br></div>
-                                                    <div class="media-content" style="margin-top:-1%;"></div>
-                                                    <div class="media-content" style="margin-top:-2%;"></div>
-                                                </div>
-                                            </div>
-                                            <p class="rank_wrapper rank_banner2">2nd</p>
-                                        </div>
-                                    </div>
-                                    <div class="card" style="margin-top: 10px;">
-                                        <div class="card-body" style="height: 90px;">
-                                            <div class="media" style="margin-top: -25px;">
-                                                <div style="width: 65px; height: 65px;">
-                                                    <img src="../../../assets/logo.png" alt="..."
-                                                        style="border-radius: 5px; width: 100%; object-fit: cover; margin-left: -14px;">
-                                                </div>
-                                                <div class="media-body">
-                                                    <div class="media-content"><small>Supplier Title</small><br></div>
-                                                    <div class="media-content" style="margin-top:-1%;"></div>
-                                                    <div class="media-content" style="margin-top:-2%;"></div>
-                                                </div>
-                                            </div>
-                                            <p class="rank_wrapper rank_banner3">3rd</p>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
+                            <UserInfo/>
                         </div>
 
                         <div class="col-md-9">
@@ -439,6 +360,7 @@ dl li {
                                                       <!-- <a class="dropdown-item" href="#">Separated link</a> -->
                                                     </div>
                                                   </div>
+                                                  
                                                 <div class="table-responsive">
                                                     <dtable :data="pr_data" :columns="tableColumns" />
                                                 </div>
@@ -462,6 +384,7 @@ import Sidebar from "../layout/Sidebar.vue";
 import FooterVue from "../layout/Footer.vue";
 import BreadCrumbs from "../dashboard_tiles/BreadCrumbs.vue";
 import dtable from "../procurement/table.vue";
+import UserInfo from "../procurement/user_info.vue";
 
 import axios from "axios";
 import { toast } from "vue3-toastify";
@@ -469,6 +392,15 @@ export default {
     name: "ViewPurchaseRequestItem",
     data() {
         return {
+            cancelled_pr: null,
+            total_pr: null,
+            userData: {
+                name: null,
+                office: null,
+            },
+            appItem: {
+                app_total: null
+            },
             total_amount: null,
             pr_no: null,
             status: null,
@@ -502,6 +434,8 @@ export default {
         };
     },
     mounted() {
+      
+
         axios.get(`../api/viewPurchaseRequest/${this.$route.query.id}`).then((res) => {
             this.pr_data = res.data;
             this.current_step = res.data[0].step;
@@ -536,7 +470,8 @@ export default {
         Sidebar,
         FooterVue,
         BreadCrumbs,
-        dtable
+        dtable,
+        UserInfo
     }
 };
 </script>

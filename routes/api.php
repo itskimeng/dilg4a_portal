@@ -52,6 +52,14 @@ Route::middleware('api')->group(function () {
     Route::get('countTotalItem/{cur_year}', [AppItemController::class, 'countTotalItem']);
 });
 
+Route::middleware('api')->group(function () {
+    Route::get('countCancelledPR/{userId}', [PurchaseRequestController::class, 'countCancelledPR']);
+});
+
+
+Route::middleware('api')->group(function () {
+    Route::get('countUserTotalPR/{userId}', [PurchaseRequestController::class, 'countUserTotalPR']);
+});
 
 
 Route::middleware('api')->group(function () {

@@ -1,4 +1,3 @@
-
 <style>
 .profile_img {
     width: 100px;
@@ -78,92 +77,48 @@
                 <div class="content-wrapper">
                     <BreadCrumbs />
                     <div class="row">
-                        <div class="col-lg-3">
-                            <div class="card card_shadow">
-                                <div class="card-body" style="height: 320px;text-align: center;">
-                                    <img src="../../../assets/logo.png" class="profile_img">
-                                    <div class="user_info">
-                                        <p>Name:</p>
-                                        <p>{{this.userData.name}}</p>
-                                    </div>
-                                    <div class="user_info">
-                                        <p>Office:</p>
-                                        <p>{{this.userData.pmo_title}}</p>
-                                    </div>
-                                    <div class="user_info">
-                                        <p>Position:</p>
-                                        <p>{{this.userData.position_title}}</p>
-                                    </div>
-                                   
-                                    <div class="user_info">
-                                        <p>Cancelled PR:</p>
-                                        <p>10</p>
-                                    </div>
-                                    <div class="user_info">
-                                        <p>Total PR's:</p>
-                                        <p>10</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card card_shadow" style="margin-top: 10px;">
-                                <div class="card-body" style="height: 500px;">
-                                    <h5>Supplier Rankings</h5><select class="form-control">
-                                        <option>This Week</option>
-                                        <option>This Month</option>
-                                        <option>This Year</option>
-                                    </select>
-                                    <div class="card" style="margin-top: 10px;">
-                                        <div class="card-body" style="height: 90px;">
-                                            <div class="media" style="margin-top: -25px;">
-                                                <div style="width: 65px; height: 65px;">
-                                                    <img src="../../../assets/logo.png" alt="..."
-                                                        style="margin-top:10px;border-radius: 5px; width: 100%; object-fit: cover; margin-left: -14px;">
-                                                </div>
-                                                <div class="media-body">
-                                                    <div class="media-content" style="margin-top:5%;">Supplier Title<br>
-                                                    </div>
-                                                    <div class="media-content">0955136565</div>
-                                                    <div class="media-content">Calamba City, Laguna</div>
-                                                </div>
-                                            </div>
-                                            <p class="rank_wrapper rank_banner">1st</p>
-                                        </div>
-                                    </div>
-                                    <div class="card" style="margin-top: 10px;">
-                                        <div class="card-body" style="height: 90px;">
-                                            <div class="media" style="margin-top: -25px;">
-                                                <div style="width: 65px; height: 65px;">
-                                                    <img src="../../../assets/logo.png" alt="..."
-                                                        style="border-radius: 5px; width: 100%; object-fit: cover; margin-left: -14px;">
-                                                </div>
-                                                <div class="media-body">
-                                                    <div class="media-content"><small>Supplier Title</small><br></div>
-                                                    <div class="media-content" style="margin-top:-1%;"></div>
-                                                    <div class="media-content" style="margin-top:-2%;"></div>
-                                                </div>
-                                            </div>
-                                            <p class="rank_wrapper rank_banner2">2nd</p>
-                                        </div>
-                                    </div>
-                                    <div class="card" style="margin-top: 10px;">
-                                        <div class="card-body" style="height: 90px;">
-                                            <div class="media" style="margin-top: -25px;">
-                                                <div style="width: 65px; height: 65px;">
-                                                    <img src="../../../assets/logo.png" alt="..."
-                                                        style="border-radius: 5px; width: 100%; object-fit: cover; margin-left: -14px;">
-                                                </div>
-                                                <div class="media-body">
-                                                    <div class="media-content"><small>Supplier Title</small><br></div>
-                                                    <div class="media-content" style="margin-top:-1%;"></div>
-                                                    <div class="media-content" style="margin-top:-2%;"></div>
-                                                </div>
-                                            </div>
-                                            <p class="rank_wrapper rank_banner3">3rd</p>
-                                        </div>
-                                    </div>
+                        <div class="col-md-12 grid-margin mb-4 stretch-card">
 
+                            <div class="col-md-3 col-sm-12 col-xs-12 mb-6 stretch-card transparent">
+                                <div class="card card-dark-blue">
+                                    <div class="card-body">
+                                        <p class="mb-4">APP Item Encoded</p>
+                                        <p class="fs-30 mb-2">197</p>
+                                        <p>10.00% (as of today)</p>
+                                    </div>
                                 </div>
                             </div>
+                            <div class="col-md-3 col-sm-12 col-xs-12 mb-6 stretch-card transparent">
+                                <div class="card card-dark-blue">
+                                    <div class="card-body">
+                                        <p class="mb-4">APP Item with same Stock No</p>
+                                        <p class="fs-30 mb-2">61344</p>
+                                        <p>22.00% (30 days)</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-12 col-xs-12 mb-6 stretch-card transparent">
+                                <div class="card card-dark-blue">
+                                    <div class="card-body">
+                                        <p class="mb-4">Newly Encoded App Item</p>
+                                        <p class="fs-30 mb-2">34040</p>
+                                        <p>2.00% (30 days)</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 card-dark-bluecol-sm-12 col-xs-12 mb-6 stretch-card transparent">
+                                <div class="card card-dark-blue">
+                                    <div class="card-body">
+                                        <p class="mb-4">App Item without Office</p>
+                                        <p class="fs-30 mb-2">47033</p>
+                                        <p>0.22% (30 days)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <modal :visible="false" variant="success"></modal>
+                            <UserInfo/>
                         </div>
                         <div class="col-md-9 grid-margin mb-4 stretch-card">
                             <DetailedReport />
@@ -175,57 +130,35 @@
         </div>
     </div>
 </template>
+
 <script>
 import Navbar from '../layout/Navbar.vue';
 import Sidebar from '../layout/Sidebar.vue';
 import FooterVue from '../layout/Footer.vue';
 import BreadCrumbs from '../dashboard_tiles/BreadCrumbs.vue';
 import DetailedReport from '../dashboard_tiles/DetailedReport.vue';
+import UserInfo from '../procurement/user_info.vue';
+import modal from './modal_showItemDetails.vue';
 import axios from 'axios';
 
 export default {
     name: 'Procurement',
-    data() {
-        return {
-            userData: {
-                name: null,
-                office: null,
-                cancelled_pr: null,
-                total_pr: null
-
-            },
-            appItem: {
-                app_total: null
-            }
-        }
-    },
+    props: {
+    msg: String,
+    visible: Boolean,
+  },
     components: {
         Navbar,
         Sidebar,
         FooterVue,
         BreadCrumbs,
-        DetailedReport
+        DetailedReport,
+        UserInfo,
+        modal
     },
-    mounted() {
-        const userId = localStorage.getItem('userId');
-        this.fetchUserData(userId);
-    },
+   
     methods: {
 
-        fetchUserData(userId) {
-            axios.get(`../api/fetchUser/${userId}`)
-            .then((response) => {
-                this.userData = response.data;
-            }).catch(error => {
-                console.error('Error fetching user data:', error);
-            });
-
-        },
-        countTotalItem(cur_year) {
-            axios.get(`../api/countTotalItem/${cur_year}`).then((res) => {
-                this.appItem.app_total = res.data[0].item;
-            })
-        },
     },
 
 }

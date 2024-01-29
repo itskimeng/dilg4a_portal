@@ -142,18 +142,15 @@ export default {
     },
     mounted() {
         this.fetchAppData();
-        this.countTotalItem(2023);
+        this.$countTotalItem(2023).then(appItem => { this.appItem.app_total = appItem}).catch(error => { console.error('Error fetching totalitem data:',error)})
+
 
     },
     methods: {
         addAppItem() {
             this.$router.push("/procurement/add_app_item");
         },
-        countTotalItem(cur_year) {
-            axios.get(`../api/countTotalItem/${cur_year}`).then((res) => {
-                this.appItem.app_total = res.data[0].item;
-            })
-        },
+   
         fetchAppData() {
             let btn = null;
             axios.get('../api/fetchAppData').then((response) => {
