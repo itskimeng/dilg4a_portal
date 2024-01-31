@@ -43,6 +43,18 @@ const countUserTotalPR = function (userId) {
         });
 }
 
+const fetchAppItem = function () {
+    return axios
+        .get('../api/appitems')
+        .then(response => {
+           return response.data;
+        })
+        .catch(error => {
+            console.log(error.response);
+            return null
+        });
+}
 
 
-export { fetchUserData, countTotalItem, countCancelledPR,countUserTotalPR };
+
+export { fetchUserData, countTotalItem, countCancelledPR, countUserTotalPR,fetchAppItem };

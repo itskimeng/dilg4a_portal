@@ -117,7 +117,6 @@
                             </div>
                         </div>
                         <div class="col-lg-3">
-                            <modal :visible="false" variant="success"></modal>
                             <UserInfo/>
                         </div>
                         <div class="col-md-9 grid-margin mb-4 stretch-card">
@@ -138,7 +137,6 @@ import FooterVue from '../layout/Footer.vue';
 import BreadCrumbs from '../dashboard_tiles/BreadCrumbs.vue';
 import DetailedReport from '../dashboard_tiles/DetailedReport.vue';
 import UserInfo from '../procurement/user_info.vue';
-import modal from './modal_showItemDetails.vue';
 import axios from 'axios';
 
 export default {
@@ -154,7 +152,6 @@ export default {
         BreadCrumbs,
         DetailedReport,
         UserInfo,
-        modal
     },
    
     methods: {

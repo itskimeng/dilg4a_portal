@@ -268,7 +268,7 @@ dl li {
 
                         </div>
                         <div class="col-lg-3">
-                            <UserInfo/>
+                            <UserInfo />
                         </div>
 
                         <div class="col-md-9">
@@ -278,7 +278,9 @@ dl li {
                                     <div class="d-flex justify-content-between">
                                         <h4 class="card-title">Purchase Request No: {{ pr_no }}
                                         </h4>
-                                        <h4 class="card-title">Total Amount: Php {{ total_amount }}</h4>
+                                        <h4 class="card-title">Total Amount:
+                                            <font-awesome-icon :icon="['fas', 'peso-sign']" /> {{ total_amount }}
+                                        </h4>
                                     </div>
                                 </div>
                             </div>
@@ -292,7 +294,9 @@ dl li {
                                     <ul class="cd-breadcrumb triangle nav nav-tabs" role="tablist">
                                         <li v-for="(tab, index) in tabs" :key="index"
                                             :class="{ 'active': activeTab === index }" role="presentation">
-                                            <a href="#" @click="changeTab(index)">{{ tab }}</a>
+                                            <a href="#" @click="changeTab(index)">
+                                                <font-awesome-icon :icon="tab.icon" /> {{ tab.name }}
+                                            </a>
                                         </li>
                                     </ul>
 
@@ -300,7 +304,12 @@ dl li {
                                         <div v-for="(content, index) in contents" :key="index" role="tabpanel"
                                             class="tab-pane" :class="{ 'active': activeTab === index }">
                                             <div class="form-section" v-if="index === 0">
-                                                <div class="row">
+                                                <div v-if="isLoading" class="loading-icon">
+                                                    <font-awesome-icon :icon="['fas', 'spinner']" /> Loading...
+                                                </div>
+                                                <!-- Display the table when data is loaded -->
+
+                                                <div v-else class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="Office">Office</label>
@@ -348,20 +357,28 @@ dl li {
                                             <div class="table-section" v-if="index === 1">
                                                 <div class="btn-group" style="float:right;margin-top:-50px;">
                                                     <button type="button" class="btn btn-success">Actions</button>
-                                                    <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" id="dropdownMenuSplitButton3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                      <span class="sr-only">Toggle Dropdown</span>
+                                                    <button type="button"
+                                                        class="btn btn-success dropdown-toggle dropdown-toggle-split"
+                                                        id="dropdownMenuSplitButton3" data-toggle="dropdown"
+                                                        aria-haspopup="true" aria-expanded="false">
+                                                        <span class="sr-only">Toggle Dropdown</span>
                                                     </button>
-                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuSplitButton3" style="">
-                                                      <h6 class="dropdown-header">Settings</h6>
-                                                      <a class="dropdown-item" href="#">Save</a>
-                                                      <a class="dropdown-item" @click="exportPurchaseRequest">Export</a>
-                                                      <a class="dropdown-item" href="#">Preview</a>
-                                                      <div class="dropdown-divider"></div>
-                                                      <!-- <a class="dropdown-item" href="#">Separated link</a> -->
+                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuSplitButton3"
+                                                        style="">
+                                                        <h6 class="dropdown-header">Settings</h6>
+                                                        <a class="dropdown-item" href="#">Save</a>
+                                                        <a class="dropdown-item" @click="exportPurchaseRequest">Export</a>
+                                                        <a class="dropdown-item" href="#">Preview</a>
+                                                        <div class="dropdown-divider"></div>
+                                                        <!-- <a class="dropdown-item" href="#">Separated link</a> -->
                                                     </div>
-                                                  </div>
-                                                  
-                                                <div class="table-responsive">
+                                                </div>
+                                                <!-- Display loading icon when data is loading -->
+                                                <div v-if="isLoading" class="loading-icon">
+                                                    <font-awesome-icon :icon="['fas', 'spinner']" /> Loading...
+                                                </div>
+                                                <!-- Display the table when data is loaded -->
+                                                <div v-else class="table-responsive">
                                                     <dtable :data="pr_data" :columns="tableColumns" />
                                                 </div>
                                             </div>
@@ -379,6 +396,11 @@ dl li {
     </div>
 </template>
 <script>
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core'; // Import the library object
+
+import { faSpinner, faCartShopping, faListCheck, faPesoSign } from '@fortawesome/free-solid-svg-icons';
+
 import Navbar from "../layout/Navbar.vue";
 import Sidebar from "../layout/Sidebar.vue";
 import FooterVue from "../layout/Footer.vue";
@@ -388,10 +410,14 @@ import UserInfo from "../procurement/user_info.vue";
 
 import axios from "axios";
 import { toast } from "vue3-toastify";
+
+library.add(faSpinner, faCartShopping, faListCheck, faPesoSign);
+
 export default {
     name: "ViewPurchaseRequestItem",
     data() {
         return {
+            isLoading: false,
             cancelled_pr: null,
             total_pr: null,
             userData: {
@@ -406,8 +432,10 @@ export default {
             status: null,
             pr_data: [],
             tableColumns: ['serial_no', 'procurement', 'unit', 'description', 'app_price', 'action'],
-            tabs: ['Purchase Request Data', 'Purchase Request Item'],
-            contents: ['a', 'b', 'c'],
+            tabs: [
+                { name: 'Purchase Request Data', icon: ['fas', 'list-check'] },
+                { name: 'Purchase Request Item', icon: ['fas', 'cart-shopping'] }, // Example with different icon
+            ], contents: ['a', 'b', 'c'],
             activeTab: 0,
             purchaseRequestData: {
                 pmo: null,
@@ -434,20 +462,28 @@ export default {
         };
     },
     mounted() {
-      
+        // Set loading state to true before fetching data
+        this.isLoading = true;
+        setTimeout(() => {
+            axios.get(`../api/viewPurchaseRequest/${this.$route.query.id}`).then((res) => {
+                this.pr_data = res.data;
+                this.current_step = res.data[0].step;
+                this.pr_no = res.data[0].pr_no;
+                this.status = res.data[0].status;
 
-        axios.get(`../api/viewPurchaseRequest/${this.$route.query.id}`).then((res) => {
-            this.pr_data = res.data;
-            this.current_step = res.data[0].step;
-            this.pr_no = res.data[0].pr_no;
-            this.status = res.data[0].status;
+                this.purchaseRequestData.pmo = res.data[0].office;
+                this.purchaseRequestData.pr_type = res.data[0].type;
+                this.purchaseRequestData.pr_date = res.data[0].pr_date;
+                this.purchaseRequestData.target_date = res.data[0].target_date;
+                this.purchaseRequestData.particulars = res.data[0].particulars;
+            }).catch((error) => { console.error("Error fetching data:", error); });
 
-            this.purchaseRequestData.pmo = res.data[0].office;
-            this.purchaseRequestData.pr_type = res.data[0].type;
-            this.purchaseRequestData.pr_date = res.data[0].pr_date;
-            this.purchaseRequestData.target_date = res.data[0].target_date;
-            this.purchaseRequestData.particulars = res.data[0].particulars;
-        }).catch((error) => { console.error("Error fetching data:", error); });
+
+            // Set loading state back to false after data is fetched
+            this.isLoading = false;
+        }, 1000); // Simulate a delay of 1 second (adjust as needed)
+
+
         // T O T A L A M O U N T
         const pr_id = this.$route.query.id
         axios.post('../api/total_amount', {
@@ -466,6 +502,7 @@ export default {
 
     },
     components: {
+        FontAwesomeIcon,
         Navbar,
         Sidebar,
         FooterVue,
