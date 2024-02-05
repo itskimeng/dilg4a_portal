@@ -196,6 +196,7 @@ class PurchaseRequestController extends Controller
             ->leftJoin('item_unit as unit', 'unit.id', '=', 'pr_items.unit')
             ->leftJoin('tbl_app as app', 'app.id', '=', 'pr_items.pr_item_id')
             ->leftJoin('tbl_status as status', 'status.id', '=', 'pr.stat')
+            ->orderBy('pr.id','desc')
             ->groupBy('pr.id');
 
         $prData = $query->paginate($itemsPerPage, ['*'], 'page', $page);

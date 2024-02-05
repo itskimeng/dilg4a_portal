@@ -24344,12 +24344,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _modal_itemDetails_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modal_itemDetails.vue */ "./resources/js/components/procurement/modal_itemDetails.vue");
+/* harmony import */ var vue3_toastify__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue3-toastify */ "./node_modules/vue3-toastify/dist/index.mjs");
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  components: {
-    ItemDetailsModal: _modal_itemDetails_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
-  },
   data: function data() {
     return {
       showDetailsModal: false,
@@ -24399,12 +24396,6 @@ __webpack_require__.r(__webpack_exports__);
     this.fetchAppItem();
   },
   methods: {
-    showItemDetails: function showItemDetails(item) {
-      this.selectedItem = item;
-      this.showDetailsModal = true;
-      this.selectedItems = [item];
-      console.log(item.id);
-    },
     closeItemDetailsModal: function closeItemDetailsModal() {
       this.selectedItem = null;
       this.showDetailsModal = false;
@@ -24417,14 +24408,35 @@ __webpack_require__.r(__webpack_exports__);
         console.error('Error fetching app data:', error);
       });
     },
-    toggleItemSelection: function toggleItemSelection(itemId) {
-      if (this.isSelected(itemId)) {
-        // If the clicked item is already selected, deselect it
-        this.selectedItems = [];
+    addPrItems: function addPrItems(selectedItemIds) {
+      // Call fetchPRId to get the ID
+      // Make an API call to your server to add the selected items to the database
+      axios.post('/api/post_insert_pritem', {
+        id: this.$route.query.id,
+        pr_no: localStorage.getItem('pr_no'),
+        itemIds: selectedItemIds,
+        status: 1,
+        step: 3
+      }).then(function (response) {
+        // Handle the success response
+        vue3_toastify__WEBPACK_IMPORTED_MODULE_0__.toast.success('Items added to the database:', {
+          autoClose: 100
+        });
+      })["catch"](function (error) {
+        // Handle the error
+        console.error('Error adding items to the database:', error);
+      });
+    },
+    toggleItemSelection: function toggleItemSelection(item) {
+      // Check if the item is already selected
+      var index = this.selectedItems.indexOf(item);
+      if (index !== -1) {
+        // If selected, remove it from the array
+        this.selectedItems.splice(index, 1);
       } else {
-        // Otherwise, select only the clicked item
-        this.selectedItems = [itemId];
-        console.log('Item clicked:', itemId);
+        // If not selected, add it to the array
+        this.selectedItems.push(item);
+        // this.addPrItems(item)
       }
     },
     shorten: function shorten(string, len) {
@@ -25098,7 +25110,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-_fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_3__.library.add(_fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_4__.faPenToSquare);
+_fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_3__.library.add(_fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_4__.faPenToSquare, _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_4__.faEye);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     ModalDefault: _procurement_modal_showItemDetails_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
@@ -25130,7 +25142,6 @@ _fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_3__.library.add(_fort
       this.modalVisible = false;
     },
     removePrItems: function removePrItems(selectedItemIds) {
-      alert(this.$route.query.id);
       // Make an API call to your server to remove the selected items from the database
       axios.post('/api/post_remove_pritem', {
         pr_id: this.$route.query.id,
@@ -25270,6 +25281,7 @@ _fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_2__.library.add(_fort
         _this.current_step = res.data[0].step;
         _this.pr_no = res.data[0].pr_no;
         _this.status = res.data[0].status;
+        localStorage.setItem('pr_no', res.data[0].pr_no);
         _this.purchaseRequestData.pmo = res.data[0].office;
         _this.purchaseRequestData.pr_type = res.data[0].type;
         _this.purchaseRequestData.pr_date = res.data[0].pr_date;
@@ -27436,7 +27448,7 @@ var _hoisted_1 = {
   "class": "modal-background"
 };
 var _hoisted_2 = {
-  "class": "modal fade show",
+  "class": "modal fade show bd-example-modal-lg",
   tabindex: "-1",
   style: {
     "display": "block"
@@ -27445,16 +27457,14 @@ var _hoisted_2 = {
 var _hoisted_3 = {
   "class": "modal-dialog",
   style: {
-    "margin-top": "20px",
-    "display": "flex",
-    "align-items": "center"
+    "max-width": "70% !important",
+    "max-height": "40% !important"
   }
 };
 var _hoisted_4 = {
   "class": "modal-content",
   style: {
-    "width": "150%",
-    "margin-bottom": "5%"
+    "margin-top": "-7%"
   }
 };
 var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
@@ -27483,44 +27493,49 @@ var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 var _hoisted_6 = {
   "class": "modal-body"
 };
-var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "Instructions:", -1 /* HOISTED */);
-var _hoisted_8 = {
+var _hoisted_7 = {
+  "class": "row"
+};
+var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"col-lg-4\"><div class=\"col-md-12\"><div class=\"form-group\"><label>Unit</label><input class=\"form-control\"></div></div><div class=\"col-md-12\"><div class=\"form-group\"><label>Quantity</label><input type=\"number\" class=\"form-control\"></div></div><div class=\"col-md-12\"><div class=\"form-group\"><label>ABC</label><input type=\"number\" class=\"form-control\"></div></div><div class=\"col-md-12\"><div class=\"form-group\"><label>Description</label><textarea></textarea><!-- Print selected item details here --></div></div></div>", 1);
+var _hoisted_9 = {
+  "class": "col-lg-8"
+};
+var _hoisted_10 = {
   "class": "row",
   style: {
-    "height": "350px",
+    "height": "480px",
     "overflow-y": "auto"
   }
 };
-var _hoisted_9 = ["onClick"];
-var _hoisted_10 = {
+var _hoisted_11 = ["onClick"];
+var _hoisted_12 = {
   style: {
     "text-align": "center",
     "margin-top": "-40px",
     "font-weight": "bolder"
   }
 };
-var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
-var _hoisted_12 = {
+var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
+var _hoisted_14 = {
   style: {
     "margin-top": "-10px",
     "text-align": "center"
   }
 };
-var _hoisted_13 = {
+var _hoisted_15 = {
   "class": "modal-footer"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  var _component_ItemDetailsModal = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("ItemDetailsModal");
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [$props.visible ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [_hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  return $props.visible ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Your modal content goes here "), _hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [_hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "text",
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
       return $data.searchValue = $event;
     }),
     "class": "form-control",
     placeholder: "Search..."
-  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.searchValue]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($options.filteredItems, function (item) {
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.searchValue]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($options.filteredItems, function (item) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
-      "class": "col-lg-4 d-none d-lg-block",
+      "class": "col-lg-3 d-none d-lg-block",
       key: item.id
     }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
       "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)({
@@ -27529,24 +27544,19 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       })
     }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
       onClick: function onClick($event) {
-        return $options.showItemDetails(item);
+        return $options.toggleItemSelection(item.id);
       },
       src: _assets_proc1_jpg__WEBPACK_IMPORTED_MODULE_2__["default"],
       "class": "card-img-top",
       alt: "Item Image"
-    }, null, 8 /* PROPS */, _hoisted_9), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.sn) + " ", 1 /* TEXT */), _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.shorten(item.item_title, 11)), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_12, "Php. " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.app_price), 1 /* TEXT */)], 2 /* CLASS */)]);
-  }), 128 /* KEYED_FRAGMENT */))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Debugging line ")])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    }, null, 8 /* PROPS */, _hoisted_11), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.sn) + " ", 1 /* TEXT */), _hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.shorten(item.item_title, 11)), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_14, "Php. " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.app_price), 1 /* TEXT */)], 2 /* CLASS */)]);
+  }), 128 /* KEYED_FRAGMENT */))])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     type: "button",
     "class": "btn btn-secondary",
     onClick: _cache[1] || (_cache[1] = function ($event) {
       return _ctx.$emit('close');
     })
-  }, "Close")])])])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.showDetailsModal ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_ItemDetailsModal, {
-    key: 1,
-    onClose: $options.closeItemDetailsModal,
-    selectedItem: $data.selectedItem,
-    sel_app_id: $props.appId
-  }, null, 8 /* PROPS */, ["onClose", "selectedItem", "sel_app_id"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 64 /* STABLE_FRAGMENT */);
+  }, "Close")])])])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true);
 }
 
 /***/ }),
@@ -28546,7 +28556,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           "width": "calc(100% / {{ columns.length }})",
           "white-space": "normal"
         }
-      }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Check if the column is 'ACTION' "), column === 'action' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" modal button here "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+      }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Check if the column is 'ACTION' "), column === 'action' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" modal button here "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <button type=\"button\" class=\"btn btn-info btn-rounded btn-icon\" @click=\"openModal(item.app_id)\">\r\n                  <font-awesome-icon :icon=\"['fas', 'eye']\" />\r\n                </button> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
         type: "button",
         "class": "btn btn-success btn-rounded btn-icon",
         onClick: function onClick($event) {
@@ -28601,7 +28611,7 @@ var _hoisted_4 = {
 var _hoisted_5 = {
   "class": "row"
 };
-var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"col-md-12 grid-margin transparent\"><div class=\"row\"><div class=\"col-md-3 mb-4 stretch-card transparent\"><div class=\"card card-tale\"><div class=\"card-body\"><p class=\"mb-4\">Procurement</p><p class=\"fs-30 mb-2\">4006</p><p>10.00% (30 days)</p></div></div></div><div class=\"col-md-3 mb-4 stretch-card transparent\"><div class=\"card card-dark-blue\"><div class=\"card-body\"><p class=\"mb-4\">Disbursement Rate</p><p class=\"fs-30 mb-2\">61344</p><p>22.00% (30 days)</p></div></div></div><div class=\"col-md-3 mb-4 stretch-card transparent\"><div class=\"card card-tale\"><div class=\"card-body\"><p class=\"mb-4\">Procurement</p><p class=\"fs-30 mb-2\">4006</p><p>10.00% (30 days)</p></div></div></div><div class=\"col-md-3 mb-4 stretch-card transparent\"><div class=\"card card-tale\"><div class=\"card-body\"><p class=\"mb-4\">Procurement</p><p class=\"fs-30 mb-2\">4006</p><p>10.00% (30 days)</p></div></div></div></div></div>", 1);
+var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"col-md-12 grid-margin transparent\"><div class=\"row\"><div class=\"col-md-3 mb-4 stretch-card transparent\"><div class=\"card card-dark-blue stre\"><div class=\"card-body\"><p class=\"mb-4\">Procurement</p><p class=\"fs-30 mb-2\">4006</p><p>10.00% (30 days)</p></div></div></div><div class=\"col-md-3 mb-4 stretch-card transparent\"><div class=\"card card-dark-blue\"><div class=\"card-body\"><p class=\"mb-4\">Disbursement Rate</p><p class=\"fs-30 mb-2\">61344</p><p>22.00% (30 days)</p></div></div></div><div class=\"col-md-3 mb-4 stretch-card transparent\"><div class=\"card card-dark-blue\"><div class=\"card-body\"><p class=\"mb-4\">Procurement</p><p class=\"fs-30 mb-2\">4006</p><p>10.00% (30 days)</p></div></div></div><div class=\"col-md-3 mb-4 stretch-card transparent\"><div class=\"card card-dark-blue\"><div class=\"card-body\"><p class=\"mb-4\">Procurement</p><p class=\"fs-30 mb-2\">4006</p><p>10.00% (30 days)</p></div></div></div></div></div>", 1);
 var _hoisted_7 = {
   "class": "col-lg-3"
 };
@@ -34071,7 +34081,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.selected img {\r\n  border: 2px solid #007bff;\r\n  /* Change the border color as needed */\r\n  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);\r\n  /* Change the box shadow as needed */\n}\r\n\r\n/* Style for dimming the background */\n.modal-background {\r\n  position: fixed;\r\n  top: 0;\r\n  left: 0;\r\n  width: 100%;\r\n  height: 100%;\r\n  background-color: rgba(0, 0, 0, 0.5);\r\n  /* Adjust the opacity to make it darker or lighter */\r\n  z-index: 1050;\r\n  /* Ensure it's above other elements */\n}\r\n\r\n/* Style for centering the modal */\n.modal-dialog {\r\n  margin-top: 10%;\r\n  /* Adjust as needed */\n}\n.selected img {\r\n  border: 2px solid #007bff;\r\n  /* Change the border color as needed */\r\n  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);\r\n  /* Change the box shadow as needed */\n}\r\n\r\n/* Style for dimming the background */\n.modal-background {\r\n  position: fixed;\r\n  top: 0;\r\n  left: 0;\r\n  width: 100%;\r\n  height: 100%;\r\n  background-color: rgba(0, 0, 0, 0.5);\r\n  /* Adjust the opacity to make it darker or lighter */\r\n  z-index: 1050;\r\n  /* Ensure it's above other elements */\n}\r\n\r\n/* Style for centering the modal */\n.modal-dialog {\r\n  margin-top: 10%;\r\n  /* Adjust as needed */\n}\r\n\r\n/* You may need additional styles to customize the appearance of the modal */\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.selected img {\r\n    border: 2px solid #007bff;\r\n    /* Change the border color as needed */\r\n    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);\r\n    /* Change the box shadow as needed */\n}\r\n\r\n/* Style for dimming the background */\n.modal-background {\r\n    position: fixed;\r\n    top: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n    background-color: rgba(0, 0, 0, 0.5);\r\n    /* Adjust the opacity to make it darker or lighter */\r\n    z-index: 1050;\r\n    /* Ensure it's above other elements */\n}\r\n\r\n/* Style for centering the modal */\n.modal-dialog {\r\n    margin-top: 10%;\r\n    /* Adjust as needed */\n}\n.selected img {\r\n    border: 2px solid #007bff;\r\n    /* Change the border color as needed */\r\n    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);\r\n    /* Change the box shadow as needed */\n}\r\n\r\n/* Style for dimming the background */\n.modal-background {\r\n    position: fixed;\r\n    top: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n    background-color: rgba(0, 0, 0, 0.5);\r\n    /* Adjust the opacity to make it darker or lighter */\r\n    z-index: 1050;\r\n    /* Ensure it's above other elements */\n}\r\n\r\n/* Style for centering the modal */\n.modal-dialog {\r\n    margin-top: 10%;\r\n    /* Adjust as needed */\n}\r\n\r\n/* You may need additional styles to customize the appearance of the modal */\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

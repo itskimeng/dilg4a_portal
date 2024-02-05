@@ -229,7 +229,7 @@ dl li {
                         <div class="col-md-12 grid-margin transparent">
                             <div class="row">
                                 <div class="col-md-3 mb-4 stretch-card transparent">
-                                    <div class="card card-tale">
+                                    <div class="card card-dark-blue stre">
                                         <div class="card-body">
                                             <p class="mb-4">Procurement</p>
                                             <p class="fs-30 mb-2">4006</p>
@@ -247,7 +247,7 @@ dl li {
                                     </div>
                                 </div>
                                 <div class="col-md-3 mb-4 stretch-card transparent">
-                                    <div class="card card-tale">
+                                    <div class="card card-dark-blue">
                                         <div class="card-body">
                                             <p class="mb-4">Procurement</p>
                                             <p class="fs-30 mb-2">4006</p>
@@ -256,7 +256,7 @@ dl li {
                                     </div>
                                 </div>
                                 <div class="col-md-3 mb-4 stretch-card transparent">
-                                    <div class="card card-tale">
+                                    <div class="card card-dark-blue">
                                         <div class="card-body">
                                             <p class="mb-4">Procurement</p>
                                             <p class="fs-30 mb-2">4006</p>
@@ -475,6 +475,8 @@ export default {
                 this.current_step = res.data[0].step;
                 this.pr_no = res.data[0].pr_no;
                 this.status = res.data[0].status;
+                localStorage.setItem('pr_no', res.data[0].pr_no);
+
 
                 this.purchaseRequestData.pmo = res.data[0].office;
                 this.purchaseRequestData.pr_type = res.data[0].type;

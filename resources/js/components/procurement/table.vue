@@ -15,6 +15,9 @@
             <template v-if="column === 'action'">
               <div class="template-demo">
                 <!-- modal button here -->
+                <!-- <button type="button" class="btn btn-info btn-rounded btn-icon" @click="openModal(item.app_id)">
+                  <font-awesome-icon :icon="['fas', 'eye']" />
+                </button> -->
                 <button type="button" class="btn btn-success btn-rounded btn-icon" @click="openModal(item.app_id)">
                   <font-awesome-icon :icon="['fas', 'pen-to-square']" />
                 </button>
@@ -40,8 +43,8 @@ import { toast } from "vue3-toastify";
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
-library.add(faPenToSquare);
+import { faEye, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+library.add(faPenToSquare,faEye);
 
 export default {
   components: {
@@ -75,7 +78,6 @@ export default {
     },
 
   removePrItems(selectedItemIds) {
-    alert(this.$route.query.id);
     // Make an API call to your server to remove the selected items from the database
     axios.post('/api/post_remove_pritem', {
       pr_id: this.$route.query.id,
