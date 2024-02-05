@@ -18,13 +18,13 @@
             </div>
 
             <div class="user_info">
-                <p>Cancelled PR:</p>
+                <p>Draft Purchase Request:</p>
                 <p class="badge badge-danger">
                     {{ this.cancelled_pr }}
                 </p>
             </div>
             <div class="user_info">
-                <p>Total PR's:</p>
+                <p>Total Purchase Request:</p>
                 <p class="badge badge-success">
                     {{ this.total_pr }}
                 </p>

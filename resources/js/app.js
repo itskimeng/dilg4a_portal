@@ -7,6 +7,7 @@ import App from './App.vue';
 import store from './store/store';
 import router from './router';
 import * as globalMethods from './globalMethods'; // Import all global methods
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 const app = createApp(App);
 

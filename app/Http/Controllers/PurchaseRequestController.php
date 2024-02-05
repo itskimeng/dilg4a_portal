@@ -130,7 +130,8 @@ class PurchaseRequestController extends Controller
 
         // Assuming PurchaseRequestItemModel is the model for your database table
         // Adjust the model and table name accordingly
-        PurchaseRequestItemModel::whereIn('pr_item_id', $itemIds)->delete();
+        PurchaseRequestItemModel::where('pr_id',$request->input('pr_id'))
+        ->where('pr_item_id', $itemIds)->delete();
 
         // You can return a response if needed
         return response()->json(['message' => 'Items removed from the database']);
@@ -319,16 +320,29 @@ class PurchaseRequestController extends Controller
     public function countCancelledPR($userId)
     {
         return response()->json(PurchaseRequestModel::select(PurchaseRequestModel::raw('count(*) as cancelled_pr'))
-        ->where('stat',7)
-        ->where('action_officer', $userId)
-        ->get());
+            ->where('stat', 7)
+            ->where('action_officer', $userId)
+            ->get());
     }
 
     public function countUserTotalPR($userId)
     {
         return response()->json(PurchaseRequestModel::select(PurchaseRequestModel::raw('count(*) as total_pr'))
-        ->where('action_officer', $userId)
-        ->get());
+            ->where('action_officer', $userId)
+            ->get());
     }
 
+    public function post_update_cart(Request $request)
+    {
+
+        // Update the record
+        PurchaseRequestItemModel::where('pr_id', $request->input('pr_id'))
+            ->where('pr_item_id', $request->input('pr_item_id'))
+            ->update([
+                'qty' => $request->input('qty'),
+                'description' => $request->input('desc'),
+                'pr_item_id' => $request->input('sel_app_id')
+            ]);
+        return response()->json(['message' => 'Cart details updated successfully']);
+    }
 }

@@ -67,6 +67,7 @@
     /* Change box shadow on hover for an interactive effect */
 
 }
+
 </style>
 <template>
     <div class="container-scroller">
@@ -138,6 +139,7 @@ import BreadCrumbs from '../dashboard_tiles/BreadCrumbs.vue';
 import DetailedReport from '../dashboard_tiles/DetailedReport.vue';
 import UserInfo from '../procurement/user_info.vue';
 import axios from 'axios';
+import { Transition } from 'vue';
 
 export default {
     name: 'Procurement',
@@ -152,6 +154,7 @@ export default {
         BreadCrumbs,
         DetailedReport,
         UserInfo,
+        Transition
     },
    
     methods: {

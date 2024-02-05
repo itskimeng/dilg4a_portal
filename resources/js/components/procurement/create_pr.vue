@@ -552,7 +552,7 @@ select {
                         </li>
                       </ul>
                     </div>
-                    <div class="right-side">
+                    <div class="right-side">viga
 
 
                       <div v-for="(main, index) in mainForms" :key="index" class="main"

@@ -370,7 +370,7 @@ dl li {
                                                         <a class="dropdown-item" @click="exportPurchaseRequest">Export</a>
                                                         <a class="dropdown-item" href="#">Preview</a>
                                                         <div class="dropdown-divider"></div>
-                                                        <!-- <a class="dropdown-item" href="#">Separated link</a> -->
+                                                        <a class="dropdown-item" @click="show_addItem_modal()">Add Item</a>
                                                     </div>
                                                 </div>
                                                 <!-- Display loading icon when data is loading -->
@@ -393,9 +393,13 @@ dl li {
                 <FooterVue />
             </div>
         </div>
+        <!-- modal component  -->
+        <showAddItemModal :visible="modalVisible" @close="closeModal" />
+
     </div>
 </template>
 <script>
+import showAddItemModal from "./modal_addItem.vue";
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core'; // Import the library object
 
@@ -417,6 +421,7 @@ export default {
     name: "ViewPurchaseRequestItem",
     data() {
         return {
+            modalVisible: false,
             isLoading: false,
             cancelled_pr: null,
             total_pr: null,
@@ -493,6 +498,12 @@ export default {
         });
     },
     methods: {
+        show_addItem_modal() {
+            this.modalVisible = true;
+        },
+        closeModal() {
+            this.modalVisible = false;
+        },
         changeTab(index) {
             this.activeTab = index;
         },
@@ -508,7 +519,8 @@ export default {
         FooterVue,
         BreadCrumbs,
         dtable,
-        UserInfo
+        UserInfo,
+        showAddItemModal
     }
 };
 </script>

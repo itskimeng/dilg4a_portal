@@ -29,7 +29,8 @@ class AppItemController extends Controller
 
     public function getAppData()
     {
-        return response()->json(AppItemModel::select('id', 'sn','item_title', 'app_price', 'app_year')
+        return response()->json(AppItemModel::select('tbl_app.id', 'sn', 'item_title', 'app_price', 'app_year', 'item_unit.item_unit_title')
+            ->join('item_unit', 'tbl_app.unit_id', '=', 'item_unit.id')
             ->where('app_year', 2022)
             ->orderBy('item_title')
             ->limit(1000)

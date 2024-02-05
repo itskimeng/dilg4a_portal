@@ -73,6 +73,7 @@ Route::middleware('api')->group(function () {
 
 Route::post('login',[UserController::class,'login']);
 Route::post('post_add_appItem',[AppItemController::class,'post_add_appItem']);
+Route::post('post_update_cart',[PurchaseRequestController::class,'post_update_cart']);
 Route::post('post_insert_pritem',[PurchaseRequestController::class,'post_insert_pritem']);
 Route::post('post_remove_pritem',[PurchaseRequestController::class,'post_remove_pritem']);
 Route::post('post_insert_purchaseNo',[PurchaseRequestController::class,'post_insert_purchaseNo']);
