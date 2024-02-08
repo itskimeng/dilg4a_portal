@@ -47,7 +47,7 @@ const fetchAppItem = function () {
     return axios
         .get('../api/appitems')
         .then(response => {
-           return response.data;
+            return response.data;
         })
         .catch(error => {
             console.log(error.response);
@@ -55,6 +55,31 @@ const fetchAppItem = function () {
         });
 }
 
+const fetchCartItemInfo = function (itemSelected) {
+    return axios.get(`../api/fetchCartItemInfo/${itemSelected}`)
+        .then((response) => {
+
+            return response.data[0];
+        }) .catch(error => {
+            console.log(error.response);
+            return null
+        });
+}
+
+const updateStatusMessage = function (id, stat) {
+    axios.post(`../api/post_update_status`, {
+        pr_id: id,
+        status:stat,
+    }
+    ).then(() => {
+        toast.success('Successfully added!', {
+            autoClose: 100
+        });
+    }).catch((error) => {
+
+    })
+}
 
 
-export { fetchUserData, countTotalItem, countCancelledPR, countUserTotalPR,fetchAppItem };
+
+export { fetchUserData, countTotalItem, countCancelledPR, countUserTotalPR, fetchAppItem,fetchCartItemInfo,updateStatusMessage };

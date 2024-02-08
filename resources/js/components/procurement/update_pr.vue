@@ -286,9 +286,13 @@ dl li {
                             </div>
                             <div class="card">
                                 <div class="card-body">
-                                    <div class="status-badge">
-                                        Status: <div class="badge badge-danger mb-4" style="font-size: 15pt;">{{ status }}
+                                    <div class="d-flex justify-content-between">
+
+                                        <div class="status-badge">
+                                            Status: <div class="badge badge-danger mb-4" style="font-size: 15pt;">{{ status
+                                            }}</div>
                                         </div>
+
                                     </div>
 
                                     <ul class="cd-breadcrumb triangle nav nav-tabs" role="tablist">
@@ -351,6 +355,9 @@ dl li {
                                                                 class="form-control"></textarea>
                                                         </div>
                                                     </div>
+                                                    <button type="button" @click="updatePurchaseRequestDetails()"
+                                                        class="btn btn-success btn-icon-text pull-right">
+                                                        <font-awesome-icon :icon="['fas', 'save']" /> Save</button>
                                                 </div>
                                             </div>
 
@@ -366,7 +373,8 @@ dl li {
                                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuSplitButton3"
                                                         style="">
                                                         <h6 class="dropdown-header">Settings</h6>
-                                                        <a class="dropdown-item" href="#">Save</a>
+                                                        <a class="dropdown-item" href="#">Save as Draft</a>
+                                                        <a class="dropdown-item" @click="toGSS()">Submit to GSS</a>
                                                         <a class="dropdown-item" @click="exportPurchaseRequest">Export</a>
                                                         <a class="dropdown-item" href="#">Preview</a>
                                                         <div class="dropdown-divider"></div>
@@ -403,7 +411,7 @@ import showAddItemModal from "./modal_addItem.vue";
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core'; // Import the library object
 
-import { faSpinner, faCartShopping, faListCheck, faPesoSign } from '@fortawesome/free-solid-svg-icons';
+import { faSpinner, faCartShopping, faListCheck, faPesoSign, faSave } from '@fortawesome/free-solid-svg-icons';
 
 import Navbar from "../layout/Navbar.vue";
 import Sidebar from "../layout/Sidebar.vue";
@@ -415,7 +423,7 @@ import UserInfo from "../procurement/user_info.vue";
 import axios from "axios";
 import { toast } from "vue3-toastify";
 
-library.add(faSpinner, faCartShopping, faListCheck, faPesoSign);
+library.add(faSpinner, faCartShopping, faListCheck, faPesoSign, faSave);
 
 export default {
     name: "ViewPurchaseRequestItem",
@@ -511,7 +519,38 @@ export default {
         },
         exportPurchaseRequest() {
             window.location.href = `../api/export-purchase-request/${this.$route.query.id}?export=true`;
+        },
+        updatePurchaseRequestDetails() {
+            axios.post(`../api/post_update_purchaseRequestDetailsForm`, {
+                pr_id: this.$route.query.id,
+                pmo: this.purchaseRequestData.pmo,
+                type: this.purchaseRequestData.pr_type,
+                pr_date: this.purchaseRequestData.pr_date,
+                target_date: this.purchaseRequestData.target_date,
+                purpose: this.purchaseRequestData.particulars,
+                step: 2
+            }
+            ).then(() => {
+
+                toast.success('Successfully added!', {
+                    autoClose: 100
+                });
+            }).catch((error) => {
+
+            })
+        },
+        toGSS() {
+            const id = 34;
+            const STATUS_SUBMITTED_TO_GSS = 4;
+            this.$updateStatusMessage(id,STATUS_SUBMITTED_TO_GSS)
+                .then(res => {
+                    
+                })
+                .catch(error => {
+                    console.error('Error fetching total item data:', error);
+                });
         }
+
 
     },
     components: {

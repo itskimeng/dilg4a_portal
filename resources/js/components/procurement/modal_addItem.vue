@@ -6,39 +6,46 @@
                     <!-- Your modal content goes here -->
 
                     <div class="modal-header">
+                        DEPARTMENT OF THE INTERIOR AND LOCAL GOVERNMENT
                         <div
                             style="width: 75px; height: 75px; border-radius: 50%; display: flex; align-items: center; justify-content: center; position: absolute; top: -18px; background-color: white; color: #4cae4c; left: 45%;">
                             <img src="../../../assets/logo.png" style="width:60px; height:60px;">
                         </div>
+                        REGION IV-A (CALABARZON)
                     </div>
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-lg-4">
-                                <div class="col-md-12">
-                                   
-                                    <div class="form-group">
-                                        <label>Unit</label>
-                                        <input class="form-control" />
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="col-md-12">
+
+                                            <div class="form-group">
+                                                <label>Unit</label>
+                                                <input type="text" class="form-control" v-model="this.unit" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Quantity</label>
+                                                <input type="number" class="form-control" v-model="this.qty" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>ABC</label>
+                                                <input type="number" class="form-control" v-model="this.app_price" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Description</label>
+                                                <textarea v-model="this.description"></textarea> <!-- Print selected item details here -->
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>Quantity</label>
-                                        <input type="number" class="form-control" />
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>ABC</label>
-                                        <input type="number" class="form-control" >
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>Description</label>
-                                        <textarea></textarea> <!-- Print selected item details here -->
-                                    </div>
-                                </div>
+
                             </div>
                             <div class="col-lg-8">
                                 <input type="text" v-model="searchValue" class="form-control" placeholder="Search..." />
@@ -59,7 +66,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" @click="$emit('close')">Close</button>
+                        <button type="button" class="btn btn-success" @click="addPrItems()">Save</button>
+                        <button type="button" class="btn btn-primary" @click="$emit('close')">Close</button>
                     </div>
                 </div>
             </div>
@@ -69,7 +77,12 @@
 </template>
 
 <script>
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core'; // Import the library object
+
+import { faScaleBalanced } from '@fortawesome/free-solid-svg-icons';
 import { toast } from "vue3-toastify";
+library.add(faScaleBalanced);
 
 export default {
 
@@ -82,7 +95,11 @@ export default {
             items: [],
             selectedItems: [],
             searchResultsCount: null,
-            sel_app_id: null
+            sel_app_id: null,
+            app_price: null,
+            unit: null,
+            description:null,
+            qty:null
 
         }
     },
@@ -135,13 +152,15 @@ export default {
                     console.error('Error fetching app data:', error);
                 });
         },
-        addPrItems(selectedItemIds) {
+        addPrItems() {
             // Call fetchPRId to get the ID
             // Make an API call to your server to add the selected items to the database
             axios.post('/api/post_insert_pritem', {
                 id: this.$route.query.id,
                 pr_no: localStorage.getItem('pr_no'),
-                itemIds: selectedItemIds,
+                itemIds: this.selectedItems,
+                qty:this.qty,
+                description:this.description,
                 status: 1,
                 step: 3
             })
@@ -150,6 +169,7 @@ export default {
                     toast.success('Items added to the database:', {
                         autoClose: 100
                     });
+                    location.reload();
                 })
                 .catch((error) => {
                     // Handle the error
@@ -157,17 +177,25 @@ export default {
                 });
         },
         toggleItemSelection(item) {
-            // Check if the item is already selected
-            const index = this.selectedItems.indexOf(item);
-            if (index !== -1) {
-                // If selected, remove it from the array
-                this.selectedItems.splice(index, 1);
+            if (this.isSelected(item)) {
+                // If the clicked item is already selected, deselect it
+                this.selectedItems = [];
             } else {
-                // If not selected, add it to the array
-                this.selectedItems.push(item);
-                // this.addPrItems(item)
+                // Otherwise, select only the clicked item
+                this.selectedItems =item;
+                console.log('Item clicked:', item);
+                this.$fetchCartItemInfo(item)
+                    .then(res => {
+                        this.unit = res.unit;
+                        this.app_price = res.app_price
+                    })
+                    .catch(error => {
+                        console.error('Error fetching total item data:', error);
+                    });
+
             }
         },
+
 
 
 
@@ -178,11 +206,18 @@ export default {
             this.$emit('close');
         },
     },
+    components: {
+        FontAwesomeIcon
+    }
 };
 </script>
 
 
 <style>
+label {
+    font-weight: bold;
+}
+
 .selected img {
     border: 2px solid #007bff;
     /* Change the border color as needed */

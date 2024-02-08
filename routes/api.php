@@ -61,6 +61,10 @@ Route::middleware('api')->group(function () {
     Route::get('countUserTotalPR/{userId}', [PurchaseRequestController::class, 'countUserTotalPR']);
 });
 
+Route::middleware('api')->group(function () {
+    Route::get('fetchCartItemInfo/{itemSelected}', [PurchaseRequestController::class, 'fetchCartItemInfo']);
+});
+
 
 Route::middleware('api')->group(function () {
     Route::get('viewPurchaseRequest/{id}', [PurchaseRequestController::class, 'viewPurchaseRequest']);
@@ -74,10 +78,12 @@ Route::middleware('api')->group(function () {
 Route::post('login',[UserController::class,'login']);
 Route::post('post_add_appItem',[AppItemController::class,'post_add_appItem']);
 Route::post('post_update_cart',[PurchaseRequestController::class,'post_update_cart']);
+Route::post('post_update_status',[PurchaseRequestController::class,'post_update_status']);
 Route::post('post_insert_pritem',[PurchaseRequestController::class,'post_insert_pritem']);
 Route::post('post_remove_pritem',[PurchaseRequestController::class,'post_remove_pritem']);
 Route::post('post_insert_purchaseNo',[PurchaseRequestController::class,'post_insert_purchaseNo']);
 Route::post('post_update_purchaseRequestDetails',[PurchaseRequestController::class,'post_update_purchaseRequestDetails']);
+Route::post('post_update_purchaseRequestDetailsForm',[PurchaseRequestController::class,'post_update_purchaseRequestDetailsForm']);
 Route::post('fetchCart', [PurchaseRequestController::class, 'fetchCart']);
 Route::post('fetchPurchaseReqData', [PurchaseRequestController::class, 'fetchPurchaseReqData']);
 Route::post('total_amount', [PurchaseRequestController::class, 'total_amount']);

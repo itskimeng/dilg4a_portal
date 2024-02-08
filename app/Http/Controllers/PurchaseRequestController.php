@@ -63,6 +63,26 @@ class PurchaseRequestController extends Controller
             return response()->json(['error' => 'Purchase request not found'], 404);
         }
     }
+    public function post_update_purchaseRequestDetailsForm(Request $request)
+    {
+        // Assuming your model is named PurchaseRequestModel
+        $purchaseRequest = PurchaseRequestModel::where('pr_no', $request->input('pr_no'))->first();
+
+        // Update the record
+        PurchaseRequestModel::where('id', $request->input('pr_id'))
+            ->update([
+                'pmo' => $request->input('pmo'),
+                'type' => $request->input('type'),
+                'pr_date' => $request->input('pr_date'),
+                'target_date' => $request->input('target_date'),
+                'purpose' => $request->input('purpose'),
+                'current_step' => $request->input('step'),
+            ]);
+
+
+        // You can return a response, if needed
+        return response()->json(['message' => 'Purchase request details updated successfully']);
+    }
     public function getPurchaseRequestDetails(Request $request)
     {
         $pr_no = $request->input('pr_no');
@@ -93,15 +113,17 @@ class PurchaseRequestController extends Controller
         $itemIds    = $request->input('itemIds');
         $status     = $request->input('status');
         $step       = $request->input('step');
+        $desc       = $request->input('description');
+        $qty        = $request->input('qty');
         $pr_opts = new PurchaseRequestItemModel([
             'id'            => null,
             'pr_id'         => $pr_id,
             'pr_no'         => $pr_no,
             'pr_item_id'    => $itemIds,
             'step'          => $step,
-            'description'   => null,
+            'description'   => $desc,
             'unit'          => null,
-            'qty'           => null,
+            'qty'           => $qty,
             'abc'           => null,
             'date_added'    => null,
             'flag'          => null,
@@ -130,8 +152,8 @@ class PurchaseRequestController extends Controller
 
         // Assuming PurchaseRequestItemModel is the model for your database table
         // Adjust the model and table name accordingly
-        PurchaseRequestItemModel::where('pr_id',$request->input('pr_id'))
-        ->where('pr_item_id', $itemIds)->delete();
+        PurchaseRequestItemModel::where('pr_id', $request->input('pr_id'))
+            ->where('pr_item_id', $itemIds)->delete();
 
         // You can return a response if needed
         return response()->json(['message' => 'Items removed from the database']);
@@ -196,7 +218,7 @@ class PurchaseRequestController extends Controller
             ->leftJoin('item_unit as unit', 'unit.id', '=', 'pr_items.unit')
             ->leftJoin('tbl_app as app', 'app.id', '=', 'pr_items.pr_item_id')
             ->leftJoin('tbl_status as status', 'status.id', '=', 'pr.stat')
-            ->orderBy('pr.id','desc')
+            ->orderBy('pr.id', 'desc')
             ->groupBy('pr.id');
 
         $prData = $query->paginate($itemsPerPage, ['*'], 'page', $page);
@@ -333,10 +355,17 @@ class PurchaseRequestController extends Controller
             ->get());
     }
 
-    public function post_update_cart(Request $request)
+    public function fetchCartItemInfo($itemSelected)
     {
 
-        // Update the record
+        return response()->json(AppItemModel::select(AppItemModel::raw('unit.item_unit_title as `unit`,tbl_app.app_price'))
+            ->leftJoin('item_unit as unit', 'unit.id', '=', 'tbl_app.unit_id')
+            ->where('tbl_app.id', $itemSelected)
+            ->get());
+    }
+
+    public function post_update_cart(Request $request)
+    {
         PurchaseRequestItemModel::where('pr_id', $request->input('pr_id'))
             ->where('pr_item_id', $request->input('pr_item_id'))
             ->update([
@@ -345,5 +374,13 @@ class PurchaseRequestController extends Controller
                 'pr_item_id' => $request->input('sel_app_id')
             ]);
         return response()->json(['message' => 'Cart details updated successfully']);
+    }
+    public function post_update_status(Request $request)
+    {
+        PurchaseRequestModel::where('id', $request->input('id'))
+        ->update([
+            'stat' => $request->input('status'),
+        ]);
+    return response()->json(['message' => 'Purchase Request updated successfully']);
     }
 }

@@ -88,7 +88,7 @@ export default {
         toast.success('Cart details successfully updated', {
           autoClose: 1000
         });
-        location.reload();
+        // location.reload();
       })
       .catch((error) => {
         // Handle the error
