@@ -9,6 +9,7 @@ use App\Models\AppItemModel;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use Carbon\Carbon;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -195,6 +196,8 @@ class PurchaseRequestController extends Controller
         $query = PurchaseRequestModel::select(PurchaseRequestModel::raw('
         pr.id AS `id`,
         MAX(pr.pr_no) AS `pr_no`,
+        MAX(pr.action_officer) AS `user_id`,
+        MAX(users.name) AS `created_by`,
         MAX(pr.current_step) AS `step`,
         MAX(pmo.pmo_title) AS `office`,
         MAX(pr.submitted_by) AS `submitted_by`,
@@ -212,12 +215,57 @@ class PurchaseRequestController extends Controller
         MAX(status.id) AS `status_id`,
         SUM(app.app_price) AS `app_price`
         '))
+            ->leftJoin('users', 'users.id', '=', 'pr.action_officer')
             ->leftJoin('pmo', 'pmo.id', '=', 'pr.pmo')
             ->leftJoin('mode_of_proc as mode', 'mode.id', '=', 'pr.type')
             ->leftJoin('pr_items', 'pr_items.pr_id', '=', 'pr.id')
             ->leftJoin('item_unit as unit', 'unit.id', '=', 'pr_items.unit')
             ->leftJoin('tbl_app as app', 'app.id', '=', 'pr_items.pr_item_id')
             ->leftJoin('tbl_status as status', 'status.id', '=', 'pr.stat')
+            ->orderBy('pr.id', 'desc')
+            ->groupBy('pr.id');
+
+        $prData = $query->paginate($itemsPerPage, ['*'], 'page', $page);
+
+        // Dump and die to output the SQL for debugging
+        // dd($prData);
+        return response()->json($prData);
+    }
+    public function fetchSubmittedtoGSS(Request $request)
+    {
+        $page = $request->query('page');
+        $itemsPerPage = $request->query('itemsPerPage', 500);
+
+        $query = PurchaseRequestModel::select(PurchaseRequestModel::raw('
+        pr.id AS `id`,
+        MAX(pr.pr_no) AS `pr_no`,
+        MAX(pr.action_officer) AS `user_id`,
+        MAX(users.name) AS `created_by`,
+        MAX(pr.current_step) AS `step`,
+        MAX(pmo.pmo_title) AS `office`,
+        MAX(pr.submitted_by) AS `submitted_by`,
+        MAX(pr.purpose) AS `particulars`,
+        MAX(pr.pr_date) AS `pr_date`,
+        MAX(pr.target_date) AS `target_date`,
+        MAX(pr.is_urgent) AS `is_urgent`,
+        MAX(pr_items.qty) AS `quantity`,
+        MAX(pr_items.description) AS `desc`,
+        MAX(mode.mode_of_proc_title) AS `type`,
+        MAX(app.sn) AS `serial_no`,
+        MAX(app.item_title) AS `item_title`,
+        MAX(unit.item_unit_title) AS `unit`,
+        MAX(status.title) AS `status`,
+        MAX(status.id) AS `status_id`,
+        SUM(app.app_price) AS `app_price`
+        '))
+            ->leftJoin('users', 'users.id', '=', 'pr.action_officer')
+            ->leftJoin('pmo', 'pmo.id', '=', 'pr.pmo')
+            ->leftJoin('mode_of_proc as mode', 'mode.id', '=', 'pr.type')
+            ->leftJoin('pr_items', 'pr_items.pr_id', '=', 'pr.id')
+            ->leftJoin('item_unit as unit', 'unit.id', '=', 'pr_items.unit')
+            ->leftJoin('tbl_app as app', 'app.id', '=', 'pr_items.pr_item_id')
+            ->leftJoin('tbl_status as status', 'status.id', '=', 'pr.stat')
+            ->where('pr.stat', 4)
             ->orderBy('pr.id', 'desc')
             ->groupBy('pr.id');
 
@@ -238,8 +286,12 @@ class PurchaseRequestController extends Controller
         tbl_app.app_price as `app_price`,
         unit.item_unit_title as `unit`,
         pr_items.description as `description`,
+        pr_items.qty as `quantity`,
+        pr_items.qty * tbl_app.app_price as `total`,
         pr.pr_no as `pr_no`,
-        pr.pmo as `office`,
+        pmo.pmo_title as `office`,
+        pmo.pmo_contact_person as  `signatory`,
+        pmo.designation as  `designation`,
         pr.type as `type`,
         pr.pr_date as `pr_date`,
         pr.target_date as `target_date`,
@@ -250,8 +302,10 @@ class PurchaseRequestController extends Controller
             ->leftJoin('pr_items', 'pr_items.pr_item_id', '=', 'tbl_app.id')
             ->leftJoin('item_unit as unit', 'unit.id', '=', 'tbl_app.unit_id')
             ->leftJoin('pr', 'pr.id', '=', 'pr_items.pr_id')
+            ->leftJoin('pmo', 'pmo.id', '=', 'pr.pmo')
             ->leftJoin('tbl_status', 'pr.stat', '=', 'tbl_status.id')
             ->where('pr.id', $id);
+
         // Print the SQL query to check
         // dd($query->toSql());
 
@@ -284,8 +338,17 @@ class PurchaseRequestController extends Controller
         // Initialize row counter
         $row = 11; // Assuming your data starts from the second row in the template
         $particulars = $data[0]['particulars'];
+        $pr_date = Carbon::createFromFormat('Y-m-d', $data[0]['pr_date'])->format('F d, Y');
+        $office = $data[0]['office'];
+        $signatories = $data[0]['signatory'];
+        $designation = $data[0]['designation'];
 
         $sheet->setCellValueByColumnAndRow(2, 36, $particulars);
+        $sheet->setCellValueByColumnAndRow(5, 7, "Date:" . $pr_date);
+        $sheet->setCellValueByColumnAndRow(2, 7, $office);
+        $sheet->setCellValueByColumnAndRow(2, 42, $signatories);
+        $sheet->setCellValueByColumnAndRow(2, 43, $designation);
+        $sheet->setCellValueByColumnAndRow(6, 35, "=SUM(F11:F34)");
 
         // Iterate through data
         foreach ($data as $rowData) {
@@ -295,13 +358,14 @@ class PurchaseRequestController extends Controller
                 $sheet->setCellValueByColumnAndRow(1, $row, $rowData['serial_no']);
                 $sheet->setCellValueByColumnAndRow(2, $row, $rowData['unit']);
                 $sheet->setCellValueByColumnAndRow(3, $row, $rowData['procurement']);
-                $sheet->setCellValueByColumnAndRow(4, $row, 'qty');
+                $sheet->setCellValueByColumnAndRow(4, $row, $rowData['quantity']);
                 $sheet->setCellValueByColumnAndRow(5, $row, $rowData['app_price']);
-                $sheet->setCellValueByColumnAndRow(6, $row, 'total');
+                $sheet->setCellValueByColumnAndRow(6, $row, $rowData['quantity'] * $rowData['app_price']);
             }
             // Increment the row counter
             $row++;
         }
+        $sheet->getProtection()->setPassword('dilg4a@2024');
 
         // Create a writer and save the spreadsheet to a new file
         $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
@@ -322,7 +386,7 @@ class PurchaseRequestController extends Controller
 
         $query = PurchaseRequestModel::select(
             'pr.id AS id',
-            DB::raw('SUM(app.app_price) AS total_amount')
+            DB::raw('SUM(app.app_price * pr_items.qty) AS total_amount')
         )
             ->leftJoin('pmo', 'pmo.id', '=', 'pr.pmo')
             ->leftJoin('mode_of_proc as mode', 'mode.id', '=', 'pr.type')
@@ -377,10 +441,10 @@ class PurchaseRequestController extends Controller
     }
     public function post_update_status(Request $request)
     {
-        PurchaseRequestModel::where('id', $request->input('id'))
-        ->update([
-            'stat' => $request->input('status'),
-        ]);
-    return response()->json(['message' => 'Purchase Request updated successfully']);
+        PurchaseRequestModel::where('id', $request->input('pr_id'))
+            ->update([
+                'stat' => $request->input('status'),
+            ]);
+        return response()->json(['message' => 'Purchase Request updated successfully']);
     }
 }

@@ -3,6 +3,7 @@
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AppItemController;
 use App\Http\Controllers\PurchaseRequestController;
+use App\Http\Controllers\RFQController;
 use App\Models\AppItemModel;
 use App\Models\PurchaseRequestItemModel;
 use App\Models\PurchaseRequestModel;
@@ -39,7 +40,13 @@ Route::middleware('api')->group(function () {
 });
 Route::middleware('api')->group(function () {
     Route::get('generatePurchaseRequestNo', [PurchaseRequestController::class, 'generatePurchaseRequestNo']);
+});
 
+Route::middleware('api')->group(function () {
+    Route::get('generateRFQNo', [RFQController::class, 'generateRFQNo']);
+});
+Route::middleware('api')->group(function () {
+    Route::get('fetchSubmittedPurchaseRequest', [RFQController::class, 'fetchSubmittedPurchaseRequest']);
 });
 
 Route::middleware('api')->group(function () {
@@ -78,7 +85,6 @@ Route::middleware('api')->group(function () {
 Route::post('login',[UserController::class,'login']);
 Route::post('post_add_appItem',[AppItemController::class,'post_add_appItem']);
 Route::post('post_update_cart',[PurchaseRequestController::class,'post_update_cart']);
-Route::post('post_update_status',[PurchaseRequestController::class,'post_update_status']);
 Route::post('post_insert_pritem',[PurchaseRequestController::class,'post_insert_pritem']);
 Route::post('post_remove_pritem',[PurchaseRequestController::class,'post_remove_pritem']);
 Route::post('post_insert_purchaseNo',[PurchaseRequestController::class,'post_insert_purchaseNo']);
@@ -86,7 +92,14 @@ Route::post('post_update_purchaseRequestDetails',[PurchaseRequestController::cla
 Route::post('post_update_purchaseRequestDetailsForm',[PurchaseRequestController::class,'post_update_purchaseRequestDetailsForm']);
 Route::post('fetchCart', [PurchaseRequestController::class, 'fetchCart']);
 Route::post('fetchPurchaseReqData', [PurchaseRequestController::class, 'fetchPurchaseReqData']);
+Route::post('fetchSubmittedtoGSS', [PurchaseRequestController::class, 'fetchSubmittedtoGSS']);
 Route::post('total_amount', [PurchaseRequestController::class, 'total_amount']);
+Route::post('post_update_status', 'PurchaseRequestController@post_update_status')->name('post.update.status');
+Route::post('post_update_status',[PurchaseRequestController::class,'post_update_status']);
+
+// R F Q
+Route::post('post_create_rfq',[RFQController::class,'post_create_rfq']);
+
 
 // E X P O R T
 // routes/web.php or routes/api.php

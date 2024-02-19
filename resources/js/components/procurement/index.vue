@@ -118,9 +118,9 @@
                             </div>
                         </div>
                         <div class="col-lg-3">
-                            <UserInfo/>
+                            <!-- <UserInfo/> -->
                         </div>
-                        <div class="col-md-9 grid-margin mb-4 stretch-card">
+                        <div class="col-md-12 grid-margin mb-4 stretch-card">
                             <DetailedReport />
                         </div>
                     </div>

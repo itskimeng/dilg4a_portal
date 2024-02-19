@@ -410,7 +410,7 @@ dl li {
 import showAddItemModal from "./modal_addItem.vue";
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core'; // Import the library object
-
+import {formatTotalAmount} from "../../globalMethods.js";
 import { faSpinner, faCartShopping, faListCheck, faPesoSign, faSave } from '@fortawesome/free-solid-svg-icons';
 
 import Navbar from "../layout/Navbar.vue";
@@ -444,7 +444,7 @@ export default {
             pr_no: null,
             status: null,
             pr_data: [],
-            tableColumns: ['serial_no', 'procurement', 'unit', 'description', 'app_price', 'action'],
+            tableColumns: ['serial_no', 'procurement', 'unit', 'description', 'quantity', 'app_price', 'total', 'action'],
             tabs: [
                 { name: 'Purchase Request Data', icon: ['fas', 'list-check'] },
                 { name: 'Purchase Request Item', icon: ['fas', 'cart-shopping'] }, // Example with different icon
@@ -496,7 +496,7 @@ export default {
 
             // Set loading state back to false after data is fetched
             this.isLoading = false;
-        }, 1000); // Simulate a delay of 1 second (adjust as needed)
+        }, 100); // Simulate a delay of 1 second (adjust as needed)
 
 
         // T O T A L A M O U N T
@@ -504,10 +504,14 @@ export default {
         axios.post('../api/total_amount', {
             id: pr_id,
         }).then((res) => {
-            this.total_amount = parseFloat(res.data[0].total_amount).toFixed(2);
+            this.total_amount = formatTotalAmount(res.data[0].total_amount)
+           
+
+
         });
     },
     methods: {
+
         show_addItem_modal() {
             this.modalVisible = true;
         },
@@ -540,15 +544,23 @@ export default {
             })
         },
         toGSS() {
-            const id = 34;
             const STATUS_SUBMITTED_TO_GSS = 4;
-            this.$updateStatusMessage(id,STATUS_SUBMITTED_TO_GSS)
-                .then(res => {
-                    
-                })
-                .catch(error => {
-                    console.error('Error fetching total item data:', error);
+            axios.post(`../api/post_update_status`, {
+                pr_id: this.$route.query.id,
+                status: STATUS_SUBMITTED_TO_GSS,
+            }
+            ).then(() => {
+                toast.success('Successfully added!', {
+                    autoClose: 2000
                 });
+                setTimeout(() => {
+                    this.$router.push({ name: 'Procurement' });
+
+                }, 2000);
+
+            }).catch((error) => {
+            })
+
         }
 
 
