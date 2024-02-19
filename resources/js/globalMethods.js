@@ -3,17 +3,31 @@
 import axios from 'axios';
 
 const fetchUserData = function (userId) {
-    return axios.get(`../api/fetchUser/${userId}`)
-        .then((response) => {
-            return response.data;
-        }).catch(error => {
-            console.error('Error fetching user data:', error);
-            return null; // or handle the error appropriately
-        });
+    if (window.location.pathname.startsWith('/procurement/rfq')) {
+        return axios.get(`../../api/fetchUser/${userId}`)
+            .then((response) => {
+                return response.data;
+            }).catch(error => {
+                console.error('Error fetching user data:', error);
+                return null; // or handle the error appropriately
+            });
+    } else {
+        return axios.get(`../api/fetchUser/${userId}`)
+            .then((response) => {
+                return response.data;
+            }).catch(error => {
+                console.error('Error fetching user data:', error);
+                return null; // or handle the error appropriately
+            });
+    }
+
+
+
 };
 
 
 const countTotalItem = function (cur_year) {
+
     return axios.get(`../api/countTotalItem/${cur_year}`)
         .then((response) => {
             return response.data[0].item;
@@ -24,23 +38,45 @@ const countTotalItem = function (cur_year) {
 };
 
 const countCancelledPR = function (userId) {
-    return axios.get(`../api/countCancelledPR/${userId}`)
-        .then((response) => {
-            return response.data[0].cancelled_pr;
-        }).catch(error => {
-            console.error('Error fetching cancel purchase data:', error);
-            return null; // or handle the error appropriately
-        });
+    if (window.location.pathname.startsWith('/procurement/rfq')) {
+        return axios.get(`../../api/countCancelledPR/${userId}`)
+            .then((response) => {
+                return response.data[0].cancelled_pr;
+            }).catch(error => {
+                console.error('Error fetching cancel purchase data:', error);
+                return null; // or handle the error appropriately
+            });
+    } else {
+        return axios.get(`../api/countCancelledPR/${userId}`)
+            .then((response) => {
+                return response.data[0].cancelled_pr;
+            }).catch(error => {
+                console.error('Error fetching cancel purchase data:', error);
+                return null; // or handle the error appropriately
+            });
+    }
+
 }
 
 const countUserTotalPR = function (userId) {
-    return axios.get(`../api/countUserTotalPR/${userId}`)
-        .then((response) => {
-            return response.data[0].total_pr;
-        }).catch(error => {
-            console.error('Error fetching total purchase data:', error);
-            return null; // or handle the error appropriately
-        });
+    if (window.location.pathname.startsWith('/procurement/rfq')) {
+        return axios.get(`../../api/countUserTotalPR/${userId}`)
+            .then((response) => {
+                return response.data[0].total_pr;
+            }).catch(error => {
+                console.error('Error fetching total purchase data:', error);
+                return null; // or handle the error appropriately
+            });
+    } else {
+        return axios.get(`../api/countUserTotalPR/${userId}`)
+            .then((response) => {
+                return response.data[0].total_pr;
+            }).catch(error => {
+                console.error('Error fetching total purchase data:', error);
+                return null; // or handle the error appropriately
+            });
+    }
+
 }
 
 const fetchAppItem = function () {
@@ -76,16 +112,16 @@ const updatePurchaseRequestStatus = function (pr_id, STATUS_SUBMITTED_TO_GSS) {
         pr_id: pr_id,
         status: STATUS_SUBMITTED_TO_GSS
     })
-    .then(response => {
-        // Handle response if needed
-        console.log(response.data);
-        return response.data;
-    })
-    .catch(error => {
-        // Handle error if needed
-        console.error(error);
-        return null;
-    });
+        .then(response => {
+            // Handle response if needed
+            console.log(response.data);
+            return response.data;
+        })
+        .catch(error => {
+            // Handle error if needed
+            console.error(error);
+            return null;
+        });
 };
 
 

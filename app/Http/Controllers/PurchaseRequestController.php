@@ -235,9 +235,10 @@ class PurchaseRequestController extends Controller
     {
         $page = $request->query('page');
         $itemsPerPage = $request->query('itemsPerPage', 500);
-
         $query = PurchaseRequestModel::select(PurchaseRequestModel::raw('
         pr.id AS `id`,
+        MAX(rfq.rfq_no) AS `rfq_no`,
+        MAX(rfq.rfq_date) AS `rfq_date`,
         MAX(pr.pr_no) AS `pr_no`,
         MAX(pr.action_officer) AS `user_id`,
         MAX(users.name) AS `created_by`,
@@ -265,6 +266,7 @@ class PurchaseRequestController extends Controller
             ->leftJoin('item_unit as unit', 'unit.id', '=', 'pr_items.unit')
             ->leftJoin('tbl_app as app', 'app.id', '=', 'pr_items.pr_item_id')
             ->leftJoin('tbl_status as status', 'status.id', '=', 'pr.stat')
+            ->leftJoin('tbl_rfq as rfq','rfq.pr_id','=','pr.id')
             ->where('pr.stat', 4)
             ->orderBy('pr.id', 'desc')
             ->groupBy('pr.id');

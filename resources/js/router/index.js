@@ -18,6 +18,7 @@ import axios from "axios";
 
 // RFQ
 import dashboard_rfq from "../components/procurement/rfq/index.vue";
+import rfq_details from "../components/procurement/rfq/rfq_details.vue";
 
 const routes = [
     {
@@ -103,7 +104,13 @@ const routes = [
         path:'/procurement/rfq/index',
         name:'Request For Quotation',
         component:dashboard_rfq
+    },
+    {
+        path:'/procurement/rfq/:id',
+        name:'Request For Quotation Details',
+        component:rfq_details
     }
+
 
 
 
