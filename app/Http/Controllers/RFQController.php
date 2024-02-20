@@ -29,29 +29,27 @@ class RFQController extends Controller
     }
     public function post_create_rfq(Request $request)
     {
-        // Validate incoming request data
-        // $validatedData = $request->validate([
-        //     'pr_id' => 'numeric',
-        //     'rfq_no' => 'required|string',
-        //     'rfq_date' => 'required|date',
-        //     'particulars' => 'required|string',
-        //     'mode' => 'required|string',
-        //     'updated_by' => 'numeric'
-        // ]);
+        $rfq = new RFQModel([
+            'id'            => null,
+            'rfq_no'         => $request->input('rfq_no'),
+            'pr_id'          => $request->input('pr_id'),
+            'mode_id' => $request->input('mode_id'),
+            'rfq_date'  => $request->input('rfq_date'),
+            'particulars'    =>  $request->input('particulars'),
+            'updated_by'    =>  $request->input('updated_by'),
 
-        // Create a new RFQ record
-        $rfq = new RFQModel();
-        $rfq->rfq_no = $request['rfq_no'];
-        $rfq->pr_id = $request['pr_id'];
-        $rfq->mode_id = $request['mode'];
-        $rfq->rfq_date = $request['rfq_date'];
-        $rfq->particulars = $request['particulars'];
-        $rfq->updated_by = $request['updated_by'];
+        ]);
 
+
+
+    
+    
         // Save the RFQ record
         $rfq->save();
-
-        // Optionally, you can return a response indicating success
-        return response()->json(['message' => 'RFQ created successfully'], 201);
+        // dd($rfq);
+    
+        // Optionally, you can return a response indicating success along with the SQL query
+        return response()->json(['message' => 'RFQ created successfully', 'sql_query' => $rfq], 201);
     }
+    
 }
