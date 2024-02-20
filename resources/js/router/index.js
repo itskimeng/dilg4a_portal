@@ -16,13 +16,17 @@ import UpdatePRItem from "../components/procurement/update_pr.vue";
 import procurement_stat from "../components/procurement/procurement_stat.vue";
 import axios from "axios";
 
+// RFQ
+import dashboard_rfq from "../components/procurement/rfq/index.vue";
+import rfq_details from "../components/procurement/rfq/rfq_details.vue";
+
 const routes = [
     {
         path: '/',
         name: 'Login',
         component: LoginComponent
     },
-    { 
+    {
         path: '/dashboard',
         name: 'Dashboard',
         component: DashboardComponent,
@@ -33,7 +37,6 @@ const routes = [
         //         return next({ name: 'Login'})
         //     })
         // }
-       
     },
     {
         path: '/procurement/index',
@@ -61,11 +64,11 @@ const routes = [
         component: UpdatePRItem,
         props: true, // Automatically bind route parameters as props
         beforeEnter: (to, from, next) => {
-          // Your beforeEnter logic if needed
-          next();
+            // Your beforeEnter logic if needed
+            next();
         },
-      },
-      
+    },
+
     {
         path: '/procurement/create_pr/:id',
         name: 'Create Purchase Request Item with ID',
@@ -96,8 +99,19 @@ const routes = [
         name: 'ExampleComponent',
         component: ExampleComponent
     },
-    
-   
+    {
+        path:'/procurement/rfq/index',
+        name:'Request For Quotation',
+        component:dashboard_rfq
+    },
+    {
+        path:'/procurement/rfq/:id',
+        name:'Request For Quotation Details',
+        component:rfq_details
+    }
+
+
+
 
 
 ];
@@ -105,7 +119,7 @@ const router = createRouter({
     mode: 'history',
     history: createWebHistory(process.env.BASE_URL),
     routes,
-    router:router
+    router: router
 })
 
 

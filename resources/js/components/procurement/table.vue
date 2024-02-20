@@ -9,15 +9,23 @@
       </thead>
       <tbody>
         <tr v-for="item in data" :key="item.id">
-          <td v-for="column in columns" :key="column"
-            style="width: calc(100% / {{ columns.length }}); white-space: normal;">
+          <td v-for="column in columns" :key="column" style="width: calc(100% / {{ columns.length }}); white-space: normal;">
             <!-- Check if the column is 'ACTION' -->
-            <template v-if="column === 'action'">
+            <template v-if="column === 'app_price'">
               <div class="template-demo">
-                <!-- modal button here -->
-                <!-- <button type="button" class="btn btn-info btn-rounded btn-icon" @click="openModal(item.app_id)">
-                  <font-awesome-icon :icon="['fas', 'eye']" />
-                </button> -->
+                {{ formatAppPrice(item[column])}}
+              </div>
+
+            </template>
+            <template v-else-if="column === 'total'">
+              <div class="template-demo" style="font-weight: bolder;">
+                {{ formatAppPrice(item[column])}}
+              </div>
+
+            </template>
+            <template v-else-if="column === 'action'">
+              <div class="template-demo">
+            
                 <button type="button" class="btn btn-success btn-rounded btn-icon" @click="openModal(item.app_id)">
                   <font-awesome-icon :icon="['fas', 'pen-to-square']" />
                 </button>
@@ -38,6 +46,7 @@
 </template>
 
 <script>
+import { formatTotalAmount } from '../../globalMethods';
 import ModalDefault from '../procurement/modal_showItemDetails.vue';
 import { toast } from "vue3-toastify";
 
@@ -65,7 +74,8 @@ export default {
     return {
       modalVisible: false,
       selectedItem: null,
-      appId: null
+      appId: null,
+      app_price: null
     };
   },
   methods: {
@@ -95,6 +105,9 @@ export default {
         console.error('Error removing items from the database:', error);
       });
   },
+  formatAppPrice(price) {
+      return formatTotalAmount(price);
+    }
 },
 };
 </script>

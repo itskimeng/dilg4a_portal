@@ -2,8 +2,30 @@
 .btn-custom {
     padding: 15% !important;
 }
+
+.badge-cancelled {
+    color: #fff;
+    background-color: #3c3b41
+}
+
+.badge-with-rfq {
+    color: #fff;
+    background-color: #923909
+}
+
+.badge-received_gss {
+    color: #fff;
+    background-color: #0f087a
+}
+
+.badge-submitted_gss {
+    color: #fff;
+    background-color: #890564;
+}
 </style>
 <template>
+    <Pagination :total="purchaseRequests.length" @pageChange="onPageChange" />
+
     <table id="pr_tbl" style="width: 100%;" class="table table-striped display expandable-table dataTable no-footer"
         role="grid">
 
@@ -26,6 +48,8 @@
                 <th class="details-control sorting_disabled" rowspan="1" colspan="1" aria-label="" style="width: 4px;"> TIME
                     ELAPSED</th>
                 <th class="details-control sorting_disabled" rowspan="1" colspan="1" aria-label="" style="width: 4px;">
+                    CREATED BY</th>
+                <th class="details-control sorting_disabled" rowspan="1" colspan="1" aria-label="" style="width: 4px;">
                     ACTION</th>
             </tr>
         </thead>
@@ -43,44 +67,93 @@
                 <td>{{ purchaseRequest.pr_date }}</td>
                 <td>{{ purchaseRequest.target_date }}</td>
                 <td>
-                    <div class="badge badge-danger">{{ purchaseRequest.status }}</div>
+                    <div v-if="purchaseRequest.status_id == 1" class="badge badge-success">{{ purchaseRequest.status }}
+                    </div>
+                    <div v-if="purchaseRequest.status_id == 2" class="badge badge-primary">{{ purchaseRequest.status }}
+                    </div>
+                    <div v-if="purchaseRequest.status_id == 3" class="badge badge-warning">{{ purchaseRequest.status }}
+                    </div>
+                    <div v-if="purchaseRequest.status_id == 4" class="badge badge-submitted_gss">{{ purchaseRequest.status
+                    }}</div>
+                    <div v-if="purchaseRequest.status_id == 5" class="badge badge-received_gss">{{ purchaseRequest.status }}
+                    </div>
+                    <div v-if="purchaseRequest.status_id == 6" class="badge badge-with-rfq">{{ purchaseRequest.status }}
+                    </div>
+                    <div v-if="purchaseRequest.status_id == 7" class="badge badge-cancelled">{{ purchaseRequest.status }}
+                    </div>
                 </td>
                 <td>5 minutes ago</td>
+                <td>{{ purchaseRequest.created_by }}</td>
+
                 <td>
-                    <div class="template-demo d-flex justify-content-between flex-nowrap">
-                        <button @click="viewPr(purchaseRequest.id, purchaseRequest.status_id, purchaseRequest.step)"
-                            type="button" class="btn btn-success btn-rounded btn-icon"> <i class="ti-new-window"
-                                style="margin-left: -2px;"></i> </button>
+                    <div v-if="this.userId == 1" class="template-demo d-flex justify-content-between flex-nowrap">
+                        <button type="button" class="btn btn-success btn-rounded btn-icon"
+                            @click="viewPr(purchaseRequest.id, purchaseRequest.status_id, purchaseRequest.step)">
+                            <i class="ti-eye" style="margin-left: -3px;"></i>
+                        </button>
+                        <button type="button" class="btn btn-primary btn-rounded btn-icon"
+                            @click="toGSS(purchaseRequest.id)">
+                            <font-awesome-icon :icon="['fas', 'paper-plane']" style="margin-left: -3px;" />
+                        </button>
 
                         <button type="button" class="btn btn-danger btn-rounded btn-icon">
-                            <i class="ti-trash" style="margin-left: -2px;"></i>
+                            <i class="ti-trash" style="margin-left: -3px;"></i>
                         </button>
-                        <button type="button" class="btn btn-warning btn-rounded btn-icon">
-                            <i class="ti-download" style="margin-left: -2px;"></i>
+                        <button class="btn btn-warning btn-rounded btn-icon">
+                            <i class="ti-download" @click="exportPurchaseRequest(purchaseRequest.id)"
+                                style="margin-left: -3px;"></i>
+                        </button>
+                    </div>
+
+                    <div v-else-if="purchaseRequest.user_id == this.userId"
+                        class="template-demo d-flex justify-content-between flex-nowrap">
+                        <button type="button" class="btn btn-success btn-rounded btn-icon"
+                            @click="viewPr(purchaseRequest.id, purchaseRequest.status_id, purchaseRequest.step)">
+                            <i class="ti-eye" style="margin-left: -3px;"></i>
+                        </button>
+                        <button type="button" class="btn btn-danger btn-rounded btn-icon">
+                            <i class="ti-trash" style="margin-left: -3px;"></i>
+
+                        </button>
+                        <button class="btn btn-warning btn-rounded btn-icon">
+                            <i class="ti-download" @click="exportPurchaseRequest(purchaseRequest.id)"
+                                style="margin-left: -3px;"></i>
+                        </button>
+                    </div>
+                    <div v-else class="template-demo d-flex justify-content-between flex-nowrap">
+                        <button type="button" class="btn btn-success btn-rounded btn-icon"
+                            @click="viewPr(purchaseRequest.id, purchaseRequest.status_id, purchaseRequest.step)">
+                            <i class="ti-eye" style="margin-left: -3px;"></i>
                         </button>
 
                     </div>
                 </td>
+
             </tr>
         </tbody>
     </table>
-    <Pagination :total="purchaseRequests.length" @pageChange="onPageChange" />
 </template>
 
 <script>
 import axios from 'axios';
 import Pagination from './Pagination.vue';
-
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core'; // Import the library object
+import { faEye, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import { toast } from "vue3-toastify";
+library.add(faEye, faPaperPlane);
 export default {
     data() {
         return {
+            userId: null,
             purchaseRequests: [],
             currentPage: 1,
-            itemsPerPage: 5,
+            itemsPerPage: 10,
         };
     },
     components: {
         Pagination,
+        FontAwesomeIcon
     },
     computed: {
         totalPages() {
@@ -92,11 +165,15 @@ export default {
             return this.purchaseRequests.slice(start, end);
         },
     },
+    created() {
+        this.userId = localStorage.getItem('userId');
+    },
     mounted() {
         this.loadData();
+
     },
     methods: {
-        
+
         loadData() {
             axios.post(`../api/fetchPurchaseReqData`)
                 .then(response => {
@@ -122,6 +199,19 @@ export default {
                 this.$router.push({ path: `/procurement/view_pr/${pr_id}` });
             }
         },
+        exportPurchaseRequest(pr_id) {
+            window.location.href = `../api/export-purchase-request/${pr_id}?export=true`;
+        },
+        toGSS(id) {
+
+            this.$updatePurchaseRequestStatus(id, 4);
+            toast.success('Successfully submitted to the GSS!', {
+                autoClose: 2000
+            });
+            location.reload();
+
+
+        }
     },
 };
 </script>
