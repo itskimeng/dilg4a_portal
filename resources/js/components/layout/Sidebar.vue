@@ -38,9 +38,9 @@
 <script>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faCartShopping,faGauge,faList,faChartSimple, faClipboardList, faStore,faBook,faAward } from '@fortawesome/free-solid-svg-icons';
+import { faCartShopping,faGauge,faList,faChartSimple, faClipboardList, faStore,faBook,faAward,faCalendar } from '@fortawesome/free-solid-svg-icons';
 
-library.add(faCartShopping,faGauge,faList,faChartSimple,faClipboardList,faStore,faBook,faAward);
+library.add(faCartShopping,faGauge,faList,faChartSimple,faClipboardList,faStore,faBook,faAward,faCalendar);
 
 export default {
     name: 'Sidebar',
@@ -53,6 +53,13 @@ export default {
                     name: 'Dashboard',
                     tooltip: 'Dashboard',
                     icon: 'gauge',
+                },
+                
+                {
+                    link: '/calendar',
+                    name: 'Calendar',
+                    tooltip: 'Dashboard',
+                    icon: 'calendar',
                 },
                 {
                     link: '',
