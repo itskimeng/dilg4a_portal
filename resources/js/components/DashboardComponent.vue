@@ -249,7 +249,7 @@ export default {
 methods: {
     // Example of using a mutation (if needed)
     updateUserId() {
-        // Update user ID using a mutation
+        // Update user ID using a munptation
         this.$store.commit('setUserId', 'newUserId');
         console.log('User ID updated:', this.$store.state.userId);
     },

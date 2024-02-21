@@ -9,7 +9,7 @@
                     <router-link class="nav-link" :to="menuItem.link" :data-target="'#ui-basic-' + index"
                         :aria-controls="'ui-basic-' + index" :aria-expanded="isExpanded(index)"
                         @click.prevent="toggleCollapse(index)">
-                        <font-awesome-icon :icon="menuItem.icon" />
+                        <font-awesome-icon :icon="menuItem.icon" />&nbsp;&nbsp;
                         <span class="menu-title"> {{ menuItem.name }}</span>
                         <i class="menu-arrow"></i>
                     </router-link>
@@ -26,7 +26,7 @@
                 </template>
                 <template v-else>
                     <router-link class="nav-link" :to="menuItem.link">
-                        <font-awesome-icon :icon="menuItem.icon" />
+                        <font-awesome-icon :icon="menuItem.icon" />&nbsp;&nbsp;
                         <span class="menu-title">{{ menuItem.name }}</span>
                     </router-link>
                 </template>
@@ -34,6 +34,7 @@
         </ul>
     </nav>
 </template>
+
 
 <script>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
@@ -54,6 +55,7 @@ export default {
                     tooltip: 'Dashboard',
                     icon: 'gauge',
                 },
+                
                 {
                     link: '/dashboard',
                     name: 'Calendar',

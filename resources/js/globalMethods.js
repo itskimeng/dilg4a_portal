@@ -27,7 +27,6 @@ const fetchUserData = function (userId) {
 
 
 const countTotalItem = function (cur_year) {
-
     return axios.get(`../api/countTotalItem/${cur_year}`)
         .then((response) => {
             return response.data[0].item;
