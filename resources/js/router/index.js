@@ -22,7 +22,6 @@ import rfq_details from "../components/procurement/rfq/rfq_details.vue";
 
 //ABSTRACT
 import dashboard_abstract from "../components/procurement/abstract/index.vue";
-
 const routes = [
     {
         path: '/',
@@ -34,13 +33,13 @@ const routes = [
         name: 'Dashboard',
         component: DashboardComponent,
         //BEFOR DEPLOYMENT, IT MUST BE COMPLETED THE BUG ON AUTHENTICAION AND FOR THE SECURITY
-        // beforeEnter:(to, form, next) => {
-        //     axios.get('api/authenticated').then(()=>{
-        //         next()
-        //     }).catch(() =>{
-        //         return next({ name: 'Login'})
-        //     })
-        // }
+        beforeEnter:(to, form, next) => {
+            axios.get('api/authenticated').then(()=>{
+                next()
+            }).catch(() =>{
+                return next({ name: 'Login'})
+            })
+        }
     },
     {
         path: '/procurement/index',
@@ -117,7 +116,8 @@ const routes = [
         path:'/procurement/abstract/index',
         name:'Abstract of Quotation',
         component:dashboard_abstract
-    }
+    },
+   
 
 
 
