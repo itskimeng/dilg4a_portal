@@ -30,13 +30,14 @@ const routes = [
         path: '/dashboard',
         name: 'Dashboard',
         component: DashboardComponent,
-        // beforeEnter:(to, form, next) => {
-        //     axios.get('api/authenticated').then(()=>{
-        //         next()
-        //     }).catch(() =>{
-        //         return next({ name: 'Login'})
-        //     })
-        // }
+        beforeEnter:(to, form, next) => {
+            axios.get('api/authenticated').then(()=>{
+                next()
+            }).catch(() =>{
+                return next({ name: 'Login'})
+            })
+        }
+
     },
     {
         path: '/procurement/index',

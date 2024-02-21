@@ -7,6 +7,8 @@ import App from './App.vue';
 import store from './store/store';
 import router from './router';
 import * as globalMethods from './globalMethods'; // Import all global methods
+import VueMultiselect from 'vue-multiselect';
+
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 const app = createApp(App);
@@ -15,5 +17,8 @@ const app = createApp(App);
 Object.keys(globalMethods).forEach(methodName => {
     app.config.globalProperties[`$${methodName}`] = globalMethods[methodName];
 });
+
+app.component('font-awesome-icon', FontAwesomeIcon); // Register font-awesome-icon globally
+app.component('vue-multiselect', VueMultiselect); // Register vue-multiselect globally
 
 app.use(router).use(store).mount('#app');

@@ -12,11 +12,14 @@
           <div class="modal-body">
             <div class="row">
               <div class="col-lg-12">
-                <MultiSelectInput label="Purchase Request Number" :options="pr_no" v-model="pr_no" />
-
+                <!-- <MultiSelectInput label="Purchase Request Number" :op?tions="pr_no" v-model="pr_no" /> -->
+                <div class="form-group">
+                  <label>Purchase Request Number</label>
+                  <vue-multiselect v-model="selected" :options="options" label="label" :multiple="true"></vue-multiselect>
+                </div>
                 <TextInput label="RFQ Number" v-model="rfq_no" :value="rfq_no" :readonly="true" />
                 <SelectInput label="Mode of Procurement" v-model="selectedMode">
-                  <option value="1" data-id="Small Value Procurement" data-value="1">Small Value Procurement</option>
+                  <option value="1" data-id="Small Value Procurement" data-value="1">Small Value Procu rement</option>
                   <option value="2" data-id="Shopping" data-value="2">Shopping</option>
                   <option value="4" data-id="NP Lease of Venue" data-value="4">NP Lease of Venue</option>
                   <option value="5" data-id="Direct Contracting" data-value="5">Direct Contracting</option>
@@ -39,6 +42,7 @@
     </div>
   </div>
 </template>
+<style src="vue-multiselect/dist/vue-multiselect.css"></style>
   
 <script>
 import dilg_logo from "../../../../../assets/logo.png";
@@ -69,6 +73,8 @@ export default {
       rfq_no: null,
       selectedItems: [],
       pr_no: [],
+      selected: null,
+      options: [],
       selectedMode: null,
       rfq_date: null,
       particulars: null
@@ -85,36 +91,47 @@ export default {
   },
 
   methods: {
-    
+
     post_create_rfq() {
       // Prepare data to be sent
       const userId = localStorage.getItem('userId');
       const requestData = {
         rfq_no: this.rfq_no,
-        pr_id: this.pr_no[0].value,
-        mode: this.selectedMode,
         rfq_date: this.rfq_date,
         particulars: this.particulars,
         updated_by: userId
-
       };
 
-      // Send POST request using Axios
-      axios.post('../../api/post_create_rfq', requestData)
-        .then(() => {
-          this.$updatePurchaseRequestStatus(this.pr_no[0].value,6);          
-            toast.success('RFQ successfully created!', {
-            autoClose: 100
-          });
-        }).catch((error) => {
+      // Send separate POST requests for each selected value
+      for (const prId of Object.values((this.selected.map(item => item.value)))) {
+        // Construct data for the current selected value
+        const prData = {
+          ...requestData,
+          pr_id: prId,
+          mode_id: this.selectedMode // Assuming mode_id is the correct property name
+        };
 
-        })
-        .catch(error => {
-          // Handle error
-          console.error('Error creating RFQ:', error);
-          // You can also display an error message or perform other error handling actions
-        });
+        // Send POST request using Axios for the current selected value
+        axios.post('../../api/post_create_rfq', prData)
+          .then(() => {
+            // Assuming this.pr_no[0].value is the ID for the first selected PR
+            this.$updatePurchaseRequestStatus(this.selected.map(item => item.value), 6);
+            toast.success('RFQ successfully created!', {
+              autoClose: 100
+            });
+            setTimeout(() => {
+              location.reload();
+            }, 2000);
+          })
+          .catch(error => {
+            // Handle error
+            console.error('Error creating RFQ:', error);
+            // You can also display an error message or perform other error handling actions
+          });
+      }
     },
+
+
     generateRFQ: async function () {
       try {
         const response = await axios.get('../../api/generateRFQNo');
@@ -141,7 +158,7 @@ export default {
       try {
         const response = await axios.get('../../api/fetchSubmittedPurchaseRequest');
         // Assuming response.data is an array of objects with 'label' and 'value' properties
-        this.pr_no = response.data.map(item => ({ label: item.pr_no, value: item.id }));
+        this.options = response.data.map(item => ({ label: item.pr_no, value: item.id }))
       } catch (error) {
         console.error('Error fetching submitted purchase requests:', error);
       }

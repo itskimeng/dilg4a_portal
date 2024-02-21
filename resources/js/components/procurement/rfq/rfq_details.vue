@@ -271,6 +271,7 @@ dl li {
                             <UserInfo />
                         </div>
                         <div class="col-lg-9">
+                            <br>
                             <div class="card">
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between">
@@ -342,9 +343,7 @@ dl li {
                                                                 class="form-control"></textarea>
                                                         </div>
                                                     </div>
-                                                    <button type="button" @click="updatePurchaseRequestDetails()"
-                                                        class="btn btn-success btn-icon-text pull-right">
-                                                        <font-awesome-icon :icon="['fas', 'save']" /> Save</button>
+                                                    
                                                 </div>
                                             </div>
 
@@ -374,7 +373,6 @@ dl li {
                                                 </div>
                                                 <!-- Display the table when data is loaded -->
                                                 <div v-else class="table-responsive">
-                                                    <dtable :data="pr_data" :columns="tableColumns" />
                                                 </div>
                                             </div>
                                         </div>
@@ -388,10 +386,11 @@ dl li {
         </div>
     </div>
 </template>
+
 <script>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core'; // Import the library object
-import { faSpinner, faCartShopping, faListCheck, faPesoSign, faSave,faTrophy } from '@fortawesome/free-solid-svg-icons';
+import { faSpinner, faCartShopping, faListCheck, faPesoSign, faSave, faTrophy } from '@fortawesome/free-solid-svg-icons';
 
 import Navbar from "../../layout/Navbar.vue";
 import Sidebar from "../../layout/Sidebar.vue";
@@ -399,19 +398,32 @@ import FooterVue from "../../layout/Footer.vue";
 import BreadCrumbs from "../../dashboard_tiles/BreadCrumbs.vue";
 import UserInfo from "../../procurement/user_info.vue";
 
+
 import axios from "axios";
 import { toast } from "vue3-toastify";
-library.add(faSpinner, faCartShopping, faListCheck, faPesoSign, faSave,faTrophy);
+library.add(faSpinner, faCartShopping, faListCheck, faPesoSign, faSave, faTrophy);
 
 export default {
     name: "RFQ Details",
-    data(){
-        return{
+    data() {
+        return {
+            activeTab: 0,
+            status: null,
+            selected: null,
+            contents: ['a', 'b', 'c'],
+            options: ['list', 'of', 'options'],
             tabs: [
                 { name: 'Purchase Request Details', icon: ['fas', 'cart-shopping'] }, // Example with different icon
                 { name: 'RFQ Details', icon: ['fas', 'list-check'] }, // Example with different icon
                 { name: 'Abstract of Quotation', icon: ['fas', 'trophy'] }, // Example with different icon
             ],
+            purchaseRequestData: {
+                pmo: null,
+                pr_type: null,
+                pr_date: null,
+                target_date: null,
+                particulars: null
+            },
         }
     },
     components: {
