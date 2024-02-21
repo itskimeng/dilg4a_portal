@@ -9,7 +9,7 @@
                     <router-link class="nav-link" :to="menuItem.link" :data-target="'#ui-basic-' + index"
                         :aria-controls="'ui-basic-' + index" :aria-expanded="isExpanded(index)"
                         @click.prevent="toggleCollapse(index)">
-                        <font-awesome-icon :icon="menuItem.icon" />
+                        <font-awesome-icon :icon="menuItem.icon" />&nbsp;&nbsp;
                         <span class="menu-title"> {{ menuItem.name }}</span>
                         <i class="menu-arrow"></i>
                     </router-link>
@@ -26,7 +26,7 @@
                 </template>
                 <template v-else>
                     <router-link class="nav-link" :to="menuItem.link">
-                        <font-awesome-icon :icon="menuItem.icon" />
+                        <font-awesome-icon :icon="menuItem.icon" />&nbsp;&nbsp;
                         <span class="menu-title">{{ menuItem.name }}</span>
                     </router-link>
                 </template>
@@ -35,18 +35,13 @@
     </nav>
 </template>
 
+
 <script>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
-<<<<<<< HEAD
-import { faCartShopping,faGauge,faList,faChartSimple, faClipboardList, faStore } from '@fortawesome/free-solid-svg-icons';
-
-library.add(faCartShopping,faGauge,faList,faChartSimple,faClipboardList,faStore);
-=======
 import { faCartShopping,faGauge,faList,faChartSimple, faClipboardList, faStore,faBook } from '@fortawesome/free-solid-svg-icons';
 
 library.add(faCartShopping,faGauge,faList,faChartSimple,faClipboardList,faStore,faBook);
->>>>>>> c3abfd1774ff13da639561726d0e226e406ec681
 
 export default {
     name: 'Sidebar',
@@ -60,6 +55,7 @@ export default {
                     tooltip: 'Dashboard',
                     icon: 'gauge',
                 },
+                
                 {
                     link: '',
                     name: 'Procurement',
@@ -79,15 +75,12 @@ export default {
                             icon: 'store',
                         },
                         {
-<<<<<<< HEAD
-=======
                             link: '/procurement/rfq/index',
                             name: 'R.F.Q',
                             tooltip: 'Buttons',
                             icon: 'book',
                         },
                         {
->>>>>>> c3abfd1774ff13da639561726d0e226e406ec681
                             link: '/procurement/statistic',
                             name: 'Statistics',
                             tooltip: 'Buttons',
@@ -101,10 +94,7 @@ export default {
                         },
                     ],
                 },
-<<<<<<< HEAD
-=======
                 
->>>>>>> c3abfd1774ff13da639561726d0e226e406ec681
             ],
         },
     },
