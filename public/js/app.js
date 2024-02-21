@@ -23336,7 +23336,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-_fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_1__.library.add(_fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__.faCartShopping, _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__.faGauge, _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__.faList, _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__.faChartSimple, _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__.faClipboardList, _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__.faStore, _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__.faBook, _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__.faAward);
+_fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_1__.library.add(_fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__.faCartShopping, _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__.faGauge, _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__.faList, _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__.faChartSimple, _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__.faClipboardList, _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__.faStore, _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__.faBook, _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__.faAward, _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__.faCalendar);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'Sidebar',
   props: {
@@ -23349,10 +23349,10 @@ _fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_1__.library.add(_fort
           tooltip: 'Dashboard',
           icon: 'gauge'
         }, {
-          link: '/dashboard',
+          link: '/calendar',
           name: 'Calendar',
           tooltip: 'Dashboard',
-          icon: 'gauge'
+          icon: 'calendar'
         }, {
           link: '',
           name: 'Procurement',
@@ -23416,6 +23416,59 @@ _fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_1__.library.add(_fort
   },
   components: {
     FontAwesomeIcon: _fortawesome_vue_fontawesome__WEBPACK_IMPORTED_MODULE_0__.FontAwesomeIcon
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/micro/TextInput.vue?vue&type=script&lang=js":
+/*!*********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/micro/TextInput.vue?vue&type=script&lang=js ***!
+  \*********************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'TextInput',
+  props: {
+    label: {
+      type: String,
+      "default": ''
+    },
+    value: {
+      type: [String, Number],
+      "default": ''
+    },
+    placeholder: {
+      type: String,
+      "default": ''
+    },
+    type: {
+      type: String,
+      "default": 'text'
+    },
+    readonly: {
+      type: Boolean,
+      "default": false
+    }
+  },
+  data: function data() {
+    return {
+      internalValue: this.value
+    };
+  },
+  emits: ['update:modelValue'],
+  watch: {
+    internalValue: function internalValue(newValue) {
+      this.$emit('update:modelValue', newValue); // Emit input event when value changes
+    },
+    value: function value(newValue) {
+      this.internalValue = newValue; // Update internalValue if external value changes
+    }
   }
 });
 
@@ -26595,7 +26648,7 @@ var _hoisted_5 = {
 };
 var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"col-12 col-xl-4\"><div class=\"justify-content-end d-flex\"><div class=\"dropdown flex-md-grow-1 flex-xl-grow-0\"><button class=\"btn btn-sm btn-light bg-white dropdown-toggle\" type=\"button\" id=\"dropdownMenuDate2\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"true\"><i class=\"mdi mdi-calendar\"></i> Today (10 Jan 2021) </button><div class=\"dropdown-menu dropdown-menu-right\" aria-labelledby=\"dropdownMenuDate2\"><a class=\"dropdown-item\" href=\"#\">January - March</a><a class=\"dropdown-item\" href=\"#\">March - June</a><a class=\"dropdown-item\" href=\"#\">June - August</a><a class=\"dropdown-item\" href=\"#\">August - November</a></div></div></div></div>", 1);
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", _hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.$route.name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <h6 class=\"font-weight-normal mb-0\">All systems are running smoothly! You have <span\r\n                            class=\"text-primary\">3 unread alerts!</span></h6> ")]), _hoisted_6])])]);
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", _hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.$route.name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <h6 class=\"font-weight-normal mb-0\">All systems are running smoothly! You have <span\n                            class=\"text-primary\">3 unread alerts!</span></h6> ")]), _hoisted_6])])]);
 }
 
 /***/ }),
@@ -26912,6 +26965,37 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       _: 2 /* DYNAMIC */
     }, 1032 /* PROPS, DYNAMIC_SLOTS */, ["to"]))]);
   }), 128 /* KEYED_FRAGMENT */))])]);
+}
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/micro/TextInput.vue?vue&type=template&id=4e625077":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/micro/TextInput.vue?vue&type=template&id=4e625077 ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+var _hoisted_1 = {
+  "class": "form-group"
+};
+var _hoisted_2 = ["placeholder", "type", "readonly"];
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.label), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", (0,vue__WEBPACK_IMPORTED_MODULE_0__.mergeProps)(_ctx.$attrs, {
+    "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
+      return $data.internalValue = $event;
+    }),
+    "class": "form-control",
+    placeholder: $props.placeholder,
+    type: $props.type,
+    readonly: $props.readonly
+  }), null, 16 /* FULL_PROPS */, _hoisted_2), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelDynamic, $data.internalValue]])]);
 }
 
 /***/ }),
@@ -30721,7 +30805,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./store/store */ "./resources/js/store/store.js");
 /* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./router */ "./resources/js/router/index.js");
 /* harmony import */ var _globalMethods__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./globalMethods */ "./resources/js/globalMethods.js");
-/* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue-multiselect */ "./node_modules/vue-multiselect/dist/vue-multiselect.esm.js");
+/* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue-multiselect */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.js");
+/* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(vue_multiselect__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var _components_micro_TextInput_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/micro/TextInput.vue */ "./resources/js/components/micro/TextInput.vue");
 /* harmony import */ var _fortawesome_vue_fontawesome__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @fortawesome/vue-fontawesome */ "./node_modules/@fortawesome/vue-fontawesome/index.es.js");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
@@ -30735,6 +30820,7 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
  // Import all global methods
 
 
+
 var app = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createApp)(_App_vue__WEBPACK_IMPORTED_MODULE_1__["default"]);
 
 // Add the methods to the Vue prototype
@@ -30742,7 +30828,7 @@ Object.keys(_globalMethods__WEBPACK_IMPORTED_MODULE_4__).forEach(function (metho
   app.config.globalProperties["$".concat(methodName)] = _globalMethods__WEBPACK_IMPORTED_MODULE_4__[methodName];
 });
 app.component('font-awesome-icon', _fortawesome_vue_fontawesome__WEBPACK_IMPORTED_MODULE_7__.FontAwesomeIcon); // Register font-awesome-icon globally
-app.component('vue-multiselect', vue_multiselect__WEBPACK_IMPORTED_MODULE_5__["default"]); // Register vue-multiselect globally
+app.component('vue-multiselect', (vue_multiselect__WEBPACK_IMPORTED_MODULE_5___default())); // Register vue-multiselect globally
 app.component('TextInput', _components_micro_TextInput_vue__WEBPACK_IMPORTED_MODULE_6__["default"]); // Register vue-multiselect globally
 
 app.use(_router__WEBPACK_IMPORTED_MODULE_3__["default"]).use(_store_store__WEBPACK_IMPORTED_MODULE_2__["default"]).mount('#app');
@@ -35623,7 +35709,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.auth .brand-logo img {\r\n    width: 100% !important;\n}\n.header-align-center {\r\n    text-align: center;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.auth .brand-logo img {\n    width: 100% !important;\n}\n.header-align-center {\n    text-align: center;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -35647,7 +35733,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.table-responsive-custom {\r\n    display: block;\r\n    -webkit-overflow-scrolling: touch;\n}\n.box-tools {\r\n    position: absolute;\r\n    right: 20px;\r\n    top: 10px;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.table-responsive-custom {\n    display: block;\n    -webkit-overflow-scrolling: touch;\n}\n.box-tools {\n    position: absolute;\n    right: 20px;\n    top: 10px;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -35671,7 +35757,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\r\n  /* Add your styling for pagination here */\r\n  ", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n  /* Add your styling for pagination here */\n  ", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -35743,7 +35829,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.pull-right {\r\n    position: absolute;\r\n    right: 100px;\r\n    top: 10px;\n}\n.pull-right-cancel {\r\n    position: absolute;\r\n    right: 10px;\r\n    top: 10px;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.pull-right {\n    position: absolute;\n    right: 100px;\n    top: 10px;\n}\n.pull-right-cancel {\n    position: absolute;\n    right: 10px;\n    top: 10px;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -35767,7 +35853,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.container .card {\r\n  height: 840px;\r\n  width: auto;\r\n  background-color: #fff;\r\n  position: relative;\r\n  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);\r\n  font-family: \"Poppins\", sans-serif;\r\n  border-radius: 20px;\n}\n.container .card .form {\r\n  width: 100%;\r\n  height: 100%;\r\n  display: flex;\n}\n.container .card .left-side {\r\n  width: 35%;\r\n  background-color: #304767;\r\n  height: 100%;\r\n  border-top-left-radius: 20px;\r\n  border-bottom-left-radius: 20px;\r\n  padding: 20px 30px;\r\n  box-sizing: border-box;\n}\r\n\r\n/*left-side-start*/\n.left-heading {\r\n  color: #fff;\n}\n.steps-content {\r\n  margin-top: 30px;\r\n  color: #fff;\n}\n.steps-content p {\r\n  font-size: 12px;\r\n  margin-top: 15px;\n}\n.progress-barv2 {\r\n  list-style: none;\r\n  /*color:#fff;*/\r\n  margin-top: 30px;\r\n  font-size: 13px;\r\n  font-weight: 700;\r\n  text-align: left;\r\n  counter-reset: container 0;\n}\n.progress-barv2 li {\r\n  position: relative;\r\n  margin-left: 40px;\r\n  margin-top: 50px;\r\n  counter-increment: container 1;\r\n  color: #4f6581;\n}\n.progress-barv2 li::before {\r\n  content: counter(container);\r\n  line-height: 25px;\r\n  text-align: center;\r\n  position: absolute;\r\n  height: 25px;\r\n  width: 25px;\r\n  border: 1px solid #4f6581;\r\n  border-radius: 50%;\r\n  left: -40px;\r\n  top: -5px;\r\n  z-index: 10;\r\n  background-color: #304767;\n}\n.progress-barv2 li::after {\r\n  content: \"\";\r\n  position: absolute;\r\n  height: 90px;\r\n  width: 2px;\r\n  background-color: #4f6581;\r\n  z-index: 1;\r\n  left: -27px;\r\n  top: -70px;\n}\n.progress-barv2 li.active::after {\r\n  background-color: #fff;\n}\n.progress-barv2 li:first-child:after {\r\n  display: none;\n}\r\n\r\n/*.progress-barv2 li:last-child:after{*/\r\n/*  display:none;  */\r\n/*}*/\n.progress-barv2 li.active::before {\r\n  color: #fff;\r\n  border: 1px solid #fff;\n}\n.progress-barv2 li.active {\r\n  color: #fff;\n}\n.d-none {\r\n  display: none;\n}\r\n\r\n/*left-side-end*/\n.container .card .right-side {\r\n  width: 100% !important;\r\n  background-color: #fff;\r\n  height: 100%;\r\n  border-radius: 20px;\n}\r\n\r\n/*right-side-start*/\n.main {\r\n  display: none;\n}\n.active {\r\n  display: block;\n}\n.main {\r\n  padding: 10px;\n}\n.main small {\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  margin-top: 2px;\r\n  height: 30px;\r\n  width: 30px;\r\n  background-color: #ccc;\r\n  border-radius: 50%;\r\n  color: yellow;\r\n  font-size: 19px;\n}\n.text {\r\n  margin-top: 20px;\n}\n.congrats {\r\n  text-align: center;\n}\n.text p {\r\n  margin-top: 10px;\r\n  font-size: 13px;\r\n  font-weight: 700;\r\n  color: #cbced4;\n}\n.input-text {\r\n  margin: 30px 0;\r\n  display: flex;\r\n  gap: 20px;\n}\n.input-text .input-div {\r\n  width: 100%;\r\n  position: relative;\n}\ninput[type=\"text\"] {\r\n  width: 100%;\r\n  height: 40px;\r\n  border: none;\r\n  outline: 0;\r\n  border-radius: 5px;\r\n  border: 1px solid #cbced4;\r\n  gap: 20px;\r\n  box-sizing: border-box;\r\n  padding: 0px 10px;\n}\nselect {\r\n  width: 100%;\r\n  height: 40px;\r\n  border: none;\r\n  outline: 0;\r\n  border-radius: 5px;\r\n  border: 1px solid #cbced4;\r\n  gap: 20px;\r\n  box-sizing: border-box;\r\n  padding: 0px 10px;\n}\n.input-text .input-div span {\r\n  position: absolute;\r\n  top: 10px;\r\n  left: 10px;\r\n  font-size: 14px;\r\n  transition: all 0.5s;\n}\n.input-div input:focus~span,\r\n.input-div input:valid~span {\r\n  top: -15px;\r\n  left: 6px;\r\n  font-size: 10px;\r\n  font-weight: 600;\n}\n.input-div span {\r\n  top: -15px;\r\n  left: 6px;\r\n  font-size: 10px;\n}\r\n\r\n/* .buttons button {\r\n  height: 40px;\r\n  width: 100px;\r\n  border: none;\r\n  border-radius: 5px;\r\n  background-color: #0075ff;\r\n  font-size: 12px;\r\n  color: #fff;\r\n  cursor: pointer;\r\n} */\n.button_space {\r\n  display: flex;\r\n  gap: 20px;\n}\n.button_space button:nth-child(1) {\r\n  background-color: #fff;\r\n  color: #000;\r\n  border: 1px solid#000;\n}\n.user_card {\r\n  margin-top: 20px;\r\n  margin-bottom: 40px;\r\n  height: 200px;\r\n  width: 100%;\r\n  border: 1px solid #c7d3d9;\r\n  border-radius: 10px;\r\n  display: flex;\r\n  overflow: hidden;\r\n  position: relative;\r\n  box-sizing: border-box;\n}\n.user_card span {\r\n  height: 80px;\r\n  width: 100%;\r\n  background-color: #dfeeff;\n}\n.circle {\r\n  position: absolute;\r\n  top: 40px;\r\n  left: 60px;\n}\n.circle span {\r\n  height: 70px;\r\n  width: 70px;\r\n  background-color: #fff;\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  border: 2px solid #fff;\r\n  border-radius: 50%;\n}\n.circle span img {\r\n  width: 100%;\r\n  height: 100%;\r\n  border-radius: 50%;\r\n  -o-object-fit: cover;\r\n     object-fit: cover;\n}\n.social {\r\n  display: flex;\r\n  position: absolute;\r\n  top: 100px;\r\n  right: 10px;\n}\n.social span {\r\n  height: 30px;\r\n  width: 30px;\r\n  border-radius: 7px;\r\n  background-color: #fff;\r\n  border: 1px solid #cbd6dc;\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  margin-left: 10px;\r\n  color: #cbd6dc;\n}\n.social span i {\r\n  cursor: pointer;\n}\n.heart {\r\n  color: red !important;\n}\n.share {\r\n  color: red !important;\n}\n.user_name {\r\n  position: absolute;\r\n  top: 110px;\r\n  margin: 10px;\r\n  padding: 0 30px;\r\n  display: flex;\r\n  flex-direction: column;\r\n  width: 100%;\n}\n.user_name h3 {\r\n  color: #4c5b68;\n}\n.detail {\r\n  /*margin-top:10px;*/\r\n  display: flex;\r\n  justify-content: space-between;\r\n  margin-right: 50px;\n}\n.detail p {\r\n  font-size: 12px;\r\n  font-weight: 700;\n}\n.detail p a {\r\n  text-decoration: none;\r\n  color: blue;\n}\n.checkmark__circle {\r\n  stroke-dasharray: 166;\r\n  stroke-dashoffset: 166;\r\n  stroke-width: 2;\r\n  stroke-miterlimit: 10;\r\n  stroke: #7ac142;\r\n  fill: none;\r\n  animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;\n}\n.checkmark {\r\n  width: 56px;\r\n  height: 56px;\r\n  border-radius: 50%;\r\n  display: block;\r\n  stroke-width: 2;\r\n  stroke: #fff;\r\n  stroke-miterlimit: 10;\r\n  margin: 10% auto;\r\n  box-shadow: inset 0px 0px 0px #7ac142;\r\n  animation: fill 0.4s ease-in-out 0.4s forwards, scale 0.3s ease-in-out 0.9s both;\n}\n.checkmark__check {\r\n  transform-origin: 50% 50%;\r\n  stroke-dasharray: 48;\r\n  stroke-dashoffset: 48;\r\n  animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;\n}\n@keyframes stroke {\n100% {\r\n    stroke-dashoffset: 0;\n}\n}\n@keyframes scale {\n0%,\r\n  100% {\r\n    transform: none;\n}\n50% {\r\n    transform: scale3d(1.1, 1.1, 1);\n}\n}\n@keyframes fill {\n100% {\r\n    box-shadow: inset 0px 0px 0px 30px #7ac142;\n}\n}\n.warning {\r\n  border: 1px solid red !important;\n}\r\n\r\n/*right-side-end*/\n@media (max-width: 750px) {\n.container {\r\n    height: scroll;\n}\n.container .card {\r\n    max-width: 350px;\r\n    height: auto !important;\r\n    margin: 30px 0;\n}\n.container .card .right-side {\r\n    width: 100%;\n}\n.input-text {\r\n    /* display: block; */\n}\n.input-text .input-div {\r\n    /* margin-top: 20px; */\n}\n.container .card .left-side {\r\n    display: none;\n}\n}\n.selected img {\r\n  border: 2px solid #007bff;\r\n  /* Change the border color as needed */\r\n  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);\r\n  /* Change the box shadow as needed */\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.container .card {\n  height: 840px;\n  width: auto;\n  background-color: #fff;\n  position: relative;\n  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);\n  font-family: \"Poppins\", sans-serif;\n  border-radius: 20px;\n}\n.container .card .form {\n  width: 100%;\n  height: 100%;\n  display: flex;\n}\n.container .card .left-side {\n  width: 35%;\n  background-color: #304767;\n  height: 100%;\n  border-top-left-radius: 20px;\n  border-bottom-left-radius: 20px;\n  padding: 20px 30px;\n  box-sizing: border-box;\n}\n\n/*left-side-start*/\n.left-heading {\n  color: #fff;\n}\n.steps-content {\n  margin-top: 30px;\n  color: #fff;\n}\n.steps-content p {\n  font-size: 12px;\n  margin-top: 15px;\n}\n.progress-barv2 {\n  list-style: none;\n  /*color:#fff;*/\n  margin-top: 30px;\n  font-size: 13px;\n  font-weight: 700;\n  text-align: left;\n  counter-reset: container 0;\n}\n.progress-barv2 li {\n  position: relative;\n  margin-left: 40px;\n  margin-top: 50px;\n  counter-increment: container 1;\n  color: #4f6581;\n}\n.progress-barv2 li::before {\n  content: counter(container);\n  line-height: 25px;\n  text-align: center;\n  position: absolute;\n  height: 25px;\n  width: 25px;\n  border: 1px solid #4f6581;\n  border-radius: 50%;\n  left: -40px;\n  top: -5px;\n  z-index: 10;\n  background-color: #304767;\n}\n.progress-barv2 li::after {\n  content: \"\";\n  position: absolute;\n  height: 90px;\n  width: 2px;\n  background-color: #4f6581;\n  z-index: 1;\n  left: -27px;\n  top: -70px;\n}\n.progress-barv2 li.active::after {\n  background-color: #fff;\n}\n.progress-barv2 li:first-child:after {\n  display: none;\n}\n\n/*.progress-barv2 li:last-child:after{*/\n/*  display:none;  */\n/*}*/\n.progress-barv2 li.active::before {\n  color: #fff;\n  border: 1px solid #fff;\n}\n.progress-barv2 li.active {\n  color: #fff;\n}\n.d-none {\n  display: none;\n}\n\n/*left-side-end*/\n.container .card .right-side {\n  width: 100% !important;\n  background-color: #fff;\n  height: 100%;\n  border-radius: 20px;\n}\n\n/*right-side-start*/\n.main {\n  display: none;\n}\n.active {\n  display: block;\n}\n.main {\n  padding: 10px;\n}\n.main small {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  margin-top: 2px;\n  height: 30px;\n  width: 30px;\n  background-color: #ccc;\n  border-radius: 50%;\n  color: yellow;\n  font-size: 19px;\n}\n.text {\n  margin-top: 20px;\n}\n.congrats {\n  text-align: center;\n}\n.text p {\n  margin-top: 10px;\n  font-size: 13px;\n  font-weight: 700;\n  color: #cbced4;\n}\n.input-text {\n  margin: 30px 0;\n  display: flex;\n  gap: 20px;\n}\n.input-text .input-div {\n  width: 100%;\n  position: relative;\n}\ninput[type=\"text\"] {\n  width: 100%;\n  height: 40px;\n  border: none;\n  outline: 0;\n  border-radius: 5px;\n  border: 1px solid #cbced4;\n  gap: 20px;\n  box-sizing: border-box;\n  padding: 0px 10px;\n}\nselect {\n  width: 100%;\n  height: 40px;\n  border: none;\n  outline: 0;\n  border-radius: 5px;\n  border: 1px solid #cbced4;\n  gap: 20px;\n  box-sizing: border-box;\n  padding: 0px 10px;\n}\n.input-text .input-div span {\n  position: absolute;\n  top: 10px;\n  left: 10px;\n  font-size: 14px;\n  transition: all 0.5s;\n}\n.input-div input:focus~span,\n.input-div input:valid~span {\n  top: -15px;\n  left: 6px;\n  font-size: 10px;\n  font-weight: 600;\n}\n.input-div span {\n  top: -15px;\n  left: 6px;\n  font-size: 10px;\n}\n\n/* .buttons button {\n  height: 40px;\n  width: 100px;\n  border: none;\n  border-radius: 5px;\n  background-color: #0075ff;\n  font-size: 12px;\n  color: #fff;\n  cursor: pointer;\n} */\n.button_space {\n  display: flex;\n  gap: 20px;\n}\n.button_space button:nth-child(1) {\n  background-color: #fff;\n  color: #000;\n  border: 1px solid#000;\n}\n.user_card {\n  margin-top: 20px;\n  margin-bottom: 40px;\n  height: 200px;\n  width: 100%;\n  border: 1px solid #c7d3d9;\n  border-radius: 10px;\n  display: flex;\n  overflow: hidden;\n  position: relative;\n  box-sizing: border-box;\n}\n.user_card span {\n  height: 80px;\n  width: 100%;\n  background-color: #dfeeff;\n}\n.circle {\n  position: absolute;\n  top: 40px;\n  left: 60px;\n}\n.circle span {\n  height: 70px;\n  width: 70px;\n  background-color: #fff;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border: 2px solid #fff;\n  border-radius: 50%;\n}\n.circle span img {\n  width: 100%;\n  height: 100%;\n  border-radius: 50%;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n.social {\n  display: flex;\n  position: absolute;\n  top: 100px;\n  right: 10px;\n}\n.social span {\n  height: 30px;\n  width: 30px;\n  border-radius: 7px;\n  background-color: #fff;\n  border: 1px solid #cbd6dc;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  margin-left: 10px;\n  color: #cbd6dc;\n}\n.social span i {\n  cursor: pointer;\n}\n.heart {\n  color: red !important;\n}\n.share {\n  color: red !important;\n}\n.user_name {\n  position: absolute;\n  top: 110px;\n  margin: 10px;\n  padding: 0 30px;\n  display: flex;\n  flex-direction: column;\n  width: 100%;\n}\n.user_name h3 {\n  color: #4c5b68;\n}\n.detail {\n  /*margin-top:10px;*/\n  display: flex;\n  justify-content: space-between;\n  margin-right: 50px;\n}\n.detail p {\n  font-size: 12px;\n  font-weight: 700;\n}\n.detail p a {\n  text-decoration: none;\n  color: blue;\n}\n.checkmark__circle {\n  stroke-dasharray: 166;\n  stroke-dashoffset: 166;\n  stroke-width: 2;\n  stroke-miterlimit: 10;\n  stroke: #7ac142;\n  fill: none;\n  animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;\n}\n.checkmark {\n  width: 56px;\n  height: 56px;\n  border-radius: 50%;\n  display: block;\n  stroke-width: 2;\n  stroke: #fff;\n  stroke-miterlimit: 10;\n  margin: 10% auto;\n  box-shadow: inset 0px 0px 0px #7ac142;\n  animation: fill 0.4s ease-in-out 0.4s forwards, scale 0.3s ease-in-out 0.9s both;\n}\n.checkmark__check {\n  transform-origin: 50% 50%;\n  stroke-dasharray: 48;\n  stroke-dashoffset: 48;\n  animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;\n}\n@keyframes stroke {\n100% {\n    stroke-dashoffset: 0;\n}\n}\n@keyframes scale {\n0%,\n  100% {\n    transform: none;\n}\n50% {\n    transform: scale3d(1.1, 1.1, 1);\n}\n}\n@keyframes fill {\n100% {\n    box-shadow: inset 0px 0px 0px 30px #7ac142;\n}\n}\n.warning {\n  border: 1px solid red !important;\n}\n\n/*right-side-end*/\n@media (max-width: 750px) {\n.container {\n    height: scroll;\n}\n.container .card {\n    max-width: 350px;\n    height: auto !important;\n    margin: 30px 0;\n}\n.container .card .right-side {\n    width: 100%;\n}\n.input-text {\n    /* display: block; */\n}\n.input-text .input-div {\n    /* margin-top: 20px; */\n}\n.container .card .left-side {\n    display: none;\n}\n}\n.selected img {\n  border: 2px solid #007bff;\n  /* Change the border color as needed */\n  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);\n  /* Change the box shadow as needed */\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -35815,7 +35901,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\nlabel {\r\n    font-weight: bold;\n}\n.selected img {\r\n    border: 2px solid #007bff;\r\n    /* Change the border color as needed */\r\n    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);\r\n    /* Change the box shadow as needed */\n}\r\n\r\n/* Style for dimming the background */\n.modal-background {\r\n    position: fixed;\r\n    top: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n    background-color: rgba(0, 0, 0, 0.5);\r\n    /* Adjust the opacity to make it darker or lighter */\r\n    z-index: 1050;\r\n    /* Ensure it's above other elements */\n}\r\n\r\n/* Style for centering the modal */\n.modal-dialog {\r\n    margin-top: 10%;\r\n    /* Adjust as needed */\n}\n.selected img {\r\n    border: 2px solid #007bff;\r\n    /* Change the border color as needed */\r\n    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);\r\n    /* Change the box shadow as needed */\n}\r\n\r\n/* Style for dimming the background */\n.modal-background {\r\n    position: fixed;\r\n    top: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n    background-color: rgba(0, 0, 0, 0.5);\r\n    /* Adjust the opacity to make it darker or lighter */\r\n    z-index: 1050;\r\n    /* Ensure it's above other elements */\n}\r\n\r\n/* Style for centering the modal */\n.modal-dialog {\r\n    margin-top: 10%;\r\n    /* Adjust as needed */\n}\r\n\r\n/* You may need additional styles to customize the appearance of the modal */\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\nlabel {\n    font-weight: bold;\n}\n.selected img {\n    border: 2px solid #007bff;\n    /* Change the border color as needed */\n    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);\n    /* Change the box shadow as needed */\n}\n\n/* Style for dimming the background */\n.modal-background {\n    position: fixed;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-color: rgba(0, 0, 0, 0.5);\n    /* Adjust the opacity to make it darker or lighter */\n    z-index: 1050;\n    /* Ensure it's above other elements */\n}\n\n/* Style for centering the modal */\n.modal-dialog {\n    margin-top: 10%;\n    /* Adjust as needed */\n}\n.selected img {\n    border: 2px solid #007bff;\n    /* Change the border color as needed */\n    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);\n    /* Change the box shadow as needed */\n}\n\n/* Style for dimming the background */\n.modal-background {\n    position: fixed;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-color: rgba(0, 0, 0, 0.5);\n    /* Adjust the opacity to make it darker or lighter */\n    z-index: 1050;\n    /* Ensure it's above other elements */\n}\n\n/* Style for centering the modal */\n.modal-dialog {\n    margin-top: 10%;\n    /* Adjust as needed */\n}\n\n/* You may need additional styles to customize the appearance of the modal */\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -35839,7 +35925,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.modal-header {\r\n    padding: 30px 1rem !important;\n}\ntextarea {\r\n    display: block;\r\n    width: 100%;\r\n    height: 6.875rem;\r\n    padding: 0.875rem 1.375rem;\r\n    font-size: 0.875rem;\r\n    font-weight: 400;\r\n    line-height: 1;\r\n    color: #495057;\r\n    background-color: #ffffff;\r\n    background-clip: padding-box;\r\n    border: 1px solid #ced4da;\r\n    border-radius: 2px;\r\n    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.modal-header {\n    padding: 30px 1rem !important;\n}\ntextarea {\n    display: block;\n    width: 100%;\n    height: 6.875rem;\n    padding: 0.875rem 1.375rem;\n    font-size: 0.875rem;\n    font-weight: 400;\n    line-height: 1;\n    color: #495057;\n    background-color: #ffffff;\n    background-clip: padding-box;\n    border: 1px solid #ced4da;\n    border-radius: 2px;\n    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -35863,7 +35949,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.selected img {\r\n  border: 2px solid #007bff;\r\n  /* Change the border color as needed */\r\n  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);\r\n  /* Change the box shadow as needed */\n}\r\n\r\n/* Style for dimming the background */\n.modal-background {\r\n  position: fixed;\r\n  top: 0;\r\n  left: 0;\r\n  width: 100%;\r\n  height: 100%;\r\n  background-color: rgba(0, 0, 0, 0.5);\r\n  /* Adjust the opacity to make it darker or lighter */\r\n  z-index: 1050;\r\n  /* Ensure it's above other elements */\n}\r\n\r\n/* Style for centering the modal */\n.modal-dialog {\r\n  margin-top: 10%;\r\n  /* Adjust as needed */\n}\n.selected img {\r\n  border: 2px solid #007bff;\r\n  /* Change the border color as needed */\r\n  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);\r\n  /* Change the box shadow as needed */\n}\r\n\r\n/* Style for dimming the background */\n.modal-background {\r\n  position: fixed;\r\n  top: 0;\r\n  left: 0;\r\n  width: 100%;\r\n  height: 100%;\r\n  background-color: rgba(0, 0, 0, 0.5);\r\n  /* Adjust the opacity to make it darker or lighter */\r\n  z-index: 1050;\r\n  /* Ensure it's above other elements */\n}\r\n\r\n/* Style for centering the modal */\n.modal-dialog {\r\n  margin-top: 10%;\r\n  /* Adjust as needed */\n}\r\n\r\n/* You may need additional styles to customize the appearance of the modal */\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.selected img {\n  border: 2px solid #007bff;\n  /* Change the border color as needed */\n  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);\n  /* Change the box shadow as needed */\n}\n\n/* Style for dimming the background */\n.modal-background {\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(0, 0, 0, 0.5);\n  /* Adjust the opacity to make it darker or lighter */\n  z-index: 1050;\n  /* Ensure it's above other elements */\n}\n\n/* Style for centering the modal */\n.modal-dialog {\n  margin-top: 10%;\n  /* Adjust as needed */\n}\n.selected img {\n  border: 2px solid #007bff;\n  /* Change the border color as needed */\n  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);\n  /* Change the box shadow as needed */\n}\n\n/* Style for dimming the background */\n.modal-background {\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: rgba(0, 0, 0, 0.5);\n  /* Adjust the opacity to make it darker or lighter */\n  z-index: 1050;\n  /* Ensure it's above other elements */\n}\n\n/* Style for centering the modal */\n.modal-dialog {\n  margin-top: 10%;\n  /* Adjust as needed */\n}\n\n/* You may need additional styles to customize the appearance of the modal */\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -35887,7 +35973,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.profile_img {\r\n    width: 100px;\r\n    height: 100px;\r\n    padding: 1px;\r\n    margin-bottom: 15%;\r\n    border-radius: 100%;\r\n    border: 1px solid rgb(18, 15, 76);\n}\n.user_info {\r\n    display: flex;\r\n    justify-content: space-between;\r\n    margin: 0px;\r\n    vertical-align: middle;\r\n    width: 100%;\n}\n.rank_banner {\r\n    background-color: rgb(104, 34, 142);\r\n    color: rgb(255, 255, 255);\r\n    font-family: Barlow, sans-serif;\r\n    font-size: 1.25rem;\r\n    font-weight: 400;\r\n    line-height: 1.5;\r\n    margin: 0px;\r\n    text-decoration: none;\n}\n.rank_banner2 {\r\n    background-color: rgb(128, 22, 22);\r\n    color: rgb(255, 255, 255);\r\n    font-family: Barlow, sans-serif;\r\n    font-size: 1.25rem;\r\n    font-weight: 400;\r\n    line-height: 1.5;\r\n    margin: 0px;\r\n    text-decoration: none;\n}\n.rank_banner3 {\r\n    background-color: rgb(45, 2, 85);\r\n    color: rgb(255, 255, 255);\r\n    font-family: Barlow, sans-serif;\r\n    font-size: 1.25rem;\r\n    font-weight: 400;\r\n    line-height: 1.5;\r\n    margin: 0px;\r\n    text-decoration: none;\n}\n.rank_wrapper {\r\n    -webkit-clip-path: polygon(100% 0px, 0px 0px, 100% 100%);\r\n    clip-path: polygon(100% 0px, 0px 0px, 100% 100%);\r\n    height: 4.5rem;\r\n    padding-right: 4px;\r\n    padding-top: 2px;\r\n    position: absolute;\r\n    right: 0px;\r\n    text-align: right;\r\n    top: 0px;\r\n    width: 4.5rem;\n}\n.card_shadow {\r\n    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);\r\n    /* Change box shadow on hover for an interactive effect */\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.profile_img {\n    width: 100px;\n    height: 100px;\n    padding: 1px;\n    margin-bottom: 15%;\n    border-radius: 100%;\n    border: 1px solid rgb(18, 15, 76);\n}\n.user_info {\n    display: flex;\n    justify-content: space-between;\n    margin: 0px;\n    vertical-align: middle;\n    width: 100%;\n}\n.rank_banner {\n    background-color: rgb(104, 34, 142);\n    color: rgb(255, 255, 255);\n    font-family: Barlow, sans-serif;\n    font-size: 1.25rem;\n    font-weight: 400;\n    line-height: 1.5;\n    margin: 0px;\n    text-decoration: none;\n}\n.rank_banner2 {\n    background-color: rgb(128, 22, 22);\n    color: rgb(255, 255, 255);\n    font-family: Barlow, sans-serif;\n    font-size: 1.25rem;\n    font-weight: 400;\n    line-height: 1.5;\n    margin: 0px;\n    text-decoration: none;\n}\n.rank_banner3 {\n    background-color: rgb(45, 2, 85);\n    color: rgb(255, 255, 255);\n    font-family: Barlow, sans-serif;\n    font-size: 1.25rem;\n    font-weight: 400;\n    line-height: 1.5;\n    margin: 0px;\n    text-decoration: none;\n}\n.rank_wrapper {\n    -webkit-clip-path: polygon(100% 0px, 0px 0px, 100% 100%);\n    clip-path: polygon(100% 0px, 0px 0px, 100% 100%);\n    height: 4.5rem;\n    padding-right: 4px;\n    padding-top: 2px;\n    position: absolute;\n    right: 0px;\n    text-align: right;\n    top: 0px;\n    width: 4.5rem;\n}\n.card_shadow {\n    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);\n    /* Change box shadow on hover for an interactive effect */\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -36031,7 +36117,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.card {\r\n    border-radius: 7px !important;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.card {\n    border-radius: 7px !important;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -36055,7 +36141,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\r\n/* Add your component styles here */\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n/* Add your component styles here */\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -55068,6 +55154,34 @@ if (false) {}
 
 /***/ }),
 
+/***/ "./resources/js/components/micro/TextInput.vue":
+/*!*****************************************************!*\
+  !*** ./resources/js/components/micro/TextInput.vue ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _TextInput_vue_vue_type_template_id_4e625077__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TextInput.vue?vue&type=template&id=4e625077 */ "./resources/js/components/micro/TextInput.vue?vue&type=template&id=4e625077");
+/* harmony import */ var _TextInput_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./TextInput.vue?vue&type=script&lang=js */ "./resources/js/components/micro/TextInput.vue?vue&type=script&lang=js");
+/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+
+
+
+
+;
+const __exports__ = /*#__PURE__*/(0,_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_TextInput_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_TextInput_vue_vue_type_template_id_4e625077__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/components/micro/TextInput.vue"]])
+/* hot reload */
+if (false) {}
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__exports__);
+
+/***/ }),
+
 /***/ "./resources/js/components/procurement/AnnualProcurementPlan.vue":
 /*!***********************************************************************!*\
   !*** ./resources/js/components/procurement/AnnualProcurementPlan.vue ***!
@@ -55916,6 +56030,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/micro/TextInput.vue?vue&type=script&lang=js":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/components/micro/TextInput.vue?vue&type=script&lang=js ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_TextInput_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_TextInput_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./TextInput.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/micro/TextInput.vue?vue&type=script&lang=js");
+ 
+
+/***/ }),
+
 /***/ "./resources/js/components/procurement/AnnualProcurementPlan.vue?vue&type=script&lang=js":
 /*!***********************************************************************************************!*\
   !*** ./resources/js/components/procurement/AnnualProcurementPlan.vue?vue&type=script&lang=js ***!
@@ -56456,6 +56586,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Sidebar_vue_vue_type_template_id_65bb863c__WEBPACK_IMPORTED_MODULE_0__.render)
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Sidebar_vue_vue_type_template_id_65bb863c__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./Sidebar.vue?vue&type=template&id=65bb863c */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/layout/Sidebar.vue?vue&type=template&id=65bb863c");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/micro/TextInput.vue?vue&type=template&id=4e625077":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/components/micro/TextInput.vue?vue&type=template&id=4e625077 ***!
+  \***********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_TextInput_vue_vue_type_template_id_4e625077__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_TextInput_vue_vue_type_template_id_4e625077__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./TextInput.vue?vue&type=template&id=4e625077 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/micro/TextInput.vue?vue&type=template&id=4e625077");
 
 
 /***/ }),
