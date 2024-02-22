@@ -308,10 +308,10 @@
                 <FooterVue />
             </div>
         </div>
-        <!-- <ModalRFQ :visible="modalVisible" @close="closeModal" /> -->
+        <ModalRFQ :visible="modalVisible" @close="closeModal" />
     </div>
 </template>
-<!-- <style src="vue-multiselect/dist/vue-multiselect.css"></style> -->
+<style src="vue-multiselect/dist/vue-multiselect.css"></style>
 
 <script>
 import Navbar from '../../layout/Navbar.vue';
@@ -320,7 +320,7 @@ import FooterVue from '../../layout/Footer.vue';
 import BreadCrumbs from '../../dashboard_tiles/BreadCrumbs.vue';
 import UserInfo from '../../procurement/user_info.vue';
 import Pagination from '../Pagination.vue';
-// import ModalRFQ from '../modal/modal_create_rfq.vue';
+import ModalRFQ from './modal/modal_create_rfq.vue';
 
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
@@ -355,7 +355,7 @@ export default {
         UserInfo,
         Pagination,
         FontAwesomeIcon,
-        // ModalRFQ
+        ModalRFQ
     },
     computed: {
         totalPages() {

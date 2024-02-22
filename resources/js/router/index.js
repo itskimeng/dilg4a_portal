@@ -22,6 +22,10 @@ import rfq_details from "../components/procurement/rfq/rfq_details.vue";
 
 //ABSTRACT
 import dashboard_abstract from "../components/procurement/abstract/index.vue";
+
+// ICT TA
+import dashboard_ict_ta from "../components/rictu/ict_ta/index.vue";
+import create_ict from "../components/rictu/ict_ta/create.vue";
 const routes = [
     {
         path: '/',
@@ -33,13 +37,13 @@ const routes = [
         name: 'Dashboard',
         component: DashboardComponent,
         //BEFOR DEPLOYMENT, IT MUST BE COMPLETED THE BUG ON AUTHENTICAION AND FOR THE SECURITY
-        beforeEnter:(to, form, next) => {
-            axios.get('api/authenticated').then(()=>{
-                next()
-            }).catch(() =>{
-                return next({ name: 'Login'})
-            })
-        }
+        // beforeEnter:(to, form, next) => {
+        //     axios.get('api/authenticated').then(()=>{
+        //         next()
+        //     }).catch(() =>{
+        //         return next({ name: 'Login'})
+        //     })
+        // }
     },
     {
         path: '/procurement/index',
@@ -71,7 +75,6 @@ const routes = [
             next();
         },
     },
-
     {
         path: '/procurement/create_pr/:id',
         name: 'Create Purchase Request Item with ID',
@@ -117,6 +120,18 @@ const routes = [
         name:'Abstract of Quotation',
         component:dashboard_abstract
     },
+
+    {
+        path:'/rictu/ict_ta/index',
+        name:'ICT Technical Assistance',
+        component:dashboard_ict_ta
+    },
+    {
+        path:'/rictu/ict_ta/create',
+        name:'createICT',
+        component:create_ict
+    }
+   
    
 
 
