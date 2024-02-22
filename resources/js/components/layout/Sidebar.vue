@@ -1,15 +1,26 @@
 <style>
-
+.menu-icon-custom {
+    font-size: 1rem;
+    line-height: 1;
+    margin-right: 1rem;
+}
+.nav-item{
+    font-family: 'Poppins';
+}
+.active {
+    background-color: #f8f9fa; /* Apply your active background color here */
+    /* Add any other styles for active state */
+}
 </style>
 <template>
     <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
             <li class="nav-item" v-for="(menuItem, index) in menuItems" :key="index">
                 <template v-if="hasChildren(menuItem)">
-                    <router-link class="nav-link" :to="menuItem.link" :data-target="'#ui-basic-' + index"
+                    <router-link class="nav-link " :to="menuItem.link" :data-target="'#ui-basic-' + index"
                         :aria-controls="'ui-basic-' + index" :aria-expanded="isExpanded(index)"
                         @click.prevent="toggleCollapse(index)">
-                        <font-awesome-icon :icon="menuItem.icon" />&nbsp;&nbsp;
+                        <font-awesome-icon :icon="menuItem.icon" :class="menuItem.class" />
                         <span class="menu-title"> {{ menuItem.name }}</span>
                         <i class="menu-arrow"></i>
                     </router-link>
@@ -17,7 +28,7 @@
                         <ul class="nav flex-column sub-menu">
                             <li class="nav-item" v-for="(childItem, childIndex) in menuItem.children" :key="childIndex">
                                 <router-link class="nav-link" :to="childItem.link">
-                                    <font-awesome-icon :icon="childItem.icon" />&nbsp;
+                                    <font-awesome-icon :icon="childItem.icon" :class="menuItem.class" />
                                     {{ childItem.name }}
                                 </router-link>
                             </li>
@@ -26,7 +37,7 @@
                 </template>
                 <template v-else>
                     <router-link class="nav-link" :to="menuItem.link">
-                        <font-awesome-icon :icon="menuItem.icon" />&nbsp;&nbsp;
+                        <font-awesome-icon :icon="menuItem.icon" :class="menuItem.class"/>
                         <span class="menu-title">{{ menuItem.name }}</span>
                     </router-link>
                 </template>
@@ -34,7 +45,6 @@
         </ul>
     </nav>
 </template>
-
 
 <script>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
@@ -54,6 +64,7 @@ export default {
                     name: 'Dashboard',
                     tooltip: 'Dashboard',
                     icon: 'gauge',
+                    class: 'menu-icon-custom'
                 },
                 
             //   //  {
@@ -68,6 +79,8 @@ export default {
                     name: 'Procurement',
                     tooltip: 'General Service Section',
                     icon: 'cart-shopping',
+                    class: 'menu-icon-custom',
+
                     children: [
                         {
                             link: '/procurement/AnnualProcurementPlan',
@@ -153,6 +166,28 @@ export default {
                     ],
                     
                 },
+                {
+                    link: '',
+                    name: 'RICTU',
+                    tooltip: 'RICTU',
+                    icon: 'computer',
+                    class: 'menu-icon-custom',
+
+                    children: [
+                        {
+                            link: '/rictu/ict_ta/index',
+                            name: 'ICT TA',
+                            tooltip: 'Buttons',
+                            icon: 'list',
+                        },
+                        // {
+                        //     link: '/ict/reports/view',
+                        //     name: 'Reports',
+                        //     tooltip: 'Buttons',
+                        //     icon: 'list',
+                        // },
+                ]
+                }
                 
             ],
         },

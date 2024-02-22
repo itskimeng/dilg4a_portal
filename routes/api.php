@@ -4,9 +4,12 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AppItemController;
 use App\Http\Controllers\PurchaseRequestController;
 use App\Http\Controllers\RFQController;
+use App\Http\Controllers\RICTUController;
+
 use App\Models\AppItemModel;
 use App\Models\PurchaseRequestItemModel;
 use App\Models\PurchaseRequestModel;
+use App\Models\RICTUModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 /*
@@ -36,7 +39,10 @@ Route::middleware('api')->group(function () {
 });
 Route::middleware('api')->group(function () {
     Route::get('appitems', [AppItemController::class, 'getAppData']);
+});
 
+Route::middleware('api')->group(function () {
+    Route::get('ict_data', [RICTUController::class, 'ict_data']);
 });
 Route::middleware('api')->group(function () {
     Route::get('generatePurchaseRequestNo', [PurchaseRequestController::class, 'generatePurchaseRequestNo']);
@@ -99,6 +105,8 @@ Route::post('post_update_status',[PurchaseRequestController::class,'post_update_
 
 // R F Q
 Route::post('post_create_rfq',[RFQController::class,'post_create_rfq']);
+
+//ICT TA
 
 
 // E X P O R T

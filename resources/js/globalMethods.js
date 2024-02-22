@@ -89,6 +89,17 @@ const fetchAppItem = function () {
             return null
         });
 }
+const fetchICTData = function () {
+    return axios
+        .get('../api/ict_data')
+        .then(response => {
+            return response.data;
+        })
+        .catch(error => {
+            console.log(error.response);
+            return null
+        });
+}
 
 const fetchCartItemInfo = function (itemSelected) {
     return axios.get(`../api/fetchCartItemInfo/${itemSelected}`)
@@ -127,4 +138,13 @@ const updatePurchaseRequestStatus = function (pr_id, STATUS_SUBMITTED_TO_GSS) {
 
 
 
-export { fetchUserData, countTotalItem, countCancelledPR, countUserTotalPR, fetchAppItem, fetchCartItemInfo, formatTotalAmount, updatePurchaseRequestStatus };
+export {
+     fetchUserData, 
+     countTotalItem, 
+     countCancelledPR, 
+     countUserTotalPR, 
+     fetchAppItem, 
+     fetchCartItemInfo, 
+     formatTotalAmount, 
+     updatePurchaseRequestStatus,
+     fetchICTData };

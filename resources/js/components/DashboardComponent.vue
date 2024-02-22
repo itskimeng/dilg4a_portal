@@ -171,7 +171,7 @@
                     <BreadCrumbs />
                     <StatBox />
                     <ProcurementDetails />
-                    <DetailedReport />
+                    <!-- <DetailedReport /> -->
                     <ICTTechnicalReport />
 
                 </div>

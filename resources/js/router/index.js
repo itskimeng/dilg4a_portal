@@ -75,7 +75,6 @@ const routes = [
             next();
         },
     },
-
     {
         path: '/procurement/create_pr/:id',
         name: 'Create Purchase Request Item with ID',
@@ -126,6 +125,8 @@ const routes = [
         name:'Employees Directory',
         component:employees_directory
     }
+   
+   
 
 
 
