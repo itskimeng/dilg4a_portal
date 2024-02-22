@@ -23,6 +23,9 @@ import rfq_details from "../components/procurement/rfq/rfq_details.vue";
 //ABSTRACT
 import dashboard_abstract from "../components/procurement/abstract/index.vue";
 
+//HR Sect=ion
+import employees_directory from "../components/human_resource/employees_directory/index.vue";
+
 const routes = [
     {
         path: '/',
@@ -117,6 +120,11 @@ const routes = [
         path:'/procurement/abstract/index',
         name:'Abstract of Quotation',
         component:dashboard_abstract
+    },
+    {
+        path:'/human_resource/employees_directory/index',
+        name:'Employees Directory',
+        component:employees_directory
     }
 
 

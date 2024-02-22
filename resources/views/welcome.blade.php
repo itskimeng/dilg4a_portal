@@ -16,11 +16,8 @@
     <link href="{{ asset('vendors/css/vendor.bundle.base.css') }}" rel="stylesheet">
     <link href="{{ asset('vendors/datatablesnet-bs4/dataTables.bootstrap4.css') }}" rel="stylesheet">
 
-
     <link href="{{ asset('js/select.dataTables.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/vertical-layout-light/style.css') }}" rel="stylesheet">
-
-
 
     <!-- 
     // import "datatables.net-bs4";
@@ -54,4 +51,3 @@
 <script src="{{ asset('js/template.js') }}"></script>
 <script src="{{ asset('js/settings.js') }}"></script>
 <script src="{{ asset('js/todolist.js') }}"></script>
-
