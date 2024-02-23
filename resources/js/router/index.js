@@ -23,9 +23,9 @@ import rfq_details from "../components/procurement/rfq/rfq_details.vue";
 //ABSTRACT
 import dashboard_abstract from "../components/procurement/abstract/index.vue";
 
-// ICT TA
-import dashboard_ict_ta from "../components/rictu/ict_ta/index.vue";
-import create_ict from "../components/rictu/ict_ta/create.vue";
+//HR Sect=ion
+import employees_directory from "../components/human_resource/employees_directory/index.vue";
+
 const routes = [
     {
         path: '/',
@@ -120,7 +120,6 @@ const routes = [
         name:'Abstract of Quotation',
         component:dashboard_abstract
     },
-
     {
         path:'/rictu/ict_ta/index',
         name:'ICT Technical Assistance',
@@ -130,6 +129,11 @@ const routes = [
         path:'/rictu/ict_ta/create',
         name:'Create ICT Technical Assistance',
         component:create_ict
+    },
+    {
+        path:'/human_resource/employees_directory/index',
+        name:'Employees Directory',
+        component:employees_directory
     }
    
    

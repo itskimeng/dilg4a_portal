@@ -49,9 +49,9 @@
 <script>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faCartShopping,faGauge,faList,faChartSimple, faClipboardList, faStore,faBook,faAward,faCalendar, faComputer } from '@fortawesome/free-solid-svg-icons';
+import { faCartShopping,faGauge,faList,faChartSimple, faClipboardList, faStore,faBook,faAward,faCalendar,faUsers, faAddressBook, faBoxArchive, faUserTie, faPlaneDeparture, faFileMedical } from '@fortawesome/free-solid-svg-icons';
 
-library.add(faCartShopping,faGauge,faList,faChartSimple,faClipboardList,faStore,faBook,faAward,faCalendar,faComputer);
+library.add(faCartShopping,faGauge,faList,faChartSimple,faClipboardList,faStore,faBook,faAward,faCalendar,faUsers,faAddressBook,faBoxArchive,faUserTie,faPlaneDeparture,faFileMedical);
 
 export default {
     name: 'Sidebar',
@@ -67,7 +67,13 @@ export default {
                     class: 'menu-icon-custom'
                 },
                 
-               
+            //   //  {
+            //         link: 'calendar',
+            //         name: 'Calendar',
+            //         tooltip: 'Dashboard',
+            //         icon: 'calendar',
+            //     },
+                
                 {
                     link: '',
                     name: 'Procurement',
@@ -113,6 +119,52 @@ export default {
                             icon: 'clipboard-list',
                         },
                     ],
+                    
+                },
+                {
+                    link: '',
+                    name: 'HR Section',
+                    tooltip: 'General Service Section',
+                    icon: 'users',
+                    children: [
+                        {
+                            link: '/human_resource/employees_directory/index',
+                            name: 'Employees Directory',
+                            tooltip: 'Buttons',
+                            icon: 'address-book',
+                        },
+                        {
+                            link: '',
+                            name: 'Daily Time Record',
+                            tooltip: 'Buttons',
+                            icon: 'clipboard-list',
+                        },
+                        {
+                            link: '',
+                            name: 'RO and ROO',
+                            tooltip: 'Buttons',
+                            icon: 'box-archive',
+                        },
+                        {
+                            link: '',
+                            name: 'Official Businees',
+                            tooltip: 'Buttons',
+                            icon: 'user-tie',
+                        },
+                        {
+                            link: '',
+                            name: 'Travel Order',
+                            tooltip: 'Buttons',
+                            icon: 'plane-departure',
+                        },
+                        {
+                            link: '',
+                            name: 'Health Monitoring',
+                            tooltip: 'Buttons',
+                            icon: 'file-medical',
+                        },
+                    ],
+                    
                 },
                 {
                     link: '',

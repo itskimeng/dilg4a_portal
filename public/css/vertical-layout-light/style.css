@@ -19728,6 +19728,7 @@ code {
   margin-bottom: 2.5rem;
 }
 
+
 @media (min-width: 576px) {
   .grid-margin-sm-0 {
     margin-bottom: 0;
@@ -19784,6 +19785,18 @@ code {
 .stretch-card > .card {
   width: 100%;
   min-width: 100%;
+}
+
+.stretch-card2 > .card {
+  width: 100%;
+  min-width: 100%;
+  height: 55%;
+}
+
+.stretch-card3 > .card {
+  width: 100%;
+  min-width: 100%;
+  height: 55%;
 }
 
 @media (min-width: 576px) {
@@ -28644,7 +28657,7 @@ div.tagsinput span.tag a {
   margin-bottom: 0;
   margin-top: 0;
   list-style: none;
-  padding: 0.25rem 0 0 2.07rem;
+  padding: 0.25rem 0 0 1.07rem;
   background: #4B49AC;
   padding-bottom: 12px;
 }
