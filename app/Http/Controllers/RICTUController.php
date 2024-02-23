@@ -18,4 +18,12 @@ class RICTUController extends Controller
             ->limit(1000)
             ->get());
     }
+    public function generateICTControlNo()
+    {
+        return response()->json(
+            RICTUModel::select(RICTUModel::raw('COUNT(*)+1 as "ict_no_count" '))
+                ->whereYear('request_date',2024)
+                ->get()
+        );
+    }
 }

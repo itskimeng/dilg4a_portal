@@ -128,7 +128,7 @@ const routes = [
     },
     {
         path:'/rictu/ict_ta/create',
-        name:'createICT',
+        name:'Create ICT Technical Assistance',
         component:create_ict
     }
    

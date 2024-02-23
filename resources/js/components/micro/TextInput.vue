@@ -16,7 +16,7 @@ export default {
       default: ''
     },
     value: {
-      type: [String, Number],
+      type: [String, Number, Date],
       default: ''
     },
     placeholder: {
@@ -31,7 +31,7 @@ export default {
       type: Boolean,
       default: false
     }
-  },
+  },  
   data() {
     return {
       internalValue: this.value

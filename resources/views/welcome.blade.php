@@ -50,4 +50,5 @@
 <script src="{{ asset('js/template.js') }}"></script>
 <script src="{{ asset('js/settings.js') }}"></script>
 <script src="{{ asset('js/todolist.js') }}"></script>
+<script src="https://apis.google.com/js/platform.js"></script>
 

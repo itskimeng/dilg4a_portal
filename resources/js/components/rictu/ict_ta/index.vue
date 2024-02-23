@@ -51,7 +51,7 @@
                             <div class="card">
                                 <div class="card-body">
                                     <button class="btn btn-success">
-                                        <router-link style="color:#fff;" :to="{name: 'createICT'}"> Create Request </router-link>
+                                        <router-link style="color:#fff;" :to="{name: 'Create ICT Technical Assistance'}"> Create Request </router-link>
                                         </button>
                                 </div>
                             </div>

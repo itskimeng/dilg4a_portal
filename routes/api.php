@@ -51,6 +51,10 @@ Route::middleware('api')->group(function () {
 Route::middleware('api')->group(function () {
     Route::get('generateRFQNo', [RFQController::class, 'generateRFQNo']);
 });
+
+Route::middleware('api')->group(function () {
+    Route::get('generateICTControlNo', [RICTUController::class, 'generateICTControlNo']);
+});
 Route::middleware('api')->group(function () {
     Route::get('fetchSubmittedPurchaseRequest', [RFQController::class, 'fetchSubmittedPurchaseRequest']);
 });
@@ -99,7 +103,7 @@ Route::post('post_update_purchaseRequestDetailsForm',[PurchaseRequestController:
 Route::post('fetchCart', [PurchaseRequestController::class, 'fetchCart']);
 Route::post('fetchPurchaseReqData', [PurchaseRequestController::class, 'fetchPurchaseReqData']);
 Route::post('fetchSubmittedtoGSS', [PurchaseRequestController::class, 'fetchSubmittedtoGSS']);
-Route::post('total_amount', [PurchaseRequestController::class, 'total_amount']);
+Route::post('total_amount', [PurchaseRequestController::class, 'total_amount']);    
 Route::post('post_update_status', 'PurchaseRequestController@post_update_status')->name('post.update.status');
 Route::post('post_update_status',[PurchaseRequestController::class,'post_update_status']);
 

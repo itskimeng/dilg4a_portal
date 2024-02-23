@@ -410,7 +410,7 @@ dl li {
 import showAddItemModal from "./modal_addItem.vue";
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core'; // Import the library object
-import {formatTotalAmount} from "../../globalMethods.js";
+import { formatTotalAmount } from "../../globalMethods.js";
 import { faSpinner, faCartShopping, faListCheck, faPesoSign, faSave } from '@fortawesome/free-solid-svg-icons';
 
 import Navbar from "../layout/Navbar.vue";
@@ -505,7 +505,7 @@ export default {
             id: pr_id,
         }).then((res) => {
             this.total_amount = formatTotalAmount(res.data[0].total_amount)
-           
+
 
 
         });
