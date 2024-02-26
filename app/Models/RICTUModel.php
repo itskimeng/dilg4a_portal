@@ -26,6 +26,12 @@ class RICTUModel extends Model
         'assign_ict_officer',
         'started_date',
         'completed_date',
+        'equipment_type',
+        'brand',
+        'property_no',
+        'serial_no',
         'status_id',
+        'updated_at',
+        'created_at'
     ];
 }

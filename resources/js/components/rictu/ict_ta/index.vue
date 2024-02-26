@@ -135,15 +135,12 @@ export default {
     name: 'ICT Technical Assistance',
     data() {
         return {
-            ict: [],
             abstract_no: null,
             selected: null,
             options: ["A", "b", "c"],
         }
     },
-    methods: {
-
-    },
+ 
     components: {
         Navbar,
         Sidebar,

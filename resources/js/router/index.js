@@ -23,8 +23,12 @@ import rfq_details from "../components/procurement/rfq/rfq_details.vue";
 //ABSTRACT
 import dashboard_abstract from "../components/procurement/abstract/index.vue";
 
-//HR Sect=ion
+//HR Section
 import employees_directory from "../components/human_resource/employees_directory/index.vue";
+
+// ICT TA
+import dashboard_ict_ta from "../components/rictu/ict_ta/index.vue";
+import create_ict from "../components/rictu/ict_ta/create.vue";
 
 const routes = [
     {
