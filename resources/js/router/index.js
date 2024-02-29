@@ -25,6 +25,7 @@ import dashboard_abstract from "../components/procurement/abstract/index.vue";
 
 //HR Sect=ion
 import employees_directory from "../components/human_resource/employees_directory/index.vue";
+import daily_time_record from "../components/human_resource/daily_time_record/index.vue";
 
 const routes = [
     {
@@ -124,6 +125,11 @@ const routes = [
         path:'/human_resource/employees_directory/index',
         name:'Employees Directory',
         component:employees_directory
+    },
+    {
+        path:'/human_resource/daily_time_record/index',
+        name:'Daily Time Record',
+        component:daily_time_record
     }
    
    
