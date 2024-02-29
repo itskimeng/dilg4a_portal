@@ -53,12 +53,13 @@ class UserController extends Controller
 
     public function fetchUserData($userId)
     {
-        $query = User::selectRaw('
-    pmo.pmo_title,
-    tblposition.position_title,
-    users.name as name,
-    users.email as email
-')
+            $query = User::selectRaw('
+            pmo.pmo_title,
+            pmo.id,
+            tblposition.position_title,
+            users.name as name,
+            users.email as email
+            ')
             ->leftJoin('pr', 'pr.action_officer', '=', 'users.id')
             ->leftJoin('pmo', 'pmo.id', '=', 'users.pmo_id')
             ->leftJoin('tblposition', 'tblposition.POSITION_C', '=', 'users.position_id')

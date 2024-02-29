@@ -103,13 +103,13 @@ export default {
       };
 
       // Send separate POST requests for each selected value
-      for (const prId of Object.values((this.selected.map(item => item.value)))) {
-        // Construct data for the current selected value
-        const prData = {
-          ...requestData,
-          pr_id: prId,
-          mode_id: this.selectedMode // Assuming mode_id is the correct property name
-        };
+        for (const prId of Object.values((this.selected.map(item => item.value)))) {
+          // Construct data for the current selected value
+          const prData = {
+            ...requestData,
+            pr_id: prId,
+            mode_id: this.selectedMode // Assuming mode_id is the correct property name
+          };
 
         // Send POST request using Axios for the current selected value
         axios.post('../../api/post_create_rfq', prData)
