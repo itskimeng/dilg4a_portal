@@ -107,6 +107,8 @@ Route::post('fetchSubmittedtoGSS', [PurchaseRequestController::class, 'fetchSubm
 Route::post('total_amount', [PurchaseRequestController::class, 'total_amount']);    
 Route::post('post_update_status', 'PurchaseRequestController@post_update_status')->name('post.update.status');
 Route::post('post_update_status',[PurchaseRequestController::class,'post_update_status']);
+Route::post('post_received_ict_request',[RICTUController::class,'post_received_ict_request']);
+
 
 // R F Q
 Route::post('post_create_rfq',[RFQController::class,'post_create_rfq']);

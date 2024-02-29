@@ -34,8 +34,8 @@ img {
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="card-title">
-                                            <h5><font-awesome-icon :icon="['fas', 'circle-info']"
-                                                    class="mr-2"></font-awesome-icon>TECHNICAL ASSISTANCE FORM</h5>
+                                            <h4><font-awesome-icon :icon="['fas', 'circle-info']"
+                                                    class="mr-2"></font-awesome-icon>TECHNICAL ASSISTANCE FORM</h4>
                                         </div>
                                         <div class="row">
                                             <div class="col-lg-6">
@@ -45,7 +45,7 @@ img {
 
 
                                             <div class="col-lg-6">
-                                                <TextInput label="Requested By" v-model="userData.name"
+                                                <TextInput label="Requested By" iconValue="user" v-model="userData.name"
                                                     :value="userData.name" :readonly="true" />
                                             </div>
 
@@ -54,14 +54,14 @@ img {
 
                                             
                                             <div class="col-lg-6">
-                                                <TextInput label="Office" :value="userData.pmo_title" :readonly="true" />
+                                                <TextInput label="Office" iconValue="building" :value="userData.pmo_title" :readonly="true" />
                                             </div>
                                             <div class="col-lg-6">
-                                                <TextInput label="Contact Number/E-mail" :value="userData.email"
+                                                <TextInput label="Contact Number/E-mail" iconValue="envelope-open-text" :value="userData.email"
                                                     :readonly="true" />
                                             </div>
                                             <div class="col-lg-6">
-                                                <TextInput label="Requested Date" type="date"
+                                                <TextInput label="Requested Date" iconValue="calendar" type="date" style="height: 40px !important;"
                                                     v-model="userData.requested_date" :value="userData.requested_date" />
                                             </div>
                                             <div class="col-lg-6">
@@ -75,22 +75,22 @@ img {
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="card-title">
-                                            <h5><font-awesome-icon :icon="['fas', 'circle-info']"
-                                                    class="mr-2"></font-awesome-icon>HARDWARE INFORMATION</h5>
+                                            <h4><font-awesome-icon :icon="['fas', 'circle-info']"
+                                                    class="mr-2"></font-awesome-icon>HARDWARE INFORMATION</h4>
                                         </div>
                                         <div class="row">
 
                                             <div class="col-lg-6">
-                                                <TextInput label="Equipment Type" v-model="hardwareInfo.etype" />
+                                                <TextInput label="Equipment Type" iconValue="server" v-model="hardwareInfo.etype" />
                                             </div>
                                             <div class="col-lg-6">
-                                                <TextInput label="Brand/Model" v-model="hardwareInfo.brand" />
+                                                <TextInput label="Brand/Model" iconValue="copyright" v-model="hardwareInfo.brand" />
                                             </div>
                                             <div class="col-lg-6">
-                                                <TextInput label="Property Number" v-model="hardwareInfo.pNumber" />
+                                                <TextInput label="Property Number" iconValue="bars" v-model="hardwareInfo.pNumber" />
                                             </div>
                                             <div class="col-lg-6">
-                                                <TextInput label="Equipment Serial Number" v-model="hardwareInfo.eSerial" />
+                                                <TextInput label="Equipment Serial Number" iconValue="hashtag" v-model="hardwareInfo.eSerial" />
                                             </div>
                                             <div class="col-lg-12">
                                                 <div class="form-group" style="height: 70px;">
